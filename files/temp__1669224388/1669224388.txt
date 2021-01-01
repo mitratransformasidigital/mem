@@ -1,0 +1,8 @@
+<?php $val = array (
+  'filetoken' => '1669224388',
+  'file' => 'import.xlsx',
+  'totalCount' => 6,
+  'count' => 1,
+  'successCount' => 0,
+  'failCount' => 1,
+);
