@@ -1,0 +1,198 @@
+<?php
+
+namespace MEM\prjMitralPHP;
+
+// Page object
+$EmployeeTimesheetView = &$Page;
+?>
+<?php if (!$Page->isExport()) { ?>
+<script>
+var currentForm, currentPageID;
+var femployee_timesheetview;
+loadjs.ready("head", function () {
+    var $ = jQuery;
+    // Form object
+    currentPageID = ew.PAGE_ID = "view";
+    femployee_timesheetview = currentForm = new ew.Form("femployee_timesheetview", "view");
+    loadjs.done("femployee_timesheetview");
+});
+</script>
+<script>
+loadjs.ready("head", function () {
+    // Write your table-specific client script here, no need to add script tags.
+});
+</script>
+<?php } ?>
+<?php if (!$Page->isExport()) { ?>
+<div class="btn-toolbar ew-toolbar">
+<?php $Page->ExportOptions->render("body") ?>
+<?php $Page->OtherOptions->render("body") ?>
+<div class="clearfix"></div>
+</div>
+<?php } ?>
+<?php $Page->showPageHeader(); ?>
+<?php
+$Page->showMessage();
+?>
+<?php if (!$Page->IsModal) { ?>
+<?php if (!$Page->isExport()) { ?>
+<form name="ew-pager-form" class="form-inline ew-form ew-pager-form" action="<?= CurrentPageUrl() ?>">
+<?= $Page->Pager->render() ?>
+<div class="clearfix"></div>
+</form>
+<?php } ?>
+<?php } ?>
+<form name="femployee_timesheetview" id="femployee_timesheetview" class="form-inline ew-form ew-view-form" action="<?= CurrentPageUrl() ?>" method="post">
+<?php if (Config("CHECK_TOKEN")) { ?>
+<input type="hidden" name="<?= $TokenNameKey ?>" value="<?= $TokenName ?>"><!-- CSRF token name -->
+<input type="hidden" name="<?= $TokenValueKey ?>" value="<?= $TokenValue ?>"><!-- CSRF token value -->
+<?php } ?>
+<input type="hidden" name="t" value="employee_timesheet">
+<input type="hidden" name="modal" value="<?= (int)$Page->IsModal ?>">
+<table class="table table-striped table-sm ew-view-table">
+<?php if ($Page->employee_username->Visible) { // employee_username ?>
+    <tr id="r_employee_username">
+        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_employee_timesheet_employee_username"><?= $Page->employee_username->caption() ?></span></td>
+        <td data-name="employee_username" <?= $Page->employee_username->cellAttributes() ?>>
+<span id="el_employee_timesheet_employee_username">
+<span<?= $Page->employee_username->viewAttributes() ?>>
+<?= $Page->employee_username->getViewValue() ?></span>
+</span>
+</td>
+    </tr>
+<?php } ?>
+<?php if ($Page->year->Visible) { // year ?>
+    <tr id="r_year">
+        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_employee_timesheet_year"><?= $Page->year->caption() ?></span></td>
+        <td data-name="year" <?= $Page->year->cellAttributes() ?>>
+<span id="el_employee_timesheet_year">
+<span<?= $Page->year->viewAttributes() ?>>
+<?= $Page->year->getViewValue() ?></span>
+</span>
+</td>
+    </tr>
+<?php } ?>
+<?php if ($Page->month->Visible) { // month ?>
+    <tr id="r_month">
+        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_employee_timesheet_month"><?= $Page->month->caption() ?></span></td>
+        <td data-name="month" <?= $Page->month->cellAttributes() ?>>
+<span id="el_employee_timesheet_month">
+<span<?= $Page->month->viewAttributes() ?>>
+<?= $Page->month->getViewValue() ?></span>
+</span>
+</td>
+    </tr>
+<?php } ?>
+<?php if ($Page->days->Visible) { // days ?>
+    <tr id="r_days">
+        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_employee_timesheet_days"><?= $Page->days->caption() ?></span></td>
+        <td data-name="days" <?= $Page->days->cellAttributes() ?>>
+<span id="el_employee_timesheet_days">
+<span<?= $Page->days->viewAttributes() ?>>
+<?= $Page->days->getViewValue() ?></span>
+</span>
+</td>
+    </tr>
+<?php } ?>
+<?php if ($Page->sick->Visible) { // sick ?>
+    <tr id="r_sick">
+        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_employee_timesheet_sick"><?= $Page->sick->caption() ?></span></td>
+        <td data-name="sick" <?= $Page->sick->cellAttributes() ?>>
+<span id="el_employee_timesheet_sick">
+<span<?= $Page->sick->viewAttributes() ?>>
+<?= $Page->sick->getViewValue() ?></span>
+</span>
+</td>
+    </tr>
+<?php } ?>
+<?php if ($Page->leave->Visible) { // leave ?>
+    <tr id="r_leave">
+        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_employee_timesheet_leave"><?= $Page->leave->caption() ?></span></td>
+        <td data-name="leave" <?= $Page->leave->cellAttributes() ?>>
+<span id="el_employee_timesheet_leave">
+<span<?= $Page->leave->viewAttributes() ?>>
+<?= $Page->leave->getViewValue() ?></span>
+</span>
+</td>
+    </tr>
+<?php } ?>
+<?php if ($Page->permit->Visible) { // permit ?>
+    <tr id="r_permit">
+        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_employee_timesheet_permit"><?= $Page->permit->caption() ?></span></td>
+        <td data-name="permit" <?= $Page->permit->cellAttributes() ?>>
+<span id="el_employee_timesheet_permit">
+<span<?= $Page->permit->viewAttributes() ?>>
+<?= $Page->permit->getViewValue() ?></span>
+</span>
+</td>
+    </tr>
+<?php } ?>
+<?php if ($Page->absence->Visible) { // absence ?>
+    <tr id="r_absence">
+        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_employee_timesheet_absence"><?= $Page->absence->caption() ?></span></td>
+        <td data-name="absence" <?= $Page->absence->cellAttributes() ?>>
+<span id="el_employee_timesheet_absence">
+<span<?= $Page->absence->viewAttributes() ?>>
+<?= $Page->absence->getViewValue() ?></span>
+</span>
+</td>
+    </tr>
+<?php } ?>
+<?php if ($Page->timesheet_doc->Visible) { // timesheet_doc ?>
+    <tr id="r_timesheet_doc">
+        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_employee_timesheet_timesheet_doc"><?= $Page->timesheet_doc->caption() ?></span></td>
+        <td data-name="timesheet_doc" <?= $Page->timesheet_doc->cellAttributes() ?>>
+<span id="el_employee_timesheet_timesheet_doc">
+<span<?= $Page->timesheet_doc->viewAttributes() ?>>
+<?= GetFileViewTag($Page->timesheet_doc, $Page->timesheet_doc->getViewValue(), false) ?>
+</span>
+</span>
+</td>
+    </tr>
+<?php } ?>
+<?php if ($Page->employee_notes->Visible) { // employee_notes ?>
+    <tr id="r_employee_notes">
+        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_employee_timesheet_employee_notes"><?= $Page->employee_notes->caption() ?></span></td>
+        <td data-name="employee_notes" <?= $Page->employee_notes->cellAttributes() ?>>
+<span id="el_employee_timesheet_employee_notes">
+<span<?= $Page->employee_notes->viewAttributes() ?>>
+<?= $Page->employee_notes->getViewValue() ?></span>
+</span>
+</td>
+    </tr>
+<?php } ?>
+<?php if ($Page->company_notes->Visible) { // company_notes ?>
+    <tr id="r_company_notes">
+        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_employee_timesheet_company_notes"><?= $Page->company_notes->caption() ?></span></td>
+        <td data-name="company_notes" <?= $Page->company_notes->cellAttributes() ?>>
+<span id="el_employee_timesheet_company_notes">
+<span<?= $Page->company_notes->viewAttributes() ?>>
+<?= $Page->company_notes->getViewValue() ?></span>
+</span>
+</td>
+    </tr>
+<?php } ?>
+<?php if ($Page->approved->Visible) { // approved ?>
+    <tr id="r_approved">
+        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_employee_timesheet_approved"><?= $Page->approved->caption() ?></span></td>
+        <td data-name="approved" <?= $Page->approved->cellAttributes() ?>>
+<span id="el_employee_timesheet_approved">
+<span<?= $Page->approved->viewAttributes() ?>>
+<?= $Page->approved->getViewValue() ?></span>
+</span>
+</td>
+    </tr>
+<?php } ?>
+</table>
+</form>
+<?php
+$Page->showPageFooter();
+echo GetDebugMessage();
+?>
+<?php if (!$Page->isExport()) { ?>
+<script>
+loadjs.ready("load", function () {
+    // Write your table-specific startup script here, no need to add script tags.
+});
+</script>
+<?php } ?>
