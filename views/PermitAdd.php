@@ -19,7 +19,8 @@ loadjs.ready("head", function () {
     var fields = ew.vars.tables.permit.fields;
     fpermitadd.addFields([
         ["employee_username", [fields.employee_username.required ? ew.Validators.required(fields.employee_username.caption) : null], fields.employee_username.isInvalid],
-        ["permit_date", [fields.permit_date.required ? ew.Validators.required(fields.permit_date.caption) : null, ew.Validators.datetime(5)], fields.permit_date.isInvalid],
+        ["start_date", [fields.start_date.required ? ew.Validators.required(fields.start_date.caption) : null, ew.Validators.datetime(5)], fields.start_date.isInvalid],
+        ["end_date", [fields.end_date.required ? ew.Validators.required(fields.end_date.caption) : null, ew.Validators.datetime(5)], fields.end_date.isInvalid],
         ["permit_type", [fields.permit_type.required ? ew.Validators.required(fields.permit_type.caption) : null], fields.permit_type.isInvalid],
         ["document", [fields.document.required ? ew.Validators.fileRequired(fields.document.caption) : null], fields.document.isInvalid],
         ["note", [fields.note.required ? ew.Validators.required(fields.note.caption) : null], fields.note.isInvalid]
@@ -158,18 +159,37 @@ loadjs.ready("head", function() {
 </div></div>
     </div>
 <?php } ?>
-<?php if ($Page->permit_date->Visible) { // permit_date ?>
-    <div id="r_permit_date" class="form-group row">
-        <label id="elh_permit_permit_date" for="x_permit_date" class="<?= $Page->LeftColumnClass ?>"><?= $Page->permit_date->caption() ?><?= $Page->permit_date->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
-        <div class="<?= $Page->RightColumnClass ?>"><div <?= $Page->permit_date->cellAttributes() ?>>
-<span id="el_permit_permit_date">
-<input type="<?= $Page->permit_date->getInputTextType() ?>" data-table="permit" data-field="x_permit_date" data-format="5" name="x_permit_date" id="x_permit_date" placeholder="<?= HtmlEncode($Page->permit_date->getPlaceHolder()) ?>" value="<?= $Page->permit_date->EditValue ?>"<?= $Page->permit_date->editAttributes() ?> aria-describedby="x_permit_date_help">
-<?= $Page->permit_date->getCustomMessage() ?>
-<div class="invalid-feedback"><?= $Page->permit_date->getErrorMessage() ?></div>
-<?php if (!$Page->permit_date->ReadOnly && !$Page->permit_date->Disabled && !isset($Page->permit_date->EditAttrs["readonly"]) && !isset($Page->permit_date->EditAttrs["disabled"])) { ?>
+<?php if ($Page->start_date->Visible) { // start_date ?>
+    <div id="r_start_date" class="form-group row">
+        <label id="elh_permit_start_date" for="x_start_date" class="<?= $Page->LeftColumnClass ?>"><?= $Page->start_date->caption() ?><?= $Page->start_date->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
+        <div class="<?= $Page->RightColumnClass ?>"><div <?= $Page->start_date->cellAttributes() ?>>
+<span id="el_permit_start_date">
+<input type="<?= $Page->start_date->getInputTextType() ?>" data-table="permit" data-field="x_start_date" data-format="5" name="x_start_date" id="x_start_date" placeholder="<?= HtmlEncode($Page->start_date->getPlaceHolder()) ?>" value="<?= $Page->start_date->EditValue ?>"<?= $Page->start_date->editAttributes() ?> aria-describedby="x_start_date_help">
+<?= $Page->start_date->getCustomMessage() ?>
+<div class="invalid-feedback"><?= $Page->start_date->getErrorMessage() ?></div>
+<?php if (!$Page->start_date->ReadOnly && !$Page->start_date->Disabled && !isset($Page->start_date->EditAttrs["readonly"]) && !isset($Page->start_date->EditAttrs["disabled"])) { ?>
 <script>
 loadjs.ready(["fpermitadd", "datetimepicker"], function() {
-    ew.createDateTimePicker("fpermitadd", "x_permit_date", {"ignoreReadonly":true,"useCurrent":false,"format":5});
+    ew.createDateTimePicker("fpermitadd", "x_start_date", {"ignoreReadonly":true,"useCurrent":false,"format":5});
+});
+</script>
+<?php } ?>
+</span>
+</div></div>
+    </div>
+<?php } ?>
+<?php if ($Page->end_date->Visible) { // end_date ?>
+    <div id="r_end_date" class="form-group row">
+        <label id="elh_permit_end_date" for="x_end_date" class="<?= $Page->LeftColumnClass ?>"><?= $Page->end_date->caption() ?><?= $Page->end_date->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
+        <div class="<?= $Page->RightColumnClass ?>"><div <?= $Page->end_date->cellAttributes() ?>>
+<span id="el_permit_end_date">
+<input type="<?= $Page->end_date->getInputTextType() ?>" data-table="permit" data-field="x_end_date" data-format="5" name="x_end_date" id="x_end_date" placeholder="<?= HtmlEncode($Page->end_date->getPlaceHolder()) ?>" value="<?= $Page->end_date->EditValue ?>"<?= $Page->end_date->editAttributes() ?> aria-describedby="x_end_date_help">
+<?= $Page->end_date->getCustomMessage() ?>
+<div class="invalid-feedback"><?= $Page->end_date->getErrorMessage() ?></div>
+<?php if (!$Page->end_date->ReadOnly && !$Page->end_date->Disabled && !isset($Page->end_date->EditAttrs["readonly"]) && !isset($Page->end_date->EditAttrs["disabled"])) { ?>
+<script>
+loadjs.ready(["fpermitadd", "datetimepicker"], function() {
+    ew.createDateTimePicker("fpermitadd", "x_end_date", {"ignoreReadonly":true,"useCurrent":false,"format":5});
 });
 </script>
 <?php } ?>

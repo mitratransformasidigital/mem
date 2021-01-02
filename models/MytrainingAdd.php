@@ -1334,17 +1334,6 @@ class MytrainingAdd extends Mytraining
                 $this->DbMasterFilter = "";
                 $this->DbDetailFilter = "";
             }
-            if ($masterTblVar == "employee") {
-                $validMaster = true;
-                $masterTbl = Container("employee");
-                if (($parm = Get("fk_employee_username", Get("employee_username"))) !== null) {
-                    $masterTbl->employee_username->setQueryStringValue($parm);
-                    $this->employee_username->setQueryStringValue($masterTbl->employee_username->QueryStringValue);
-                    $this->employee_username->setSessionValue($this->employee_username->QueryStringValue);
-                } else {
-                    $validMaster = false;
-                }
-            }
             if ($masterTblVar == "myprofile") {
                 $validMaster = true;
                 $masterTbl = Container("myprofile");
@@ -1362,17 +1351,6 @@ class MytrainingAdd extends Mytraining
                     $validMaster = true;
                     $this->DbMasterFilter = "";
                     $this->DbDetailFilter = "";
-            }
-            if ($masterTblVar == "employee") {
-                $validMaster = true;
-                $masterTbl = Container("employee");
-                if (($parm = Post("fk_employee_username", Post("employee_username"))) !== null) {
-                    $masterTbl->employee_username->setFormValue($parm);
-                    $this->employee_username->setFormValue($masterTbl->employee_username->FormValue);
-                    $this->employee_username->setSessionValue($this->employee_username->FormValue);
-                } else {
-                    $validMaster = false;
-                }
             }
             if ($masterTblVar == "myprofile") {
                 $validMaster = true;
@@ -1397,11 +1375,6 @@ class MytrainingAdd extends Mytraining
             }
 
             // Clear previous master key from Session
-            if ($masterTblVar != "employee") {
-                if ($this->employee_username->CurrentValue == "") {
-                    $this->employee_username->setSessionValue("");
-                }
-            }
             if ($masterTblVar != "myprofile") {
                 if ($this->employee_username->CurrentValue == "") {
                     $this->employee_username->setSessionValue("");
@@ -1416,7 +1389,7 @@ class MytrainingAdd extends Mytraining
     protected function setupBreadcrumb()
     {
         global $Breadcrumb, $Language;
-        $Breadcrumb = new Breadcrumb("top10days");
+        $Breadcrumb = new Breadcrumb("welcome");
         $url = CurrentUrl();
         $Breadcrumb->add("list", $this->TableVar, $this->addMasterUrl("mytraininglist"), "", $this->TableVar, true);
         $pageId = ($this->isCopy()) ? "Copy" : "Add";

@@ -175,16 +175,16 @@ $Page->showMessage();
 </span>
             <span id="el_mycontract_thr" class="ew-search-field">
 <div class="custom-control custom-checkbox d-inline-block">
-    <input type="checkbox" class="custom-control-input<?= $Page->thr->isInvalidClass() ?>" data-table="mycontract" data-field="x_thr" name="x_thr[]" id="x_thr_797058" value="1"<?= ConvertToBool($Page->thr->AdvancedSearch->SearchValue) ? " checked" : "" ?><?= $Page->thr->editAttributes() ?>>
-    <label class="custom-control-label" for="x_thr_797058"></label>
+    <input type="checkbox" class="custom-control-input<?= $Page->thr->isInvalidClass() ?>" data-table="mycontract" data-field="x_thr" name="x_thr[]" id="x_thr_499866" value="1"<?= ConvertToBool($Page->thr->AdvancedSearch->SearchValue) ? " checked" : "" ?><?= $Page->thr->editAttributes() ?>>
+    <label class="custom-control-label" for="x_thr_499866"></label>
 </div>
 <div class="invalid-feedback"><?= $Page->thr->getErrorMessage(false) ?></div>
 </span>
             <span class="ew-search-and d-none"><label><?= $Language->phrase("AND") ?></label></span>
             <span id="el2_mycontract_thr" class="ew-search-field2 d-none">
 <div class="custom-control custom-checkbox d-inline-block">
-    <input type="checkbox" class="custom-control-input<?= $Page->thr->isInvalidClass() ?>" data-table="mycontract" data-field="x_thr" name="y_thr[]" id="y_thr_667989" value="1"<?= ConvertToBool($Page->thr->AdvancedSearch->SearchValue2) ? " checked" : "" ?><?= $Page->thr->editAttributes() ?>>
-    <label class="custom-control-label" for="y_thr_667989"></label>
+    <input type="checkbox" class="custom-control-input<?= $Page->thr->isInvalidClass() ?>" data-table="mycontract" data-field="x_thr" name="y_thr[]" id="y_thr_635740" value="1"<?= ConvertToBool($Page->thr->AdvancedSearch->SearchValue2) ? " checked" : "" ?><?= $Page->thr->editAttributes() ?>>
+    <label class="custom-control-label" for="y_thr_635740"></label>
 </div>
 <div class="invalid-feedback"><?= $Page->thr->getErrorMessage(false) ?></div>
 </span>

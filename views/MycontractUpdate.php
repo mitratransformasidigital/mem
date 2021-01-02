@@ -167,8 +167,8 @@ $Page->showMessage();
             <div <?= $Page->thr->cellAttributes() ?>>
                 <span id="el_mycontract_thr">
                 <div class="custom-control custom-checkbox d-inline-block">
-                    <input type="checkbox" class="custom-control-input<?= $Page->thr->isInvalidClass() ?>" data-table="mycontract" data-field="x_thr" name="x_thr[]" id="x_thr_321644" value="1"<?= ConvertToBool($Page->thr->CurrentValue) ? " checked" : "" ?><?= $Page->thr->editAttributes() ?> aria-describedby="x_thr_help">
-                    <label class="custom-control-label" for="x_thr_321644"></label>
+                    <input type="checkbox" class="custom-control-input<?= $Page->thr->isInvalidClass() ?>" data-table="mycontract" data-field="x_thr" name="x_thr[]" id="x_thr_468058" value="1"<?= ConvertToBool($Page->thr->CurrentValue) ? " checked" : "" ?><?= $Page->thr->editAttributes() ?> aria-describedby="x_thr_help">
+                    <label class="custom-control-label" for="x_thr_468058"></label>
                 </div>
                 <?= $Page->thr->getCustomMessage() ?>
                 <div class="invalid-feedback"><?= $Page->thr->getErrorMessage() ?></div>

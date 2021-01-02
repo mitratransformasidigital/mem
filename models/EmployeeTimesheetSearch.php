@@ -1006,7 +1006,7 @@ class EmployeeTimesheetSearch extends EmployeeTimesheet
     protected function setupBreadcrumb()
     {
         global $Breadcrumb, $Language;
-        $Breadcrumb = new Breadcrumb("top10days");
+        $Breadcrumb = new Breadcrumb("welcome");
         $url = CurrentUrl();
         $Breadcrumb->add("list", $this->TableVar, $this->addMasterUrl("employeetimesheetlist"), "", $this->TableVar, true);
         $pageId = "search";

@@ -75,6 +75,15 @@ return [
     "mytimesheet" => \DI\create(Mytimesheet::class),
     "mytraining" => \DI\create(Mytraining::class),
     "Top_10_Days" => \DI\create(Top10Days::class),
+    "customer" => \DI\create(Customer::class),
+    "employee_quotation" => \DI\create(EmployeeQuotation::class),
+    "employee_quotation_detail" => \DI\create(EmployeeQuotationDetail::class),
+    "setting" => \DI\create(Setting::class),
+    "quotation_list" => \DI\create(QuotationList::class),
+    "quotation_print" => \DI\create(QuotationPrint::class),
+    "master_work_date" => \DI\create(MasterWorkDate::class),
+    "timesheet_list" => \DI\create(TimesheetList::class),
+    "welcome" => \DI\create(Welcome::class),
 
     // User table
     "usertable" => \DI\get("employee"),

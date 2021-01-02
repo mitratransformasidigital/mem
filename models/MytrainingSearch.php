@@ -894,9 +894,6 @@ class MytrainingSearch extends Mytraining
         if (!Config("SERVER_VALIDATE")) {
             return true;
         }
-        if (!CheckInteger($this->training_id->AdvancedSearch->SearchValue)) {
-            $this->training_id->addErrorMessage($this->training_id->getErrorMessage(false));
-        }
         if (!CheckDate($this->training_start->AdvancedSearch->SearchValue)) {
             $this->training_start->addErrorMessage($this->training_start->getErrorMessage(false));
         }
@@ -952,7 +949,7 @@ class MytrainingSearch extends Mytraining
     protected function setupBreadcrumb()
     {
         global $Breadcrumb, $Language;
-        $Breadcrumb = new Breadcrumb("top10days");
+        $Breadcrumb = new Breadcrumb("welcome");
         $url = CurrentUrl();
         $Breadcrumb->add("list", $this->TableVar, $this->addMasterUrl("mytraininglist"), "", $this->TableVar, true);
         $pageId = "search";

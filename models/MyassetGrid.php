@@ -569,22 +569,6 @@ class MyassetGrid extends Myasset
         AddFilter($filter, $this->SearchWhere);
 
         // Load master record
-        if ($this->CurrentMode != "add" && $this->getMasterFilter() != "" && $this->getCurrentMasterTable() == "employee") {
-            $masterTbl = Container("employee");
-            $rsmaster = $masterTbl->loadRs($this->DbMasterFilter)->fetch(\PDO::FETCH_ASSOC);
-            $this->MasterRecordExists = $rsmaster !== false;
-            if (!$this->MasterRecordExists) {
-                $this->setFailureMessage($Language->phrase("NoRecord")); // Set no record found
-                $this->terminate("employeelist"); // Return to master page
-                return;
-            } else {
-                $masterTbl->loadListRowValues($rsmaster);
-                $masterTbl->RowType = ROWTYPE_MASTER; // Master row
-                $masterTbl->renderListRow();
-            }
-        }
-
-        // Load master record
         if ($this->CurrentMode != "add" && $this->getMasterFilter() != "" && $this->getCurrentMasterTable() == "myprofile") {
             $masterTbl = Container("myprofile");
             $rsmaster = $masterTbl->loadRs($this->DbMasterFilter)->fetch(\PDO::FETCH_ASSOC);
@@ -1083,7 +1067,6 @@ class MyassetGrid extends Myasset
                 $this->DbMasterFilter = "";
                 $this->DbDetailFilter = "";
                         $this->employee_username->setSessionValue("");
-                        $this->employee_username->setSessionValue("");
             }
 
             // Reset (clear) sorting order
@@ -1285,11 +1268,14 @@ class MyassetGrid extends Myasset
     // Set up list options (extended codes)
     protected function setupListOptionsExt()
     {
+        // Hide detail items for dropdown if necessary
+        $this->ListOptions->hideDetailItemsForDropDown();
     }
 
     // Render list options (extended codes)
     protected function renderListOptionsExt()
     {
+        global $Security, $Language;
     }
 
     // Get upload files
@@ -2201,9 +2187,6 @@ class MyassetGrid extends Myasset
         global $Language, $Security;
 
         // Set up foreign key field value from Session
-        if ($this->getCurrentMasterTable() == "employee") {
-            $this->employee_username->CurrentValue = $this->employee_username->getSessionValue();
-        }
         if ($this->getCurrentMasterTable() == "myprofile") {
             $this->employee_username->CurrentValue = $this->employee_username->getSessionValue();
         }
@@ -2361,13 +2344,6 @@ class MyassetGrid extends Myasset
     {
         // Hide foreign keys
         $masterTblVar = $this->getCurrentMasterTable();
-        if ($masterTblVar == "employee") {
-            $masterTbl = Container("employee");
-            $this->employee_username->Visible = false;
-            if ($masterTbl->EventCancelled) {
-                $this->EventCancelled = true;
-            }
-        }
         if ($masterTblVar == "myprofile") {
             $masterTbl = Container("myprofile");
             $this->employee_username->Visible = false;

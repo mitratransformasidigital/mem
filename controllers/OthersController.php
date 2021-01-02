@@ -85,6 +85,6 @@ class OthersController extends ControllerBase
     // Index
     public function index(Request $request, Response $response, array $args): Response
     {
-        return $response->withHeader("Location", "top10days")->withStatus(302);
+        return $response->withHeader("Location", "welcome")->withStatus(302);
     }
 }

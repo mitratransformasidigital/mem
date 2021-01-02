@@ -19,7 +19,8 @@ loadjs.ready("head", function () {
     var fields = ew.vars.tables.permit.fields;
     fpermitupdate.addFields([
         ["employee_username", [fields.employee_username.required ? ew.Validators.required(fields.employee_username.caption) : null], fields.employee_username.isInvalid],
-        ["permit_date", [fields.permit_date.required ? ew.Validators.required(fields.permit_date.caption) : null, ew.Validators.datetime(5), ew.Validators.selected], fields.permit_date.isInvalid],
+        ["start_date", [fields.start_date.required ? ew.Validators.required(fields.start_date.caption) : null, ew.Validators.datetime(5), ew.Validators.selected], fields.start_date.isInvalid],
+        ["end_date", [fields.end_date.required ? ew.Validators.required(fields.end_date.caption) : null, ew.Validators.datetime(5), ew.Validators.selected], fields.end_date.isInvalid],
         ["permit_type", [fields.permit_type.required ? ew.Validators.required(fields.permit_type.caption) : null], fields.permit_type.isInvalid],
         ["document", [fields.document.required ? ew.Validators.fileRequired(fields.document.caption) : null], fields.document.isInvalid],
         ["note", [fields.note.required ? ew.Validators.required(fields.note.caption) : null], fields.note.isInvalid]
@@ -163,24 +164,50 @@ $Page->showMessage();
         </div>
     </div>
 <?php } ?>
-<?php if ($Page->permit_date->Visible && (!$Page->isConfirm() || $Page->permit_date->multiUpdateSelected())) { // permit_date ?>
-    <div id="r_permit_date" class="form-group row">
-        <label for="x_permit_date" class="<?= $Page->LeftColumnClass ?>">
+<?php if ($Page->start_date->Visible && (!$Page->isConfirm() || $Page->start_date->multiUpdateSelected())) { // start_date ?>
+    <div id="r_start_date" class="form-group row">
+        <label for="x_start_date" class="<?= $Page->LeftColumnClass ?>">
             <div class="custom-control custom-checkbox">
-                <input type="checkbox" name="u_permit_date" id="u_permit_date" class="custom-control-input ew-multi-select" value="1"<?= $Page->permit_date->multiUpdateSelected() ? " checked" : "" ?>>
-                <label class="custom-control-label" for="u_permit_date"><?= $Page->permit_date->caption() ?></label>
+                <input type="checkbox" name="u_start_date" id="u_start_date" class="custom-control-input ew-multi-select" value="1"<?= $Page->start_date->multiUpdateSelected() ? " checked" : "" ?>>
+                <label class="custom-control-label" for="u_start_date"><?= $Page->start_date->caption() ?></label>
             </div>
         </label>
         <div class="<?= $Page->RightColumnClass ?>">
-            <div <?= $Page->permit_date->cellAttributes() ?>>
-                <span id="el_permit_permit_date">
-                <input type="<?= $Page->permit_date->getInputTextType() ?>" data-table="permit" data-field="x_permit_date" data-format="5" name="x_permit_date" id="x_permit_date" placeholder="<?= HtmlEncode($Page->permit_date->getPlaceHolder()) ?>" value="<?= $Page->permit_date->EditValue ?>"<?= $Page->permit_date->editAttributes() ?> aria-describedby="x_permit_date_help">
-                <?= $Page->permit_date->getCustomMessage() ?>
-                <div class="invalid-feedback"><?= $Page->permit_date->getErrorMessage() ?></div>
-                <?php if (!$Page->permit_date->ReadOnly && !$Page->permit_date->Disabled && !isset($Page->permit_date->EditAttrs["readonly"]) && !isset($Page->permit_date->EditAttrs["disabled"])) { ?>
+            <div <?= $Page->start_date->cellAttributes() ?>>
+                <span id="el_permit_start_date">
+                <input type="<?= $Page->start_date->getInputTextType() ?>" data-table="permit" data-field="x_start_date" data-format="5" name="x_start_date" id="x_start_date" placeholder="<?= HtmlEncode($Page->start_date->getPlaceHolder()) ?>" value="<?= $Page->start_date->EditValue ?>"<?= $Page->start_date->editAttributes() ?> aria-describedby="x_start_date_help">
+                <?= $Page->start_date->getCustomMessage() ?>
+                <div class="invalid-feedback"><?= $Page->start_date->getErrorMessage() ?></div>
+                <?php if (!$Page->start_date->ReadOnly && !$Page->start_date->Disabled && !isset($Page->start_date->EditAttrs["readonly"]) && !isset($Page->start_date->EditAttrs["disabled"])) { ?>
                 <script>
                 loadjs.ready(["fpermitupdate", "datetimepicker"], function() {
-                    ew.createDateTimePicker("fpermitupdate", "x_permit_date", {"ignoreReadonly":true,"useCurrent":false,"format":5});
+                    ew.createDateTimePicker("fpermitupdate", "x_start_date", {"ignoreReadonly":true,"useCurrent":false,"format":5});
+                });
+                </script>
+                <?php } ?>
+                </span>
+            </div>
+        </div>
+    </div>
+<?php } ?>
+<?php if ($Page->end_date->Visible && (!$Page->isConfirm() || $Page->end_date->multiUpdateSelected())) { // end_date ?>
+    <div id="r_end_date" class="form-group row">
+        <label for="x_end_date" class="<?= $Page->LeftColumnClass ?>">
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" name="u_end_date" id="u_end_date" class="custom-control-input ew-multi-select" value="1"<?= $Page->end_date->multiUpdateSelected() ? " checked" : "" ?>>
+                <label class="custom-control-label" for="u_end_date"><?= $Page->end_date->caption() ?></label>
+            </div>
+        </label>
+        <div class="<?= $Page->RightColumnClass ?>">
+            <div <?= $Page->end_date->cellAttributes() ?>>
+                <span id="el_permit_end_date">
+                <input type="<?= $Page->end_date->getInputTextType() ?>" data-table="permit" data-field="x_end_date" data-format="5" name="x_end_date" id="x_end_date" placeholder="<?= HtmlEncode($Page->end_date->getPlaceHolder()) ?>" value="<?= $Page->end_date->EditValue ?>"<?= $Page->end_date->editAttributes() ?> aria-describedby="x_end_date_help">
+                <?= $Page->end_date->getCustomMessage() ?>
+                <div class="invalid-feedback"><?= $Page->end_date->getErrorMessage() ?></div>
+                <?php if (!$Page->end_date->ReadOnly && !$Page->end_date->Disabled && !isset($Page->end_date->EditAttrs["readonly"]) && !isset($Page->end_date->EditAttrs["disabled"])) { ?>
+                <script>
+                loadjs.ready(["fpermitupdate", "datetimepicker"], function() {
+                    ew.createDateTimePicker("fpermitupdate", "x_end_date", {"ignoreReadonly":true,"useCurrent":false,"format":5});
                 });
                 </script>
                 <?php } ?>

@@ -912,12 +912,16 @@ class MasterCityAdd extends MasterCity
         if (in_array("master_office", $detailTblVar) && $detailPage->DetailAdd) {
             $detailPage->validateGridForm();
         }
-        $detailPage = Container("EmployeeGrid");
-        if (in_array("employee", $detailTblVar) && $detailPage->DetailAdd) {
-            $detailPage->validateGridForm();
-        }
         $detailPage = Container("MyprofileGrid");
         if (in_array("myprofile", $detailTblVar) && $detailPage->DetailAdd) {
+            $detailPage->validateGridForm();
+        }
+        $detailPage = Container("CustomerGrid");
+        if (in_array("customer", $detailTblVar) && $detailPage->DetailAdd) {
+            $detailPage->validateGridForm();
+        }
+        $detailPage = Container("EmployeeGrid");
+        if (in_array("employee", $detailTblVar) && $detailPage->DetailAdd) {
             $detailPage->validateGridForm();
         }
 
@@ -1035,20 +1039,30 @@ class MasterCityAdd extends MasterCity
                 $detailPage->city_id->setSessionValue(""); // Clear master key if insert failed
                 }
             }
-            $detailPage = Container("EmployeeGrid");
-            if (in_array("employee", $detailTblVar) && $detailPage->DetailAdd) {
+            $detailPage = Container("MyprofileGrid");
+            if (in_array("myprofile", $detailTblVar) && $detailPage->DetailAdd) {
                 $detailPage->city_id->setSessionValue($this->city_id->CurrentValue); // Set master key
-                $Security->loadCurrentUserLevel($this->ProjectID . "employee"); // Load user level of detail table
+                $Security->loadCurrentUserLevel($this->ProjectID . "myprofile"); // Load user level of detail table
                 $addRow = $detailPage->gridInsert();
                 $Security->loadCurrentUserLevel($this->ProjectID . $this->TableName); // Restore user level of master table
                 if (!$addRow) {
                 $detailPage->city_id->setSessionValue(""); // Clear master key if insert failed
                 }
             }
-            $detailPage = Container("MyprofileGrid");
-            if (in_array("myprofile", $detailTblVar) && $detailPage->DetailAdd) {
+            $detailPage = Container("CustomerGrid");
+            if (in_array("customer", $detailTblVar) && $detailPage->DetailAdd) {
                 $detailPage->city_id->setSessionValue($this->city_id->CurrentValue); // Set master key
-                $Security->loadCurrentUserLevel($this->ProjectID . "myprofile"); // Load user level of detail table
+                $Security->loadCurrentUserLevel($this->ProjectID . "customer"); // Load user level of detail table
+                $addRow = $detailPage->gridInsert();
+                $Security->loadCurrentUserLevel($this->ProjectID . $this->TableName); // Restore user level of master table
+                if (!$addRow) {
+                $detailPage->city_id->setSessionValue(""); // Clear master key if insert failed
+                }
+            }
+            $detailPage = Container("EmployeeGrid");
+            if (in_array("employee", $detailTblVar) && $detailPage->DetailAdd) {
+                $detailPage->city_id->setSessionValue($this->city_id->CurrentValue); // Set master key
+                $Security->loadCurrentUserLevel($this->ProjectID . "employee"); // Load user level of detail table
                 $addRow = $detailPage->gridInsert();
                 $Security->loadCurrentUserLevel($this->ProjectID . $this->TableName); // Restore user level of master table
                 if (!$addRow) {
@@ -1175,8 +1189,8 @@ class MasterCityAdd extends MasterCity
                     $detailPageObj->city_id->setSessionValue($detailPageObj->city_id->CurrentValue);
                 }
             }
-            if (in_array("employee", $detailTblVar)) {
-                $detailPageObj = Container("EmployeeGrid");
+            if (in_array("myprofile", $detailTblVar)) {
+                $detailPageObj = Container("MyprofileGrid");
                 if ($detailPageObj->DetailAdd) {
                     if ($this->CopyRecord) {
                         $detailPageObj->CurrentMode = "copy";
@@ -1197,8 +1211,26 @@ class MasterCityAdd extends MasterCity
                     $detailPageObj->status_id->setSessionValue(""); // Clear session key
                 }
             }
-            if (in_array("myprofile", $detailTblVar)) {
-                $detailPageObj = Container("MyprofileGrid");
+            if (in_array("customer", $detailTblVar)) {
+                $detailPageObj = Container("CustomerGrid");
+                if ($detailPageObj->DetailAdd) {
+                    if ($this->CopyRecord) {
+                        $detailPageObj->CurrentMode = "copy";
+                    } else {
+                        $detailPageObj->CurrentMode = "add";
+                    }
+                    $detailPageObj->CurrentAction = "gridadd";
+
+                    // Save current master table to detail table
+                    $detailPageObj->setCurrentMasterTable($this->TableVar);
+                    $detailPageObj->setStartRecordNumber(1);
+                    $detailPageObj->city_id->IsDetailKey = true;
+                    $detailPageObj->city_id->CurrentValue = $this->city_id->CurrentValue;
+                    $detailPageObj->city_id->setSessionValue($detailPageObj->city_id->CurrentValue);
+                }
+            }
+            if (in_array("employee", $detailTblVar)) {
+                $detailPageObj = Container("EmployeeGrid");
                 if ($detailPageObj->DetailAdd) {
                     if ($this->CopyRecord) {
                         $detailPageObj->CurrentMode = "copy";
@@ -1226,7 +1258,7 @@ class MasterCityAdd extends MasterCity
     protected function setupBreadcrumb()
     {
         global $Breadcrumb, $Language;
-        $Breadcrumb = new Breadcrumb("top10days");
+        $Breadcrumb = new Breadcrumb("welcome");
         $url = CurrentUrl();
         $Breadcrumb->add("list", $this->TableVar, $this->addMasterUrl("mastercitylist"), "", $this->TableVar, true);
         $pageId = ($this->isCopy()) ? "Copy" : "Add";

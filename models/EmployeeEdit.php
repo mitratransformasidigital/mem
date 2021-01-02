@@ -419,6 +419,7 @@ class EmployeeEdit extends Employee
     public $RecordRange = 10;
     public $RecordCount;
     public $MultiPages; // Multi pages object
+    public $DetailPages; // Detail pages object
 
     /**
      * Page run
@@ -468,6 +469,9 @@ class EmployeeEdit extends Employee
 
         // Set up multi page object
         $this->setupMultiPages();
+
+        // Set up detail page object
+        $this->setupDetailPages();
 
         // Global Page Loading event (in userfn*.php)
         Page_Loading();
@@ -2313,22 +2317,6 @@ class EmployeeEdit extends Employee
         if (in_array("employee_trainings", $detailTblVar) && $detailPage->DetailEdit) {
             $detailPage->validateGridForm();
         }
-        $detailPage = Container("MyassetGrid");
-        if (in_array("myasset", $detailTblVar) && $detailPage->DetailEdit) {
-            $detailPage->validateGridForm();
-        }
-        $detailPage = Container("MycontractGrid");
-        if (in_array("mycontract", $detailTblVar) && $detailPage->DetailEdit) {
-            $detailPage->validateGridForm();
-        }
-        $detailPage = Container("MytimesheetGrid");
-        if (in_array("mytimesheet", $detailTblVar) && $detailPage->DetailEdit) {
-            $detailPage->validateGridForm();
-        }
-        $detailPage = Container("MytrainingGrid");
-        if (in_array("mytraining", $detailTblVar) && $detailPage->DetailEdit) {
-            $detailPage->validateGridForm();
-        }
 
         // Return validate result
         $validateForm = !$this->hasInvalidFields();
@@ -2778,38 +2766,6 @@ class EmployeeEdit extends Employee
                         $Security->loadCurrentUserLevel($this->ProjectID . $this->TableName); // Restore user level of master table
                     }
                 }
-                if ($editRow) {
-                    $detailPage = Container("MyassetGrid");
-                    if (in_array("myasset", $detailTblVar) && $detailPage->DetailEdit) {
-                        $Security->loadCurrentUserLevel($this->ProjectID . "myasset"); // Load user level of detail table
-                        $editRow = $detailPage->gridUpdate();
-                        $Security->loadCurrentUserLevel($this->ProjectID . $this->TableName); // Restore user level of master table
-                    }
-                }
-                if ($editRow) {
-                    $detailPage = Container("MycontractGrid");
-                    if (in_array("mycontract", $detailTblVar) && $detailPage->DetailEdit) {
-                        $Security->loadCurrentUserLevel($this->ProjectID . "mycontract"); // Load user level of detail table
-                        $editRow = $detailPage->gridUpdate();
-                        $Security->loadCurrentUserLevel($this->ProjectID . $this->TableName); // Restore user level of master table
-                    }
-                }
-                if ($editRow) {
-                    $detailPage = Container("MytimesheetGrid");
-                    if (in_array("mytimesheet", $detailTblVar) && $detailPage->DetailEdit) {
-                        $Security->loadCurrentUserLevel($this->ProjectID . "mytimesheet"); // Load user level of detail table
-                        $editRow = $detailPage->gridUpdate();
-                        $Security->loadCurrentUserLevel($this->ProjectID . $this->TableName); // Restore user level of master table
-                    }
-                }
-                if ($editRow) {
-                    $detailPage = Container("MytrainingGrid");
-                    if (in_array("mytraining", $detailTblVar) && $detailPage->DetailEdit) {
-                        $Security->loadCurrentUserLevel($this->ProjectID . "mytraining"); // Load user level of detail table
-                        $editRow = $detailPage->gridUpdate();
-                        $Security->loadCurrentUserLevel($this->ProjectID . $this->TableName); // Restore user level of master table
-                    }
-                }
 
                 // Commit/Rollback transaction
                 if ($this->getCurrentDetailTable() != "") {
@@ -3164,62 +3120,6 @@ class EmployeeEdit extends Employee
                     $detailPageObj->employee_username->setSessionValue($detailPageObj->employee_username->CurrentValue);
                 }
             }
-            if (in_array("myasset", $detailTblVar)) {
-                $detailPageObj = Container("MyassetGrid");
-                if ($detailPageObj->DetailEdit) {
-                    $detailPageObj->CurrentMode = "edit";
-                    $detailPageObj->CurrentAction = "gridedit";
-
-                    // Save current master table to detail table
-                    $detailPageObj->setCurrentMasterTable($this->TableVar);
-                    $detailPageObj->setStartRecordNumber(1);
-                    $detailPageObj->employee_username->IsDetailKey = true;
-                    $detailPageObj->employee_username->CurrentValue = $this->employee_username->CurrentValue;
-                    $detailPageObj->employee_username->setSessionValue($detailPageObj->employee_username->CurrentValue);
-                }
-            }
-            if (in_array("mycontract", $detailTblVar)) {
-                $detailPageObj = Container("MycontractGrid");
-                if ($detailPageObj->DetailEdit) {
-                    $detailPageObj->CurrentMode = "edit";
-                    $detailPageObj->CurrentAction = "gridedit";
-
-                    // Save current master table to detail table
-                    $detailPageObj->setCurrentMasterTable($this->TableVar);
-                    $detailPageObj->setStartRecordNumber(1);
-                    $detailPageObj->employee_username->IsDetailKey = true;
-                    $detailPageObj->employee_username->CurrentValue = $this->employee_username->CurrentValue;
-                    $detailPageObj->employee_username->setSessionValue($detailPageObj->employee_username->CurrentValue);
-                }
-            }
-            if (in_array("mytimesheet", $detailTblVar)) {
-                $detailPageObj = Container("MytimesheetGrid");
-                if ($detailPageObj->DetailEdit) {
-                    $detailPageObj->CurrentMode = "edit";
-                    $detailPageObj->CurrentAction = "gridedit";
-
-                    // Save current master table to detail table
-                    $detailPageObj->setCurrentMasterTable($this->TableVar);
-                    $detailPageObj->setStartRecordNumber(1);
-                    $detailPageObj->employee_username->IsDetailKey = true;
-                    $detailPageObj->employee_username->CurrentValue = $this->employee_username->CurrentValue;
-                    $detailPageObj->employee_username->setSessionValue($detailPageObj->employee_username->CurrentValue);
-                }
-            }
-            if (in_array("mytraining", $detailTblVar)) {
-                $detailPageObj = Container("MytrainingGrid");
-                if ($detailPageObj->DetailEdit) {
-                    $detailPageObj->CurrentMode = "edit";
-                    $detailPageObj->CurrentAction = "gridedit";
-
-                    // Save current master table to detail table
-                    $detailPageObj->setCurrentMasterTable($this->TableVar);
-                    $detailPageObj->setStartRecordNumber(1);
-                    $detailPageObj->employee_username->IsDetailKey = true;
-                    $detailPageObj->employee_username->CurrentValue = $this->employee_username->CurrentValue;
-                    $detailPageObj->employee_username->setSessionValue($detailPageObj->employee_username->CurrentValue);
-                }
-            }
         }
     }
 
@@ -3227,7 +3127,7 @@ class EmployeeEdit extends Employee
     protected function setupBreadcrumb()
     {
         global $Breadcrumb, $Language;
-        $Breadcrumb = new Breadcrumb("top10days");
+        $Breadcrumb = new Breadcrumb("welcome");
         $url = CurrentUrl();
         $Breadcrumb->add("list", $this->TableVar, $this->addMasterUrl("employeelist"), "", $this->TableVar, true);
         $pageId = "edit";
@@ -3245,6 +3145,21 @@ class EmployeeEdit extends Employee
         $pages->add(3);
         $pages->add(4);
         $this->MultiPages = $pages;
+    }
+
+    // Set up detail pages
+    protected function setupDetailPages()
+    {
+        $pages = new SubPages();
+        $pages->Style = "tabs";
+        $pages->add('employee_shift');
+        $pages->add('activity');
+        $pages->add('permit');
+        $pages->add('employee_contract');
+        $pages->add('employee_asset');
+        $pages->add('employee_timesheet');
+        $pages->add('employee_trainings');
+        $this->DetailPages = $pages;
     }
 
     // Setup lookup options

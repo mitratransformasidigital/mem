@@ -478,7 +478,8 @@ class PermitGrid extends Permit
         $this->setupListOptions();
         $this->permit_id->Visible = false;
         $this->employee_username->setVisibility();
-        $this->permit_date->setVisibility();
+        $this->start_date->setVisibility();
+        $this->end_date->setVisibility();
         $this->permit_type->setVisibility();
         $this->document->setVisibility();
         $this->note->setVisibility();
@@ -908,7 +909,10 @@ class PermitGrid extends Permit
         if ($CurrentForm->hasValue("x_employee_username") && $CurrentForm->hasValue("o_employee_username") && $this->employee_username->CurrentValue != $this->employee_username->OldValue) {
             return false;
         }
-        if ($CurrentForm->hasValue("x_permit_date") && $CurrentForm->hasValue("o_permit_date") && $this->permit_date->CurrentValue != $this->permit_date->OldValue) {
+        if ($CurrentForm->hasValue("x_start_date") && $CurrentForm->hasValue("o_start_date") && $this->start_date->CurrentValue != $this->start_date->OldValue) {
+            return false;
+        }
+        if ($CurrentForm->hasValue("x_end_date") && $CurrentForm->hasValue("o_end_date") && $this->end_date->CurrentValue != $this->end_date->OldValue) {
             return false;
         }
         if ($CurrentForm->hasValue("x_permit_type") && $CurrentForm->hasValue("o_permit_type") && $this->permit_type->CurrentValue != $this->permit_type->OldValue) {
@@ -1002,7 +1006,8 @@ class PermitGrid extends Permit
     public function resetFormError()
     {
         $this->employee_username->clearErrorMessage();
-        $this->permit_date->clearErrorMessage();
+        $this->start_date->clearErrorMessage();
+        $this->end_date->clearErrorMessage();
         $this->permit_type->clearErrorMessage();
         $this->document->clearErrorMessage();
         $this->note->clearErrorMessage();
@@ -1252,11 +1257,14 @@ class PermitGrid extends Permit
     // Set up list options (extended codes)
     protected function setupListOptionsExt()
     {
+        // Hide detail items for dropdown if necessary
+        $this->ListOptions->hideDetailItemsForDropDown();
     }
 
     // Render list options (extended codes)
     protected function renderListOptionsExt()
     {
+        global $Security, $Language;
     }
 
     // Get upload files
@@ -1275,8 +1283,10 @@ class PermitGrid extends Permit
         $this->permit_id->OldValue = $this->permit_id->CurrentValue;
         $this->employee_username->CurrentValue = CurrentUserName();
         $this->employee_username->OldValue = $this->employee_username->CurrentValue;
-        $this->permit_date->CurrentValue = CurrentDate();
-        $this->permit_date->OldValue = $this->permit_date->CurrentValue;
+        $this->start_date->CurrentValue = CurrentDate();
+        $this->start_date->OldValue = $this->start_date->CurrentValue;
+        $this->end_date->CurrentValue = CurrentDate();
+        $this->end_date->OldValue = $this->end_date->CurrentValue;
         $this->permit_type->CurrentValue = null;
         $this->permit_type->OldValue = $this->permit_type->CurrentValue;
         $this->document->Upload->DbValue = null;
@@ -1306,18 +1316,32 @@ class PermitGrid extends Permit
             $this->employee_username->setOldValue($CurrentForm->getValue("o_employee_username"));
         }
 
-        // Check field name 'permit_date' first before field var 'x_permit_date'
-        $val = $CurrentForm->hasValue("permit_date") ? $CurrentForm->getValue("permit_date") : $CurrentForm->getValue("x_permit_date");
-        if (!$this->permit_date->IsDetailKey) {
+        // Check field name 'start_date' first before field var 'x_start_date'
+        $val = $CurrentForm->hasValue("start_date") ? $CurrentForm->getValue("start_date") : $CurrentForm->getValue("x_start_date");
+        if (!$this->start_date->IsDetailKey) {
             if (IsApi() && $val === null) {
-                $this->permit_date->Visible = false; // Disable update for API request
+                $this->start_date->Visible = false; // Disable update for API request
             } else {
-                $this->permit_date->setFormValue($val);
+                $this->start_date->setFormValue($val);
             }
-            $this->permit_date->CurrentValue = UnFormatDateTime($this->permit_date->CurrentValue, 5);
+            $this->start_date->CurrentValue = UnFormatDateTime($this->start_date->CurrentValue, 5);
         }
-        if ($CurrentForm->hasValue("o_permit_date")) {
-            $this->permit_date->setOldValue($CurrentForm->getValue("o_permit_date"));
+        if ($CurrentForm->hasValue("o_start_date")) {
+            $this->start_date->setOldValue($CurrentForm->getValue("o_start_date"));
+        }
+
+        // Check field name 'end_date' first before field var 'x_end_date'
+        $val = $CurrentForm->hasValue("end_date") ? $CurrentForm->getValue("end_date") : $CurrentForm->getValue("x_end_date");
+        if (!$this->end_date->IsDetailKey) {
+            if (IsApi() && $val === null) {
+                $this->end_date->Visible = false; // Disable update for API request
+            } else {
+                $this->end_date->setFormValue($val);
+            }
+            $this->end_date->CurrentValue = UnFormatDateTime($this->end_date->CurrentValue, 5);
+        }
+        if ($CurrentForm->hasValue("o_end_date")) {
+            $this->end_date->setOldValue($CurrentForm->getValue("o_end_date"));
         }
 
         // Check field name 'permit_type' first before field var 'x_permit_type'
@@ -1362,8 +1386,10 @@ class PermitGrid extends Permit
             $this->permit_id->CurrentValue = $this->permit_id->FormValue;
         }
         $this->employee_username->CurrentValue = $this->employee_username->FormValue;
-        $this->permit_date->CurrentValue = $this->permit_date->FormValue;
-        $this->permit_date->CurrentValue = UnFormatDateTime($this->permit_date->CurrentValue, 5);
+        $this->start_date->CurrentValue = $this->start_date->FormValue;
+        $this->start_date->CurrentValue = UnFormatDateTime($this->start_date->CurrentValue, 5);
+        $this->end_date->CurrentValue = $this->end_date->FormValue;
+        $this->end_date->CurrentValue = UnFormatDateTime($this->end_date->CurrentValue, 5);
         $this->permit_type->CurrentValue = $this->permit_type->FormValue;
         $this->note->CurrentValue = $this->note->FormValue;
     }
@@ -1438,7 +1464,8 @@ class PermitGrid extends Permit
         }
         $this->permit_id->setDbValue($row['permit_id']);
         $this->employee_username->setDbValue($row['employee_username']);
-        $this->permit_date->setDbValue($row['permit_date']);
+        $this->start_date->setDbValue($row['start_date']);
+        $this->end_date->setDbValue($row['end_date']);
         $this->permit_type->setDbValue($row['permit_type']);
         $this->document->Upload->DbValue = $row['document'];
         $this->document->setDbValue($this->document->Upload->DbValue);
@@ -1453,7 +1480,8 @@ class PermitGrid extends Permit
         $row = [];
         $row['permit_id'] = $this->permit_id->CurrentValue;
         $row['employee_username'] = $this->employee_username->CurrentValue;
-        $row['permit_date'] = $this->permit_date->CurrentValue;
+        $row['start_date'] = $this->start_date->CurrentValue;
+        $row['end_date'] = $this->end_date->CurrentValue;
         $row['permit_type'] = $this->permit_type->CurrentValue;
         $row['document'] = $this->document->Upload->DbValue;
         $row['note'] = $this->note->CurrentValue;
@@ -1496,7 +1524,9 @@ class PermitGrid extends Permit
 
         // employee_username
 
-        // permit_date
+        // start_date
+
+        // end_date
 
         // permit_type
 
@@ -1525,10 +1555,15 @@ class PermitGrid extends Permit
             }
             $this->employee_username->ViewCustomAttributes = "";
 
-            // permit_date
-            $this->permit_date->ViewValue = $this->permit_date->CurrentValue;
-            $this->permit_date->ViewValue = FormatDateTime($this->permit_date->ViewValue, 5);
-            $this->permit_date->ViewCustomAttributes = "";
+            // start_date
+            $this->start_date->ViewValue = $this->start_date->CurrentValue;
+            $this->start_date->ViewValue = FormatDateTime($this->start_date->ViewValue, 5);
+            $this->start_date->ViewCustomAttributes = "";
+
+            // end_date
+            $this->end_date->ViewValue = $this->end_date->CurrentValue;
+            $this->end_date->ViewValue = FormatDateTime($this->end_date->ViewValue, 5);
+            $this->end_date->ViewCustomAttributes = "";
 
             // permit_type
             if (strval($this->permit_type->CurrentValue) != "") {
@@ -1555,10 +1590,15 @@ class PermitGrid extends Permit
             $this->employee_username->HrefValue = "";
             $this->employee_username->TooltipValue = "";
 
-            // permit_date
-            $this->permit_date->LinkCustomAttributes = "";
-            $this->permit_date->HrefValue = "";
-            $this->permit_date->TooltipValue = "";
+            // start_date
+            $this->start_date->LinkCustomAttributes = "";
+            $this->start_date->HrefValue = "";
+            $this->start_date->TooltipValue = "";
+
+            // end_date
+            $this->end_date->LinkCustomAttributes = "";
+            $this->end_date->HrefValue = "";
+            $this->end_date->TooltipValue = "";
 
             // permit_type
             $this->permit_type->LinkCustomAttributes = "";
@@ -1641,11 +1681,17 @@ class PermitGrid extends Permit
                 $this->employee_username->PlaceHolder = RemoveHtml($this->employee_username->caption());
             }
 
-            // permit_date
-            $this->permit_date->EditAttrs["class"] = "form-control";
-            $this->permit_date->EditCustomAttributes = "";
-            $this->permit_date->EditValue = HtmlEncode(FormatDateTime($this->permit_date->CurrentValue, 5));
-            $this->permit_date->PlaceHolder = RemoveHtml($this->permit_date->caption());
+            // start_date
+            $this->start_date->EditAttrs["class"] = "form-control";
+            $this->start_date->EditCustomAttributes = "";
+            $this->start_date->EditValue = HtmlEncode(FormatDateTime($this->start_date->CurrentValue, 5));
+            $this->start_date->PlaceHolder = RemoveHtml($this->start_date->caption());
+
+            // end_date
+            $this->end_date->EditAttrs["class"] = "form-control";
+            $this->end_date->EditCustomAttributes = "";
+            $this->end_date->EditValue = HtmlEncode(FormatDateTime($this->end_date->CurrentValue, 5));
+            $this->end_date->PlaceHolder = RemoveHtml($this->end_date->caption());
 
             // permit_type
             $this->permit_type->EditAttrs["class"] = "form-control";
@@ -1680,9 +1726,13 @@ class PermitGrid extends Permit
             $this->employee_username->LinkCustomAttributes = "";
             $this->employee_username->HrefValue = "";
 
-            // permit_date
-            $this->permit_date->LinkCustomAttributes = "";
-            $this->permit_date->HrefValue = "";
+            // start_date
+            $this->start_date->LinkCustomAttributes = "";
+            $this->start_date->HrefValue = "";
+
+            // end_date
+            $this->end_date->LinkCustomAttributes = "";
+            $this->end_date->HrefValue = "";
 
             // permit_type
             $this->permit_type->LinkCustomAttributes = "";
@@ -1762,11 +1812,17 @@ class PermitGrid extends Permit
                 $this->employee_username->PlaceHolder = RemoveHtml($this->employee_username->caption());
             }
 
-            // permit_date
-            $this->permit_date->EditAttrs["class"] = "form-control";
-            $this->permit_date->EditCustomAttributes = "";
-            $this->permit_date->EditValue = HtmlEncode(FormatDateTime($this->permit_date->CurrentValue, 5));
-            $this->permit_date->PlaceHolder = RemoveHtml($this->permit_date->caption());
+            // start_date
+            $this->start_date->EditAttrs["class"] = "form-control";
+            $this->start_date->EditCustomAttributes = "";
+            $this->start_date->EditValue = HtmlEncode(FormatDateTime($this->start_date->CurrentValue, 5));
+            $this->start_date->PlaceHolder = RemoveHtml($this->start_date->caption());
+
+            // end_date
+            $this->end_date->EditAttrs["class"] = "form-control";
+            $this->end_date->EditCustomAttributes = "";
+            $this->end_date->EditValue = HtmlEncode(FormatDateTime($this->end_date->CurrentValue, 5));
+            $this->end_date->PlaceHolder = RemoveHtml($this->end_date->caption());
 
             // permit_type
             $this->permit_type->EditAttrs["class"] = "form-control";
@@ -1801,9 +1857,13 @@ class PermitGrid extends Permit
             $this->employee_username->LinkCustomAttributes = "";
             $this->employee_username->HrefValue = "";
 
-            // permit_date
-            $this->permit_date->LinkCustomAttributes = "";
-            $this->permit_date->HrefValue = "";
+            // start_date
+            $this->start_date->LinkCustomAttributes = "";
+            $this->start_date->HrefValue = "";
+
+            // end_date
+            $this->end_date->LinkCustomAttributes = "";
+            $this->end_date->HrefValue = "";
 
             // permit_type
             $this->permit_type->LinkCustomAttributes = "";
@@ -1858,13 +1918,21 @@ class PermitGrid extends Permit
                 $this->employee_username->addErrorMessage(str_replace("%s", $this->employee_username->caption(), $this->employee_username->RequiredErrorMessage));
             }
         }
-        if ($this->permit_date->Required) {
-            if (!$this->permit_date->IsDetailKey && EmptyValue($this->permit_date->FormValue)) {
-                $this->permit_date->addErrorMessage(str_replace("%s", $this->permit_date->caption(), $this->permit_date->RequiredErrorMessage));
+        if ($this->start_date->Required) {
+            if (!$this->start_date->IsDetailKey && EmptyValue($this->start_date->FormValue)) {
+                $this->start_date->addErrorMessage(str_replace("%s", $this->start_date->caption(), $this->start_date->RequiredErrorMessage));
             }
         }
-        if (!CheckStdDate($this->permit_date->FormValue)) {
-            $this->permit_date->addErrorMessage($this->permit_date->getErrorMessage(false));
+        if (!CheckStdDate($this->start_date->FormValue)) {
+            $this->start_date->addErrorMessage($this->start_date->getErrorMessage(false));
+        }
+        if ($this->end_date->Required) {
+            if (!$this->end_date->IsDetailKey && EmptyValue($this->end_date->FormValue)) {
+                $this->end_date->addErrorMessage(str_replace("%s", $this->end_date->caption(), $this->end_date->RequiredErrorMessage));
+            }
+        }
+        if (!CheckStdDate($this->end_date->FormValue)) {
+            $this->end_date->addErrorMessage($this->end_date->getErrorMessage(false));
         }
         if ($this->permit_type->Required) {
             if (!$this->permit_type->IsDetailKey && EmptyValue($this->permit_type->FormValue)) {
@@ -1995,8 +2063,11 @@ class PermitGrid extends Permit
             }
             $this->employee_username->setDbValueDef($rsnew, $this->employee_username->CurrentValue, "", $this->employee_username->ReadOnly);
 
-            // permit_date
-            $this->permit_date->setDbValueDef($rsnew, UnFormatDateTime($this->permit_date->CurrentValue, 5), CurrentDate(), $this->permit_date->ReadOnly);
+            // start_date
+            $this->start_date->setDbValueDef($rsnew, UnFormatDateTime($this->start_date->CurrentValue, 5), CurrentDate(), $this->start_date->ReadOnly);
+
+            // end_date
+            $this->end_date->setDbValueDef($rsnew, UnFormatDateTime($this->end_date->CurrentValue, 5), CurrentDate(), $this->end_date->ReadOnly);
 
             // permit_type
             $this->permit_type->setDbValueDef($rsnew, $this->permit_type->CurrentValue, "", $this->permit_type->ReadOnly);
@@ -2148,8 +2219,11 @@ class PermitGrid extends Permit
         // employee_username
         $this->employee_username->setDbValueDef($rsnew, $this->employee_username->CurrentValue, "", false);
 
-        // permit_date
-        $this->permit_date->setDbValueDef($rsnew, UnFormatDateTime($this->permit_date->CurrentValue, 5), CurrentDate(), false);
+        // start_date
+        $this->start_date->setDbValueDef($rsnew, UnFormatDateTime($this->start_date->CurrentValue, 5), CurrentDate(), false);
+
+        // end_date
+        $this->end_date->setDbValueDef($rsnew, UnFormatDateTime($this->end_date->CurrentValue, 5), CurrentDate(), false);
 
         // permit_type
         $this->permit_type->setDbValueDef($rsnew, $this->permit_type->CurrentValue, "", false);

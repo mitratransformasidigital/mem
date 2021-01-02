@@ -928,12 +928,12 @@ class MasterPositionEdit extends MasterPosition
 
         // Validate detail grid
         $detailTblVar = explode(",", $this->getCurrentDetailTable());
-        $detailPage = Container("EmployeeGrid");
-        if (in_array("employee", $detailTblVar) && $detailPage->DetailEdit) {
-            $detailPage->validateGridForm();
-        }
         $detailPage = Container("MyprofileGrid");
         if (in_array("myprofile", $detailTblVar) && $detailPage->DetailEdit) {
+            $detailPage->validateGridForm();
+        }
+        $detailPage = Container("EmployeeGrid");
+        if (in_array("employee", $detailTblVar) && $detailPage->DetailEdit) {
             $detailPage->validateGridForm();
         }
 
@@ -1009,17 +1009,17 @@ class MasterPositionEdit extends MasterPosition
                 // Update detail records
                 $detailTblVar = explode(",", $this->getCurrentDetailTable());
                 if ($editRow) {
-                    $detailPage = Container("EmployeeGrid");
-                    if (in_array("employee", $detailTblVar) && $detailPage->DetailEdit) {
-                        $Security->loadCurrentUserLevel($this->ProjectID . "employee"); // Load user level of detail table
+                    $detailPage = Container("MyprofileGrid");
+                    if (in_array("myprofile", $detailTblVar) && $detailPage->DetailEdit) {
+                        $Security->loadCurrentUserLevel($this->ProjectID . "myprofile"); // Load user level of detail table
                         $editRow = $detailPage->gridUpdate();
                         $Security->loadCurrentUserLevel($this->ProjectID . $this->TableName); // Restore user level of master table
                     }
                 }
                 if ($editRow) {
-                    $detailPage = Container("MyprofileGrid");
-                    if (in_array("myprofile", $detailTblVar) && $detailPage->DetailEdit) {
-                        $Security->loadCurrentUserLevel($this->ProjectID . "myprofile"); // Load user level of detail table
+                    $detailPage = Container("EmployeeGrid");
+                    if (in_array("employee", $detailTblVar) && $detailPage->DetailEdit) {
+                        $Security->loadCurrentUserLevel($this->ProjectID . "employee"); // Load user level of detail table
                         $editRow = $detailPage->gridUpdate();
                         $Security->loadCurrentUserLevel($this->ProjectID . $this->TableName); // Restore user level of master table
                     }
@@ -1075,8 +1075,8 @@ class MasterPositionEdit extends MasterPosition
         }
         if ($detailTblVar != "") {
             $detailTblVar = explode(",", $detailTblVar);
-            if (in_array("employee", $detailTblVar)) {
-                $detailPageObj = Container("EmployeeGrid");
+            if (in_array("myprofile", $detailTblVar)) {
+                $detailPageObj = Container("MyprofileGrid");
                 if ($detailPageObj->DetailEdit) {
                     $detailPageObj->CurrentMode = "edit";
                     $detailPageObj->CurrentAction = "gridedit";
@@ -1093,8 +1093,8 @@ class MasterPositionEdit extends MasterPosition
                     $detailPageObj->city_id->setSessionValue(""); // Clear session key
                 }
             }
-            if (in_array("myprofile", $detailTblVar)) {
-                $detailPageObj = Container("MyprofileGrid");
+            if (in_array("employee", $detailTblVar)) {
+                $detailPageObj = Container("EmployeeGrid");
                 if ($detailPageObj->DetailEdit) {
                     $detailPageObj->CurrentMode = "edit";
                     $detailPageObj->CurrentAction = "gridedit";
@@ -1118,7 +1118,7 @@ class MasterPositionEdit extends MasterPosition
     protected function setupBreadcrumb()
     {
         global $Breadcrumb, $Language;
-        $Breadcrumb = new Breadcrumb("top10days");
+        $Breadcrumb = new Breadcrumb("welcome");
         $url = CurrentUrl();
         $Breadcrumb->add("list", $this->TableVar, $this->addMasterUrl("masterpositionlist"), "", $this->TableVar, true);
         $pageId = "edit";
@@ -1130,8 +1130,8 @@ class MasterPositionEdit extends MasterPosition
     {
         $pages = new SubPages();
         $pages->Style = "tabs";
-        $pages->add('employee');
         $pages->add('myprofile');
+        $pages->add('employee');
         $this->DetailPages = $pages;
     }
 

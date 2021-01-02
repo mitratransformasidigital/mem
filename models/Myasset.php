@@ -55,7 +55,7 @@ class Myasset extends DbTable
         $this->TableType = 'VIEW';
 
         // Update Table
-        $this->UpdateTable = "employee_asset";
+        $this->UpdateTable = "`myasset`";
         $this->Dbid = 'DB';
         $this->ExportAll = true;
         $this->ExportPageBreakCount = 0; // Page break per every n record (PDF only)
@@ -193,13 +193,6 @@ class Myasset extends DbTable
     {
         // Master filter
         $masterFilter = "";
-        if ($this->getCurrentMasterTable() == "employee") {
-            if ($this->employee_username->getSessionValue() != "") {
-                $masterFilter .= "" . GetForeignKeySql("`employee_username`", $this->employee_username->getSessionValue(), DATATYPE_STRING, "DB");
-            } else {
-                return "";
-            }
-        }
         if ($this->getCurrentMasterTable() == "myprofile") {
             if ($this->employee_username->getSessionValue() != "") {
                 $masterFilter .= "" . GetForeignKeySql("`employee_username`", $this->employee_username->getSessionValue(), DATATYPE_STRING, "DB");
@@ -215,13 +208,6 @@ class Myasset extends DbTable
     {
         // Detail filter
         $detailFilter = "";
-        if ($this->getCurrentMasterTable() == "employee") {
-            if ($this->employee_username->getSessionValue() != "") {
-                $detailFilter .= "" . GetForeignKeySql("`employee_username`", $this->employee_username->getSessionValue(), DATATYPE_STRING, "DB");
-            } else {
-                return "";
-            }
-        }
         if ($this->getCurrentMasterTable() == "myprofile") {
             if ($this->employee_username->getSessionValue() != "") {
                 $detailFilter .= "" . GetForeignKeySql("`employee_username`", $this->employee_username->getSessionValue(), DATATYPE_STRING, "DB");
@@ -230,17 +216,6 @@ class Myasset extends DbTable
             }
         }
         return $detailFilter;
-    }
-
-    // Master filter
-    public function sqlMasterFilter_employee()
-    {
-        return "`employee_username`='@employee_username@'";
-    }
-    // Detail filter
-    public function sqlDetailFilter_employee()
-    {
-        return "`employee_username`='@employee_username@'";
     }
 
     // Master filter
@@ -820,10 +795,6 @@ class Myasset extends DbTable
     // Add master url
     public function addMasterUrl($url)
     {
-        if ($this->getCurrentMasterTable() == "employee" && !ContainsString($url, Config("TABLE_SHOW_MASTER") . "=")) {
-            $url .= (ContainsString($url, "?") ? "&" : "?") . Config("TABLE_SHOW_MASTER") . "=" . $this->getCurrentMasterTable();
-            $url .= "&" . GetForeignKeyUrl("fk_employee_username", $this->employee_username->CurrentValue);
-        }
         if ($this->getCurrentMasterTable() == "myprofile" && !ContainsString($url, Config("TABLE_SHOW_MASTER") . "=")) {
             $url .= (ContainsString($url, "?") ? "&" : "?") . Config("TABLE_SHOW_MASTER") . "=" . $this->getCurrentMasterTable();
             $url .= "&" . GetForeignKeyUrl("fk_employee_username", $this->employee_username->CurrentValue);

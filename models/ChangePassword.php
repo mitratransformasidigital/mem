@@ -244,7 +244,7 @@ class ChangePassword extends Employee
         if ($this->IsModal) {
             $SkipHeaderFooter = true;
         }
-        $Breadcrumb = new Breadcrumb("top10days");
+        $Breadcrumb = new Breadcrumb("welcome");
         $Breadcrumb->add("change_password", "ChangePasswordPage", CurrentUrl(), "", "", true);
         $this->Heading = $Language->phrase("ChangePasswordPage");
         $postBack = IsPost();

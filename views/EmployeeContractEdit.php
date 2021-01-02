@@ -211,8 +211,8 @@ loadjs.ready("head", function() {
         <div class="<?= $Page->RightColumnClass ?>"><div <?= $Page->thr->cellAttributes() ?>>
 <span id="el_employee_contract_thr">
 <div class="custom-control custom-checkbox d-inline-block">
-    <input type="checkbox" class="custom-control-input<?= $Page->thr->isInvalidClass() ?>" data-table="employee_contract" data-field="x_thr" name="x_thr[]" id="x_thr_304279" value="1"<?= ConvertToBool($Page->thr->CurrentValue) ? " checked" : "" ?><?= $Page->thr->editAttributes() ?> aria-describedby="x_thr_help">
-    <label class="custom-control-label" for="x_thr_304279"></label>
+    <input type="checkbox" class="custom-control-input<?= $Page->thr->isInvalidClass() ?>" data-table="employee_contract" data-field="x_thr" name="x_thr[]" id="x_thr_381597" value="1"<?= ConvertToBool($Page->thr->CurrentValue) ? " checked" : "" ?><?= $Page->thr->editAttributes() ?> aria-describedby="x_thr_help">
+    <label class="custom-control-label" for="x_thr_381597"></label>
 </div>
 <?= $Page->thr->getCustomMessage() ?>
 <div class="invalid-feedback"><?= $Page->thr->getErrorMessage() ?></div>

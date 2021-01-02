@@ -476,8 +476,8 @@ class MasterOfficeView extends MasterOffice
     public $RecordRange = 10;
     public $RecKey = [];
     public $IsModal = false;
-    public $employee_Count;
     public $myprofile_Count;
+    public $employee_Count;
     public $DetailPages; // Detail pages object
 
     /**
@@ -751,51 +751,6 @@ class MasterOfficeView extends MasterOffice
         $detailCopyTblVar = "";
         $detailEditTblVar = "";
 
-        // "detail_employee"
-        $item = &$option->add("detail_employee");
-        $body = $Language->phrase("ViewPageDetailLink") . $Language->TablePhrase("employee", "TblCaption");
-        $body .= "&nbsp;" . str_replace("%c", $this->employee_Count, $Language->phrase("DetailCount"));
-        $body = "<a class=\"btn btn-default ew-row-link ew-detail\" data-action=\"list\" href=\"" . HtmlEncode(GetUrl("employeelist?" . Config("TABLE_SHOW_MASTER") . "=master_office&" . GetForeignKeyUrl("fk_office_id", $this->office_id->CurrentValue) . "")) . "\">" . $body . "</a>";
-        $links = "";
-        $detailPageObj = Container("EmployeeGrid");
-        if ($detailPageObj->DetailView && $Security->canView() && $Security->allowView(CurrentProjectID() . 'master_office')) {
-            $links .= "<li><a class=\"dropdown-item ew-row-link ew-detail-view\" data-action=\"view\" data-caption=\"" . HtmlTitle($Language->phrase("MasterDetailViewLink")) . "\" href=\"" . HtmlEncode(GetUrl($this->getViewUrl(Config("TABLE_SHOW_DETAIL") . "=employee"))) . "\">" . HtmlImageAndText($Language->phrase("MasterDetailViewLink")) . "</a></li>";
-            if ($detailViewTblVar != "") {
-                $detailViewTblVar .= ",";
-            }
-            $detailViewTblVar .= "employee";
-        }
-        if ($detailPageObj->DetailEdit && $Security->canEdit() && $Security->allowEdit(CurrentProjectID() . 'master_office')) {
-            $links .= "<li><a class=\"dropdown-item ew-row-link ew-detail-edit\" data-action=\"edit\" data-caption=\"" . HtmlTitle($Language->phrase("MasterDetailEditLink")) . "\" href=\"" . HtmlEncode(GetUrl($this->getEditUrl(Config("TABLE_SHOW_DETAIL") . "=employee"))) . "\">" . HtmlImageAndText($Language->phrase("MasterDetailEditLink")) . "</a></li>";
-            if ($detailEditTblVar != "") {
-                $detailEditTblVar .= ",";
-            }
-            $detailEditTblVar .= "employee";
-        }
-        if ($detailPageObj->DetailAdd && $Security->canAdd() && $Security->allowAdd(CurrentProjectID() . 'master_office')) {
-            $links .= "<li><a class=\"dropdown-item ew-row-link ew-detail-copy\" data-action=\"add\" data-caption=\"" . HtmlTitle($Language->phrase("MasterDetailCopyLink")) . "\" href=\"" . HtmlEncode(GetUrl($this->getCopyUrl(Config("TABLE_SHOW_DETAIL") . "=employee"))) . "\">" . HtmlImageAndText($Language->phrase("MasterDetailCopyLink")) . "</a></li>";
-            if ($detailCopyTblVar != "") {
-                $detailCopyTblVar .= ",";
-            }
-            $detailCopyTblVar .= "employee";
-        }
-        if ($links != "") {
-            $body .= "<button class=\"dropdown-toggle btn btn-default ew-detail\" data-toggle=\"dropdown\"></button>";
-            $body .= "<ul class=\"dropdown-menu\">" . $links . "</ul>";
-        }
-        $body = "<div class=\"btn-group btn-group-sm ew-btn-group\">" . $body . "</div>";
-        $item->Body = $body;
-        $item->Visible = $Security->allowList(CurrentProjectID() . 'employee');
-        if ($item->Visible) {
-            if ($detailTableLink != "") {
-                $detailTableLink .= ",";
-            }
-            $detailTableLink .= "employee";
-        }
-        if ($this->ShowMultipleDetails) {
-            $item->Visible = false;
-        }
-
         // "detail_myprofile"
         $item = &$option->add("detail_myprofile");
         $body = $Language->phrase("ViewPageDetailLink") . $Language->TablePhrase("myprofile", "TblCaption");
@@ -836,6 +791,51 @@ class MasterOfficeView extends MasterOffice
                 $detailTableLink .= ",";
             }
             $detailTableLink .= "myprofile";
+        }
+        if ($this->ShowMultipleDetails) {
+            $item->Visible = false;
+        }
+
+        // "detail_employee"
+        $item = &$option->add("detail_employee");
+        $body = $Language->phrase("ViewPageDetailLink") . $Language->TablePhrase("employee", "TblCaption");
+        $body .= "&nbsp;" . str_replace("%c", $this->employee_Count, $Language->phrase("DetailCount"));
+        $body = "<a class=\"btn btn-default ew-row-link ew-detail\" data-action=\"list\" href=\"" . HtmlEncode(GetUrl("employeelist?" . Config("TABLE_SHOW_MASTER") . "=master_office&" . GetForeignKeyUrl("fk_office_id", $this->office_id->CurrentValue) . "")) . "\">" . $body . "</a>";
+        $links = "";
+        $detailPageObj = Container("EmployeeGrid");
+        if ($detailPageObj->DetailView && $Security->canView() && $Security->allowView(CurrentProjectID() . 'master_office')) {
+            $links .= "<li><a class=\"dropdown-item ew-row-link ew-detail-view\" data-action=\"view\" data-caption=\"" . HtmlTitle($Language->phrase("MasterDetailViewLink")) . "\" href=\"" . HtmlEncode(GetUrl($this->getViewUrl(Config("TABLE_SHOW_DETAIL") . "=employee"))) . "\">" . HtmlImageAndText($Language->phrase("MasterDetailViewLink")) . "</a></li>";
+            if ($detailViewTblVar != "") {
+                $detailViewTblVar .= ",";
+            }
+            $detailViewTblVar .= "employee";
+        }
+        if ($detailPageObj->DetailEdit && $Security->canEdit() && $Security->allowEdit(CurrentProjectID() . 'master_office')) {
+            $links .= "<li><a class=\"dropdown-item ew-row-link ew-detail-edit\" data-action=\"edit\" data-caption=\"" . HtmlTitle($Language->phrase("MasterDetailEditLink")) . "\" href=\"" . HtmlEncode(GetUrl($this->getEditUrl(Config("TABLE_SHOW_DETAIL") . "=employee"))) . "\">" . HtmlImageAndText($Language->phrase("MasterDetailEditLink")) . "</a></li>";
+            if ($detailEditTblVar != "") {
+                $detailEditTblVar .= ",";
+            }
+            $detailEditTblVar .= "employee";
+        }
+        if ($detailPageObj->DetailAdd && $Security->canAdd() && $Security->allowAdd(CurrentProjectID() . 'master_office')) {
+            $links .= "<li><a class=\"dropdown-item ew-row-link ew-detail-copy\" data-action=\"add\" data-caption=\"" . HtmlTitle($Language->phrase("MasterDetailCopyLink")) . "\" href=\"" . HtmlEncode(GetUrl($this->getCopyUrl(Config("TABLE_SHOW_DETAIL") . "=employee"))) . "\">" . HtmlImageAndText($Language->phrase("MasterDetailCopyLink")) . "</a></li>";
+            if ($detailCopyTblVar != "") {
+                $detailCopyTblVar .= ",";
+            }
+            $detailCopyTblVar .= "employee";
+        }
+        if ($links != "") {
+            $body .= "<button class=\"dropdown-toggle btn btn-default ew-detail\" data-toggle=\"dropdown\"></button>";
+            $body .= "<ul class=\"dropdown-menu\">" . $links . "</ul>";
+        }
+        $body = "<div class=\"btn-group btn-group-sm ew-btn-group\">" . $body . "</div>";
+        $item->Body = $body;
+        $item->Visible = $Security->allowList(CurrentProjectID() . 'employee');
+        if ($item->Visible) {
+            if ($detailTableLink != "") {
+                $detailTableLink .= ",";
+            }
+            $detailTableLink .= "employee";
         }
         if ($this->ShowMultipleDetails) {
             $item->Visible = false;
@@ -965,18 +965,18 @@ class MasterOfficeView extends MasterOffice
         $this->phone_number->setDbValue($row['phone_number']);
         $this->contact_name->setDbValue($row['contact_name']);
         $this->description->setDbValue($row['description']);
-        $detailTbl = Container("employee");
-        $detailFilter = $detailTbl->sqlDetailFilter_master_office();
-        $detailFilter = str_replace("@office_id@", AdjustSql($this->office_id->DbValue, "DB"), $detailFilter);
-        $detailTbl->setCurrentMasterTable("master_office");
-        $detailFilter = $detailTbl->applyUserIDFilters($detailFilter);
-        $this->employee_Count = $detailTbl->loadRecordCount($detailFilter);
         $detailTbl = Container("myprofile");
         $detailFilter = $detailTbl->sqlDetailFilter_master_office();
         $detailFilter = str_replace("@office_id@", AdjustSql($this->office_id->DbValue, "DB"), $detailFilter);
         $detailTbl->setCurrentMasterTable("master_office");
         $detailFilter = $detailTbl->applyUserIDFilters($detailFilter);
         $this->myprofile_Count = $detailTbl->loadRecordCount($detailFilter);
+        $detailTbl = Container("employee");
+        $detailFilter = $detailTbl->sqlDetailFilter_master_office();
+        $detailFilter = str_replace("@office_id@", AdjustSql($this->office_id->DbValue, "DB"), $detailFilter);
+        $detailTbl->setCurrentMasterTable("master_office");
+        $detailFilter = $detailTbl->applyUserIDFilters($detailFilter);
+        $this->employee_Count = $detailTbl->loadRecordCount($detailFilter);
     }
 
     // Return a row with default values
@@ -1257,26 +1257,6 @@ class MasterOfficeView extends MasterOffice
         $doc->Text .= $header;
         $this->exportDocument($doc, $rs, $this->StartRecord, $this->StopRecord, "view");
 
-        // Export detail records (employee)
-        if (Config("EXPORT_DETAIL_RECORDS") && in_array("employee", explode(",", $this->getCurrentDetailTable()))) {
-            $employee = Container("employee");
-            $rsdetail = $employee->loadRs($employee->getDetailFilter()); // Load detail records
-            if ($rsdetail) {
-                $exportStyle = $doc->Style;
-                $doc->setStyle("h"); // Change to horizontal
-                if (!$this->isExport("csv") || Config("EXPORT_DETAIL_RECORDS_FOR_CSV")) {
-                    $doc->exportEmptyRow();
-                    $detailcnt = $rsdetail->rowCount();
-                    $oldtbl = $doc->Table;
-                    $doc->Table = $employee;
-                    $employee->exportDocument($doc, new Recordset($rsdetail), 1, $detailcnt);
-                    $doc->Table = $oldtbl;
-                }
-                $doc->setStyle($exportStyle); // Restore
-                $rsdetail->closeCursor();
-            }
-        }
-
         // Export detail records (myprofile)
         if (Config("EXPORT_DETAIL_RECORDS") && in_array("myprofile", explode(",", $this->getCurrentDetailTable()))) {
             $myprofile = Container("myprofile");
@@ -1290,6 +1270,26 @@ class MasterOfficeView extends MasterOffice
                     $oldtbl = $doc->Table;
                     $doc->Table = $myprofile;
                     $myprofile->exportDocument($doc, new Recordset($rsdetail), 1, $detailcnt);
+                    $doc->Table = $oldtbl;
+                }
+                $doc->setStyle($exportStyle); // Restore
+                $rsdetail->closeCursor();
+            }
+        }
+
+        // Export detail records (employee)
+        if (Config("EXPORT_DETAIL_RECORDS") && in_array("employee", explode(",", $this->getCurrentDetailTable()))) {
+            $employee = Container("employee");
+            $rsdetail = $employee->loadRs($employee->getDetailFilter()); // Load detail records
+            if ($rsdetail) {
+                $exportStyle = $doc->Style;
+                $doc->setStyle("h"); // Change to horizontal
+                if (!$this->isExport("csv") || Config("EXPORT_DETAIL_RECORDS_FOR_CSV")) {
+                    $doc->exportEmptyRow();
+                    $detailcnt = $rsdetail->rowCount();
+                    $oldtbl = $doc->Table;
+                    $doc->Table = $employee;
+                    $employee->exportDocument($doc, new Recordset($rsdetail), 1, $detailcnt);
                     $doc->Table = $oldtbl;
                 }
                 $doc->setStyle($exportStyle); // Restore
@@ -1506,8 +1506,8 @@ class MasterOfficeView extends MasterOffice
         }
         if ($detailTblVar != "") {
             $detailTblVar = explode(",", $detailTblVar);
-            if (in_array("employee", $detailTblVar)) {
-                $detailPageObj = Container("EmployeeGrid");
+            if (in_array("myprofile", $detailTblVar)) {
+                $detailPageObj = Container("MyprofileGrid");
                 if ($detailPageObj->DetailView) {
                     $detailPageObj->CurrentMode = "view";
 
@@ -1523,8 +1523,8 @@ class MasterOfficeView extends MasterOffice
                     $detailPageObj->city_id->setSessionValue(""); // Clear session key
                 }
             }
-            if (in_array("myprofile", $detailTblVar)) {
-                $detailPageObj = Container("MyprofileGrid");
+            if (in_array("employee", $detailTblVar)) {
+                $detailPageObj = Container("EmployeeGrid");
                 if ($detailPageObj->DetailView) {
                     $detailPageObj->CurrentMode = "view";
 
@@ -1547,7 +1547,7 @@ class MasterOfficeView extends MasterOffice
     protected function setupBreadcrumb()
     {
         global $Breadcrumb, $Language;
-        $Breadcrumb = new Breadcrumb("top10days");
+        $Breadcrumb = new Breadcrumb("welcome");
         $url = CurrentUrl();
         $Breadcrumb->add("list", $this->TableVar, $this->addMasterUrl("masterofficelist"), "", $this->TableVar, true);
         $pageId = "view";
@@ -1559,8 +1559,8 @@ class MasterOfficeView extends MasterOffice
     {
         $pages = new SubPages();
         $pages->Style = "tabs";
-        $pages->add('employee');
         $pages->add('myprofile');
+        $pages->add('employee');
         $this->DetailPages = $pages;
     }
 

@@ -204,12 +204,16 @@ class MasterCity extends DbTable
             $detailUrl = Container("master_office")->getListUrl() . "?" . Config("TABLE_SHOW_MASTER") . "=" . $this->TableVar;
             $detailUrl .= "&" . GetForeignKeyUrl("fk_city_id", $this->city_id->CurrentValue);
         }
-        if ($this->getCurrentDetailTable() == "employee") {
-            $detailUrl = Container("employee")->getListUrl() . "?" . Config("TABLE_SHOW_MASTER") . "=" . $this->TableVar;
-            $detailUrl .= "&" . GetForeignKeyUrl("fk_city_id", $this->city_id->CurrentValue);
-        }
         if ($this->getCurrentDetailTable() == "myprofile") {
             $detailUrl = Container("myprofile")->getListUrl() . "?" . Config("TABLE_SHOW_MASTER") . "=" . $this->TableVar;
+            $detailUrl .= "&" . GetForeignKeyUrl("fk_city_id", $this->city_id->CurrentValue);
+        }
+        if ($this->getCurrentDetailTable() == "customer") {
+            $detailUrl = Container("customer")->getListUrl() . "?" . Config("TABLE_SHOW_MASTER") . "=" . $this->TableVar;
+            $detailUrl .= "&" . GetForeignKeyUrl("fk_city_id", $this->city_id->CurrentValue);
+        }
+        if ($this->getCurrentDetailTable() == "employee") {
+            $detailUrl = Container("employee")->getListUrl() . "?" . Config("TABLE_SHOW_MASTER") . "=" . $this->TableVar;
             $detailUrl .= "&" . GetForeignKeyUrl("fk_city_id", $this->city_id->CurrentValue);
         }
         if ($detailUrl == "") {
@@ -566,7 +570,7 @@ class MasterCity extends DbTable
             }
         }
 
-        // Cascade Update detail table 'employee'
+        // Cascade Update detail table 'myprofile'
         $cascadeUpdate = false;
         $rscascade = [];
         if ($rsold && (isset($rs['city_id']) && $rsold['city_id'] != $rs['city_id'])) { // Update detail field 'city_id'
@@ -574,22 +578,49 @@ class MasterCity extends DbTable
             $rscascade['city_id'] = $rs['city_id'];
         }
         if ($cascadeUpdate) {
-            $rswrk = Container("employee")->loadRs("`city_id` = " . QuotedValue($rsold['city_id'], DATATYPE_STRING, 'DB'))->fetchAll(\PDO::FETCH_ASSOC);
+            $rswrk = Container("myprofile")->loadRs("`city_id` = " . QuotedValue($rsold['city_id'], DATATYPE_STRING, 'DB'))->fetchAll(\PDO::FETCH_ASSOC);
             foreach ($rswrk as $rsdtlold) {
                 $rskey = [];
                 $fldname = 'employee_username';
                 $rskey[$fldname] = $rsdtlold[$fldname];
                 $rsdtlnew = array_merge($rsdtlold, $rscascade);
                 // Call Row_Updating event
-                $success = Container("employee")->rowUpdating($rsdtlold, $rsdtlnew);
+                $success = Container("myprofile")->rowUpdating($rsdtlold, $rsdtlnew);
                 if ($success) {
-                    $success = Container("employee")->update($rscascade, $rskey, $rsdtlold);
+                    $success = Container("myprofile")->update($rscascade, $rskey, $rsdtlold);
                 }
                 if (!$success) {
                     return false;
                 }
                 // Call Row_Updated event
-                Container("employee")->rowUpdated($rsdtlold, $rsdtlnew);
+                Container("myprofile")->rowUpdated($rsdtlold, $rsdtlnew);
+            }
+        }
+
+        // Cascade Update detail table 'customer'
+        $cascadeUpdate = false;
+        $rscascade = [];
+        if ($rsold && (isset($rs['city_id']) && $rsold['city_id'] != $rs['city_id'])) { // Update detail field 'city_id'
+            $cascadeUpdate = true;
+            $rscascade['city_id'] = $rs['city_id'];
+        }
+        if ($cascadeUpdate) {
+            $rswrk = Container("customer")->loadRs("`city_id` = " . QuotedValue($rsold['city_id'], DATATYPE_STRING, 'DB'))->fetchAll(\PDO::FETCH_ASSOC);
+            foreach ($rswrk as $rsdtlold) {
+                $rskey = [];
+                $fldname = 'customer_id';
+                $rskey[$fldname] = $rsdtlold[$fldname];
+                $rsdtlnew = array_merge($rsdtlold, $rscascade);
+                // Call Row_Updating event
+                $success = Container("customer")->rowUpdating($rsdtlold, $rsdtlnew);
+                if ($success) {
+                    $success = Container("customer")->update($rscascade, $rskey, $rsdtlold);
+                }
+                if (!$success) {
+                    return false;
+                }
+                // Call Row_Updated event
+                Container("customer")->rowUpdated($rsdtlold, $rsdtlnew);
             }
         }
 
@@ -653,18 +684,18 @@ class MasterCity extends DbTable
             }
         }
 
-        // Cascade delete detail table 'employee'
-        $dtlrows = Container("employee")->loadRs("`city_id` = " . QuotedValue($rs['city_id'], DATATYPE_STRING, "DB"))->fetchAll(\PDO::FETCH_ASSOC);
+        // Cascade delete detail table 'myprofile'
+        $dtlrows = Container("myprofile")->loadRs("`city_id` = " . QuotedValue($rs['city_id'], DATATYPE_STRING, "DB"))->fetchAll(\PDO::FETCH_ASSOC);
         // Call Row Deleting event
         foreach ($dtlrows as $dtlrow) {
-            $success = Container("employee")->rowDeleting($dtlrow);
+            $success = Container("myprofile")->rowDeleting($dtlrow);
             if (!$success) {
                 break;
             }
         }
         if ($success) {
             foreach ($dtlrows as $dtlrow) {
-                $success = Container("employee")->delete($dtlrow); // Delete
+                $success = Container("myprofile")->delete($dtlrow); // Delete
                 if (!$success) {
                     break;
                 }
@@ -673,7 +704,31 @@ class MasterCity extends DbTable
         // Call Row Deleted event
         if ($success) {
             foreach ($dtlrows as $dtlrow) {
-                Container("employee")->rowDeleted($dtlrow);
+                Container("myprofile")->rowDeleted($dtlrow);
+            }
+        }
+
+        // Cascade delete detail table 'customer'
+        $dtlrows = Container("customer")->loadRs("`city_id` = " . QuotedValue($rs['city_id'], DATATYPE_STRING, "DB"))->fetchAll(\PDO::FETCH_ASSOC);
+        // Call Row Deleting event
+        foreach ($dtlrows as $dtlrow) {
+            $success = Container("customer")->rowDeleting($dtlrow);
+            if (!$success) {
+                break;
+            }
+        }
+        if ($success) {
+            foreach ($dtlrows as $dtlrow) {
+                $success = Container("customer")->delete($dtlrow); // Delete
+                if (!$success) {
+                    break;
+                }
+            }
+        }
+        // Call Row Deleted event
+        if ($success) {
+            foreach ($dtlrows as $dtlrow) {
+                Container("customer")->rowDeleted($dtlrow);
             }
         }
         if ($success) {

@@ -543,7 +543,8 @@ class PermitView extends Permit
         $this->setupExportOptions();
         $this->permit_id->setVisibility();
         $this->employee_username->setVisibility();
-        $this->permit_date->setVisibility();
+        $this->start_date->setVisibility();
+        $this->end_date->setVisibility();
         $this->permit_type->setVisibility();
         $this->document->setVisibility();
         $this->note->setVisibility();
@@ -816,7 +817,8 @@ class PermitView extends Permit
         }
         $this->permit_id->setDbValue($row['permit_id']);
         $this->employee_username->setDbValue($row['employee_username']);
-        $this->permit_date->setDbValue($row['permit_date']);
+        $this->start_date->setDbValue($row['start_date']);
+        $this->end_date->setDbValue($row['end_date']);
         $this->permit_type->setDbValue($row['permit_type']);
         $this->document->Upload->DbValue = $row['document'];
         $this->document->setDbValue($this->document->Upload->DbValue);
@@ -829,7 +831,8 @@ class PermitView extends Permit
         $row = [];
         $row['permit_id'] = null;
         $row['employee_username'] = null;
-        $row['permit_date'] = null;
+        $row['start_date'] = null;
+        $row['end_date'] = null;
         $row['permit_type'] = null;
         $row['document'] = null;
         $row['note'] = null;
@@ -858,7 +861,9 @@ class PermitView extends Permit
 
         // employee_username
 
-        // permit_date
+        // start_date
+
+        // end_date
 
         // permit_type
 
@@ -887,10 +892,15 @@ class PermitView extends Permit
             }
             $this->employee_username->ViewCustomAttributes = "";
 
-            // permit_date
-            $this->permit_date->ViewValue = $this->permit_date->CurrentValue;
-            $this->permit_date->ViewValue = FormatDateTime($this->permit_date->ViewValue, 5);
-            $this->permit_date->ViewCustomAttributes = "";
+            // start_date
+            $this->start_date->ViewValue = $this->start_date->CurrentValue;
+            $this->start_date->ViewValue = FormatDateTime($this->start_date->ViewValue, 5);
+            $this->start_date->ViewCustomAttributes = "";
+
+            // end_date
+            $this->end_date->ViewValue = $this->end_date->CurrentValue;
+            $this->end_date->ViewValue = FormatDateTime($this->end_date->ViewValue, 5);
+            $this->end_date->ViewCustomAttributes = "";
 
             // permit_type
             if (strval($this->permit_type->CurrentValue) != "") {
@@ -917,10 +927,15 @@ class PermitView extends Permit
             $this->employee_username->HrefValue = "";
             $this->employee_username->TooltipValue = "";
 
-            // permit_date
-            $this->permit_date->LinkCustomAttributes = "";
-            $this->permit_date->HrefValue = "";
-            $this->permit_date->TooltipValue = "";
+            // start_date
+            $this->start_date->LinkCustomAttributes = "";
+            $this->start_date->HrefValue = "";
+            $this->start_date->TooltipValue = "";
+
+            // end_date
+            $this->end_date->LinkCustomAttributes = "";
+            $this->end_date->HrefValue = "";
+            $this->end_date->TooltipValue = "";
 
             // permit_type
             $this->permit_type->LinkCustomAttributes = "";
@@ -1312,7 +1327,7 @@ class PermitView extends Permit
     protected function setupBreadcrumb()
     {
         global $Breadcrumb, $Language;
-        $Breadcrumb = new Breadcrumb("top10days");
+        $Breadcrumb = new Breadcrumb("welcome");
         $url = CurrentUrl();
         $Breadcrumb->add("list", $this->TableVar, $this->addMasterUrl("permitlist"), "", $this->TableVar, true);
         $pageId = "view";

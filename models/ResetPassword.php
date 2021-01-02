@@ -233,7 +233,7 @@ class ResetPassword extends Employee
         if ($this->IsModal) {
             $SkipHeaderFooter = true;
         }
-        $Breadcrumb = new Breadcrumb("top10days");
+        $Breadcrumb = new Breadcrumb("welcome");
         $Breadcrumb->add("reset_password", "ResetPwd", CurrentUrl(), "", "", true);
         $this->Heading = $Language->phrase("ResetPwd");
         $postBack = IsPost();

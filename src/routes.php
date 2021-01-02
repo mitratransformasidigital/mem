@@ -16,6 +16,7 @@ return function (App $app) {
     $app->any('/employeeupdate', EmployeeController::class . ':update')->add(PermissionMiddleware::class)->setName('employeeupdate-employee-update'); // update
     $app->any('/employeedelete[/{employee_username}]', EmployeeController::class . ':delete')->add(PermissionMiddleware::class)->setName('employeedelete-employee-delete'); // delete
     $app->any('/employeesearch', EmployeeController::class . ':search')->add(PermissionMiddleware::class)->setName('employeesearch-employee-search'); // search
+    $app->any('/employeepreview', EmployeeController::class . ':preview')->add(PermissionMiddleware::class)->setName('employeepreview-employee-preview'); // preview
     $app->group(
         '/employee',
         function (RouteCollectorProxy $group) {
@@ -27,6 +28,7 @@ return function (App $app) {
             $group->any('/' . Config("UPDATE_ACTION") . '', EmployeeController::class . ':update')->add(PermissionMiddleware::class)->setName('employee/update-employee-update-2'); // update
             $group->any('/' . Config("DELETE_ACTION") . '[/{employee_username}]', EmployeeController::class . ':delete')->add(PermissionMiddleware::class)->setName('employee/delete-employee-delete-2'); // delete
             $group->any('/' . Config("SEARCH_ACTION") . '', EmployeeController::class . ':search')->add(PermissionMiddleware::class)->setName('employee/search-employee-search-2'); // search
+            $group->any('/' . Config("PREVIEW_ACTION") . '', EmployeeController::class . ':preview')->add(PermissionMiddleware::class)->setName('employee/preview-employee-preview-2'); // preview
         }
     );
 
@@ -38,6 +40,7 @@ return function (App $app) {
     $app->any('/employeeassetupdate', EmployeeAssetController::class . ':update')->add(PermissionMiddleware::class)->setName('employeeassetupdate-employee_asset-update'); // update
     $app->any('/employeeassetdelete[/{asset_id}]', EmployeeAssetController::class . ':delete')->add(PermissionMiddleware::class)->setName('employeeassetdelete-employee_asset-delete'); // delete
     $app->any('/employeeassetsearch', EmployeeAssetController::class . ':search')->add(PermissionMiddleware::class)->setName('employeeassetsearch-employee_asset-search'); // search
+    $app->any('/employeeassetpreview', EmployeeAssetController::class . ':preview')->add(PermissionMiddleware::class)->setName('employeeassetpreview-employee_asset-preview'); // preview
     $app->group(
         '/employee_asset',
         function (RouteCollectorProxy $group) {
@@ -48,6 +51,7 @@ return function (App $app) {
             $group->any('/' . Config("UPDATE_ACTION") . '', EmployeeAssetController::class . ':update')->add(PermissionMiddleware::class)->setName('employee_asset/update-employee_asset-update-2'); // update
             $group->any('/' . Config("DELETE_ACTION") . '[/{asset_id}]', EmployeeAssetController::class . ':delete')->add(PermissionMiddleware::class)->setName('employee_asset/delete-employee_asset-delete-2'); // delete
             $group->any('/' . Config("SEARCH_ACTION") . '', EmployeeAssetController::class . ':search')->add(PermissionMiddleware::class)->setName('employee_asset/search-employee_asset-search-2'); // search
+            $group->any('/' . Config("PREVIEW_ACTION") . '', EmployeeAssetController::class . ':preview')->add(PermissionMiddleware::class)->setName('employee_asset/preview-employee_asset-preview-2'); // preview
         }
     );
 
@@ -59,6 +63,7 @@ return function (App $app) {
     $app->any('/employeecontractupdate', EmployeeContractController::class . ':update')->add(PermissionMiddleware::class)->setName('employeecontractupdate-employee_contract-update'); // update
     $app->any('/employeecontractdelete[/{contract_id}]', EmployeeContractController::class . ':delete')->add(PermissionMiddleware::class)->setName('employeecontractdelete-employee_contract-delete'); // delete
     $app->any('/employeecontractsearch', EmployeeContractController::class . ':search')->add(PermissionMiddleware::class)->setName('employeecontractsearch-employee_contract-search'); // search
+    $app->any('/employeecontractpreview', EmployeeContractController::class . ':preview')->add(PermissionMiddleware::class)->setName('employeecontractpreview-employee_contract-preview'); // preview
     $app->group(
         '/employee_contract',
         function (RouteCollectorProxy $group) {
@@ -69,6 +74,7 @@ return function (App $app) {
             $group->any('/' . Config("UPDATE_ACTION") . '', EmployeeContractController::class . ':update')->add(PermissionMiddleware::class)->setName('employee_contract/update-employee_contract-update-2'); // update
             $group->any('/' . Config("DELETE_ACTION") . '[/{contract_id}]', EmployeeContractController::class . ':delete')->add(PermissionMiddleware::class)->setName('employee_contract/delete-employee_contract-delete-2'); // delete
             $group->any('/' . Config("SEARCH_ACTION") . '', EmployeeContractController::class . ':search')->add(PermissionMiddleware::class)->setName('employee_contract/search-employee_contract-search-2'); // search
+            $group->any('/' . Config("PREVIEW_ACTION") . '', EmployeeContractController::class . ':preview')->add(PermissionMiddleware::class)->setName('employee_contract/preview-employee_contract-preview-2'); // preview
         }
     );
 
@@ -80,6 +86,7 @@ return function (App $app) {
     $app->any('/employeetimesheetupdate', EmployeeTimesheetController::class . ':update')->add(PermissionMiddleware::class)->setName('employeetimesheetupdate-employee_timesheet-update'); // update
     $app->any('/employeetimesheetdelete[/{timesheet_id}]', EmployeeTimesheetController::class . ':delete')->add(PermissionMiddleware::class)->setName('employeetimesheetdelete-employee_timesheet-delete'); // delete
     $app->any('/employeetimesheetsearch', EmployeeTimesheetController::class . ':search')->add(PermissionMiddleware::class)->setName('employeetimesheetsearch-employee_timesheet-search'); // search
+    $app->any('/employeetimesheetpreview', EmployeeTimesheetController::class . ':preview')->add(PermissionMiddleware::class)->setName('employeetimesheetpreview-employee_timesheet-preview'); // preview
     $app->group(
         '/employee_timesheet',
         function (RouteCollectorProxy $group) {
@@ -90,6 +97,7 @@ return function (App $app) {
             $group->any('/' . Config("UPDATE_ACTION") . '', EmployeeTimesheetController::class . ':update')->add(PermissionMiddleware::class)->setName('employee_timesheet/update-employee_timesheet-update-2'); // update
             $group->any('/' . Config("DELETE_ACTION") . '[/{timesheet_id}]', EmployeeTimesheetController::class . ':delete')->add(PermissionMiddleware::class)->setName('employee_timesheet/delete-employee_timesheet-delete-2'); // delete
             $group->any('/' . Config("SEARCH_ACTION") . '', EmployeeTimesheetController::class . ':search')->add(PermissionMiddleware::class)->setName('employee_timesheet/search-employee_timesheet-search-2'); // search
+            $group->any('/' . Config("PREVIEW_ACTION") . '', EmployeeTimesheetController::class . ':preview')->add(PermissionMiddleware::class)->setName('employee_timesheet/preview-employee_timesheet-preview-2'); // preview
         }
     );
 
@@ -102,6 +110,7 @@ return function (App $app) {
     $app->any('/mastercityupdate', MasterCityController::class . ':update')->add(PermissionMiddleware::class)->setName('mastercityupdate-master_city-update'); // update
     $app->any('/mastercitydelete[/{city_id}]', MasterCityController::class . ':delete')->add(PermissionMiddleware::class)->setName('mastercitydelete-master_city-delete'); // delete
     $app->any('/mastercitysearch', MasterCityController::class . ':search')->add(PermissionMiddleware::class)->setName('mastercitysearch-master_city-search'); // search
+    $app->any('/mastercitypreview', MasterCityController::class . ':preview')->add(PermissionMiddleware::class)->setName('mastercitypreview-master_city-preview'); // preview
     $app->group(
         '/master_city',
         function (RouteCollectorProxy $group) {
@@ -113,6 +122,7 @@ return function (App $app) {
             $group->any('/' . Config("UPDATE_ACTION") . '', MasterCityController::class . ':update')->add(PermissionMiddleware::class)->setName('master_city/update-master_city-update-2'); // update
             $group->any('/' . Config("DELETE_ACTION") . '[/{city_id}]', MasterCityController::class . ':delete')->add(PermissionMiddleware::class)->setName('master_city/delete-master_city-delete-2'); // delete
             $group->any('/' . Config("SEARCH_ACTION") . '', MasterCityController::class . ':search')->add(PermissionMiddleware::class)->setName('master_city/search-master_city-search-2'); // search
+            $group->any('/' . Config("PREVIEW_ACTION") . '', MasterCityController::class . ':preview')->add(PermissionMiddleware::class)->setName('master_city/preview-master_city-preview-2'); // preview
         }
     );
 
@@ -125,6 +135,7 @@ return function (App $app) {
     $app->any('/masterofficeupdate', MasterOfficeController::class . ':update')->add(PermissionMiddleware::class)->setName('masterofficeupdate-master_office-update'); // update
     $app->any('/masterofficedelete[/{office_id}]', MasterOfficeController::class . ':delete')->add(PermissionMiddleware::class)->setName('masterofficedelete-master_office-delete'); // delete
     $app->any('/masterofficesearch', MasterOfficeController::class . ':search')->add(PermissionMiddleware::class)->setName('masterofficesearch-master_office-search'); // search
+    $app->any('/masterofficepreview', MasterOfficeController::class . ':preview')->add(PermissionMiddleware::class)->setName('masterofficepreview-master_office-preview'); // preview
     $app->group(
         '/master_office',
         function (RouteCollectorProxy $group) {
@@ -136,6 +147,7 @@ return function (App $app) {
             $group->any('/' . Config("UPDATE_ACTION") . '', MasterOfficeController::class . ':update')->add(PermissionMiddleware::class)->setName('master_office/update-master_office-update-2'); // update
             $group->any('/' . Config("DELETE_ACTION") . '[/{office_id}]', MasterOfficeController::class . ':delete')->add(PermissionMiddleware::class)->setName('master_office/delete-master_office-delete-2'); // delete
             $group->any('/' . Config("SEARCH_ACTION") . '', MasterOfficeController::class . ':search')->add(PermissionMiddleware::class)->setName('master_office/search-master_office-search-2'); // search
+            $group->any('/' . Config("PREVIEW_ACTION") . '', MasterOfficeController::class . ':preview')->add(PermissionMiddleware::class)->setName('master_office/preview-master_office-preview-2'); // preview
         }
     );
 
@@ -262,6 +274,7 @@ return function (App $app) {
     $app->any('/masterholidayupdate', MasterHolidayController::class . ':update')->add(PermissionMiddleware::class)->setName('masterholidayupdate-master_holiday-update'); // update
     $app->any('/masterholidaydelete[/{holiday_id}]', MasterHolidayController::class . ':delete')->add(PermissionMiddleware::class)->setName('masterholidaydelete-master_holiday-delete'); // delete
     $app->any('/masterholidaysearch', MasterHolidayController::class . ':search')->add(PermissionMiddleware::class)->setName('masterholidaysearch-master_holiday-search'); // search
+    $app->any('/masterholidaypreview', MasterHolidayController::class . ':preview')->add(PermissionMiddleware::class)->setName('masterholidaypreview-master_holiday-preview'); // preview
     $app->group(
         '/master_holiday',
         function (RouteCollectorProxy $group) {
@@ -272,6 +285,7 @@ return function (App $app) {
             $group->any('/' . Config("UPDATE_ACTION") . '', MasterHolidayController::class . ':update')->add(PermissionMiddleware::class)->setName('master_holiday/update-master_holiday-update-2'); // update
             $group->any('/' . Config("DELETE_ACTION") . '[/{holiday_id}]', MasterHolidayController::class . ':delete')->add(PermissionMiddleware::class)->setName('master_holiday/delete-master_holiday-delete-2'); // delete
             $group->any('/' . Config("SEARCH_ACTION") . '', MasterHolidayController::class . ':search')->add(PermissionMiddleware::class)->setName('master_holiday/search-master_holiday-search-2'); // search
+            $group->any('/' . Config("PREVIEW_ACTION") . '', MasterHolidayController::class . ':preview')->add(PermissionMiddleware::class)->setName('master_holiday/preview-master_holiday-preview-2'); // preview
         }
     );
 
@@ -283,6 +297,7 @@ return function (App $app) {
     $app->any('/employeeshiftupdate', EmployeeShiftController::class . ':update')->add(PermissionMiddleware::class)->setName('employeeshiftupdate-employee_shift-update'); // update
     $app->any('/employeeshiftdelete[/{es_id}]', EmployeeShiftController::class . ':delete')->add(PermissionMiddleware::class)->setName('employeeshiftdelete-employee_shift-delete'); // delete
     $app->any('/employeeshiftsearch', EmployeeShiftController::class . ':search')->add(PermissionMiddleware::class)->setName('employeeshiftsearch-employee_shift-search'); // search
+    $app->any('/employeeshiftpreview', EmployeeShiftController::class . ':preview')->add(PermissionMiddleware::class)->setName('employeeshiftpreview-employee_shift-preview'); // preview
     $app->group(
         '/employee_shift',
         function (RouteCollectorProxy $group) {
@@ -293,6 +308,7 @@ return function (App $app) {
             $group->any('/' . Config("UPDATE_ACTION") . '', EmployeeShiftController::class . ':update')->add(PermissionMiddleware::class)->setName('employee_shift/update-employee_shift-update-2'); // update
             $group->any('/' . Config("DELETE_ACTION") . '[/{es_id}]', EmployeeShiftController::class . ':delete')->add(PermissionMiddleware::class)->setName('employee_shift/delete-employee_shift-delete-2'); // delete
             $group->any('/' . Config("SEARCH_ACTION") . '', EmployeeShiftController::class . ':search')->add(PermissionMiddleware::class)->setName('employee_shift/search-employee_shift-search-2'); // search
+            $group->any('/' . Config("PREVIEW_ACTION") . '', EmployeeShiftController::class . ':preview')->add(PermissionMiddleware::class)->setName('employee_shift/preview-employee_shift-preview-2'); // preview
         }
     );
 
@@ -304,6 +320,7 @@ return function (App $app) {
     $app->any('/activityupdate', ActivityController::class . ':update')->add(PermissionMiddleware::class)->setName('activityupdate-activity-update'); // update
     $app->any('/activitydelete[/{activity_id}]', ActivityController::class . ':delete')->add(PermissionMiddleware::class)->setName('activitydelete-activity-delete'); // delete
     $app->any('/activitysearch', ActivityController::class . ':search')->add(PermissionMiddleware::class)->setName('activitysearch-activity-search'); // search
+    $app->any('/activitypreview', ActivityController::class . ':preview')->add(PermissionMiddleware::class)->setName('activitypreview-activity-preview'); // preview
     $app->group(
         '/activity',
         function (RouteCollectorProxy $group) {
@@ -314,6 +331,7 @@ return function (App $app) {
             $group->any('/' . Config("UPDATE_ACTION") . '', ActivityController::class . ':update')->add(PermissionMiddleware::class)->setName('activity/update-activity-update-2'); // update
             $group->any('/' . Config("DELETE_ACTION") . '[/{activity_id}]', ActivityController::class . ':delete')->add(PermissionMiddleware::class)->setName('activity/delete-activity-delete-2'); // delete
             $group->any('/' . Config("SEARCH_ACTION") . '', ActivityController::class . ':search')->add(PermissionMiddleware::class)->setName('activity/search-activity-search-2'); // search
+            $group->any('/' . Config("PREVIEW_ACTION") . '', ActivityController::class . ':preview')->add(PermissionMiddleware::class)->setName('activity/preview-activity-preview-2'); // preview
         }
     );
 
@@ -325,6 +343,7 @@ return function (App $app) {
     $app->any('/permitupdate', PermitController::class . ':update')->add(PermissionMiddleware::class)->setName('permitupdate-permit-update'); // update
     $app->any('/permitdelete[/{permit_id}]', PermitController::class . ':delete')->add(PermissionMiddleware::class)->setName('permitdelete-permit-delete'); // delete
     $app->any('/permitsearch', PermitController::class . ':search')->add(PermissionMiddleware::class)->setName('permitsearch-permit-search'); // search
+    $app->any('/permitpreview', PermitController::class . ':preview')->add(PermissionMiddleware::class)->setName('permitpreview-permit-preview'); // preview
     $app->group(
         '/permit',
         function (RouteCollectorProxy $group) {
@@ -335,6 +354,7 @@ return function (App $app) {
             $group->any('/' . Config("UPDATE_ACTION") . '', PermitController::class . ':update')->add(PermissionMiddleware::class)->setName('permit/update-permit-update-2'); // update
             $group->any('/' . Config("DELETE_ACTION") . '[/{permit_id}]', PermitController::class . ':delete')->add(PermissionMiddleware::class)->setName('permit/delete-permit-delete-2'); // delete
             $group->any('/' . Config("SEARCH_ACTION") . '', PermitController::class . ':search')->add(PermissionMiddleware::class)->setName('permit/search-permit-search-2'); // search
+            $group->any('/' . Config("PREVIEW_ACTION") . '', PermitController::class . ':preview')->add(PermissionMiddleware::class)->setName('permit/preview-permit-preview-2'); // preview
         }
     );
 
@@ -386,6 +406,7 @@ return function (App $app) {
     $app->any('/employeetrainingsupdate', EmployeeTrainingsController::class . ':update')->add(PermissionMiddleware::class)->setName('employeetrainingsupdate-employee_trainings-update'); // update
     $app->any('/employeetrainingsdelete[/{training_id}]', EmployeeTrainingsController::class . ':delete')->add(PermissionMiddleware::class)->setName('employeetrainingsdelete-employee_trainings-delete'); // delete
     $app->any('/employeetrainingssearch', EmployeeTrainingsController::class . ':search')->add(PermissionMiddleware::class)->setName('employeetrainingssearch-employee_trainings-search'); // search
+    $app->any('/employeetrainingspreview', EmployeeTrainingsController::class . ':preview')->add(PermissionMiddleware::class)->setName('employeetrainingspreview-employee_trainings-preview'); // preview
     $app->group(
         '/employee_trainings',
         function (RouteCollectorProxy $group) {
@@ -396,6 +417,7 @@ return function (App $app) {
             $group->any('/' . Config("UPDATE_ACTION") . '', EmployeeTrainingsController::class . ':update')->add(PermissionMiddleware::class)->setName('employee_trainings/update-employee_trainings-update-2'); // update
             $group->any('/' . Config("DELETE_ACTION") . '[/{training_id}]', EmployeeTrainingsController::class . ':delete')->add(PermissionMiddleware::class)->setName('employee_trainings/delete-employee_trainings-delete-2'); // delete
             $group->any('/' . Config("SEARCH_ACTION") . '', EmployeeTrainingsController::class . ':search')->add(PermissionMiddleware::class)->setName('employee_trainings/search-employee_trainings-search-2'); // search
+            $group->any('/' . Config("PREVIEW_ACTION") . '', EmployeeTrainingsController::class . ':preview')->add(PermissionMiddleware::class)->setName('employee_trainings/preview-employee_trainings-preview-2'); // preview
         }
     );
 
@@ -407,6 +429,7 @@ return function (App $app) {
     $app->any('/myprofileupdate', MyprofileController::class . ':update')->add(PermissionMiddleware::class)->setName('myprofileupdate-myprofile-update'); // update
     $app->any('/myprofiledelete[/{employee_username}]', MyprofileController::class . ':delete')->add(PermissionMiddleware::class)->setName('myprofiledelete-myprofile-delete'); // delete
     $app->any('/myprofilesearch', MyprofileController::class . ':search')->add(PermissionMiddleware::class)->setName('myprofilesearch-myprofile-search'); // search
+    $app->any('/myprofilepreview', MyprofileController::class . ':preview')->add(PermissionMiddleware::class)->setName('myprofilepreview-myprofile-preview'); // preview
     $app->group(
         '/myprofile',
         function (RouteCollectorProxy $group) {
@@ -417,6 +440,7 @@ return function (App $app) {
             $group->any('/' . Config("UPDATE_ACTION") . '', MyprofileController::class . ':update')->add(PermissionMiddleware::class)->setName('myprofile/update-myprofile-update-2'); // update
             $group->any('/' . Config("DELETE_ACTION") . '[/{employee_username}]', MyprofileController::class . ':delete')->add(PermissionMiddleware::class)->setName('myprofile/delete-myprofile-delete-2'); // delete
             $group->any('/' . Config("SEARCH_ACTION") . '', MyprofileController::class . ':search')->add(PermissionMiddleware::class)->setName('myprofile/search-myprofile-search-2'); // search
+            $group->any('/' . Config("PREVIEW_ACTION") . '', MyprofileController::class . ':preview')->add(PermissionMiddleware::class)->setName('myprofile/preview-myprofile-preview-2'); // preview
         }
     );
 
@@ -428,6 +452,7 @@ return function (App $app) {
     $app->any('/myassetupdate', MyassetController::class . ':update')->add(PermissionMiddleware::class)->setName('myassetupdate-myasset-update'); // update
     $app->any('/myassetdelete[/{asset_id}]', MyassetController::class . ':delete')->add(PermissionMiddleware::class)->setName('myassetdelete-myasset-delete'); // delete
     $app->any('/myassetsearch', MyassetController::class . ':search')->add(PermissionMiddleware::class)->setName('myassetsearch-myasset-search'); // search
+    $app->any('/myassetpreview', MyassetController::class . ':preview')->add(PermissionMiddleware::class)->setName('myassetpreview-myasset-preview'); // preview
     $app->group(
         '/myasset',
         function (RouteCollectorProxy $group) {
@@ -438,6 +463,7 @@ return function (App $app) {
             $group->any('/' . Config("UPDATE_ACTION") . '', MyassetController::class . ':update')->add(PermissionMiddleware::class)->setName('myasset/update-myasset-update-2'); // update
             $group->any('/' . Config("DELETE_ACTION") . '[/{asset_id}]', MyassetController::class . ':delete')->add(PermissionMiddleware::class)->setName('myasset/delete-myasset-delete-2'); // delete
             $group->any('/' . Config("SEARCH_ACTION") . '', MyassetController::class . ':search')->add(PermissionMiddleware::class)->setName('myasset/search-myasset-search-2'); // search
+            $group->any('/' . Config("PREVIEW_ACTION") . '', MyassetController::class . ':preview')->add(PermissionMiddleware::class)->setName('myasset/preview-myasset-preview-2'); // preview
         }
     );
 
@@ -449,6 +475,7 @@ return function (App $app) {
     $app->any('/mycontractupdate', MycontractController::class . ':update')->add(PermissionMiddleware::class)->setName('mycontractupdate-mycontract-update'); // update
     $app->any('/mycontractdelete[/{contract_id}]', MycontractController::class . ':delete')->add(PermissionMiddleware::class)->setName('mycontractdelete-mycontract-delete'); // delete
     $app->any('/mycontractsearch', MycontractController::class . ':search')->add(PermissionMiddleware::class)->setName('mycontractsearch-mycontract-search'); // search
+    $app->any('/mycontractpreview', MycontractController::class . ':preview')->add(PermissionMiddleware::class)->setName('mycontractpreview-mycontract-preview'); // preview
     $app->group(
         '/mycontract',
         function (RouteCollectorProxy $group) {
@@ -459,6 +486,7 @@ return function (App $app) {
             $group->any('/' . Config("UPDATE_ACTION") . '', MycontractController::class . ':update')->add(PermissionMiddleware::class)->setName('mycontract/update-mycontract-update-2'); // update
             $group->any('/' . Config("DELETE_ACTION") . '[/{contract_id}]', MycontractController::class . ':delete')->add(PermissionMiddleware::class)->setName('mycontract/delete-mycontract-delete-2'); // delete
             $group->any('/' . Config("SEARCH_ACTION") . '', MycontractController::class . ':search')->add(PermissionMiddleware::class)->setName('mycontract/search-mycontract-search-2'); // search
+            $group->any('/' . Config("PREVIEW_ACTION") . '', MycontractController::class . ':preview')->add(PermissionMiddleware::class)->setName('mycontract/preview-mycontract-preview-2'); // preview
         }
     );
 
@@ -470,6 +498,7 @@ return function (App $app) {
     $app->any('/mytimesheetupdate', MytimesheetController::class . ':update')->add(PermissionMiddleware::class)->setName('mytimesheetupdate-mytimesheet-update'); // update
     $app->any('/mytimesheetdelete[/{timesheet_id}]', MytimesheetController::class . ':delete')->add(PermissionMiddleware::class)->setName('mytimesheetdelete-mytimesheet-delete'); // delete
     $app->any('/mytimesheetsearch', MytimesheetController::class . ':search')->add(PermissionMiddleware::class)->setName('mytimesheetsearch-mytimesheet-search'); // search
+    $app->any('/mytimesheetpreview', MytimesheetController::class . ':preview')->add(PermissionMiddleware::class)->setName('mytimesheetpreview-mytimesheet-preview'); // preview
     $app->group(
         '/mytimesheet',
         function (RouteCollectorProxy $group) {
@@ -480,6 +509,7 @@ return function (App $app) {
             $group->any('/' . Config("UPDATE_ACTION") . '', MytimesheetController::class . ':update')->add(PermissionMiddleware::class)->setName('mytimesheet/update-mytimesheet-update-2'); // update
             $group->any('/' . Config("DELETE_ACTION") . '[/{timesheet_id}]', MytimesheetController::class . ':delete')->add(PermissionMiddleware::class)->setName('mytimesheet/delete-mytimesheet-delete-2'); // delete
             $group->any('/' . Config("SEARCH_ACTION") . '', MytimesheetController::class . ':search')->add(PermissionMiddleware::class)->setName('mytimesheet/search-mytimesheet-search-2'); // search
+            $group->any('/' . Config("PREVIEW_ACTION") . '', MytimesheetController::class . ':preview')->add(PermissionMiddleware::class)->setName('mytimesheet/preview-mytimesheet-preview-2'); // preview
         }
     );
 
@@ -491,6 +521,7 @@ return function (App $app) {
     $app->any('/mytrainingupdate', MytrainingController::class . ':update')->add(PermissionMiddleware::class)->setName('mytrainingupdate-mytraining-update'); // update
     $app->any('/mytrainingdelete[/{training_id}]', MytrainingController::class . ':delete')->add(PermissionMiddleware::class)->setName('mytrainingdelete-mytraining-delete'); // delete
     $app->any('/mytrainingsearch', MytrainingController::class . ':search')->add(PermissionMiddleware::class)->setName('mytrainingsearch-mytraining-search'); // search
+    $app->any('/mytrainingpreview', MytrainingController::class . ':preview')->add(PermissionMiddleware::class)->setName('mytrainingpreview-mytraining-preview'); // preview
     $app->group(
         '/mytraining',
         function (RouteCollectorProxy $group) {
@@ -501,11 +532,124 @@ return function (App $app) {
             $group->any('/' . Config("UPDATE_ACTION") . '', MytrainingController::class . ':update')->add(PermissionMiddleware::class)->setName('mytraining/update-mytraining-update-2'); // update
             $group->any('/' . Config("DELETE_ACTION") . '[/{training_id}]', MytrainingController::class . ':delete')->add(PermissionMiddleware::class)->setName('mytraining/delete-mytraining-delete-2'); // delete
             $group->any('/' . Config("SEARCH_ACTION") . '', MytrainingController::class . ':search')->add(PermissionMiddleware::class)->setName('mytraining/search-mytraining-search-2'); // search
+            $group->any('/' . Config("PREVIEW_ACTION") . '', MytrainingController::class . ':preview')->add(PermissionMiddleware::class)->setName('mytraining/preview-mytraining-preview-2'); // preview
         }
     );
 
     // Top_10_Days
     $app->any('/top10days', Top10DaysController::class)->add(PermissionMiddleware::class)->setName('top10days-Top_10_Days-summary'); // summary
+
+    // customer
+    $app->any('/customerlist[/{customer_id}]', CustomerController::class . ':list')->add(PermissionMiddleware::class)->setName('customerlist-customer-list'); // list
+    $app->any('/customeradd[/{customer_id}]', CustomerController::class . ':add')->add(PermissionMiddleware::class)->setName('customeradd-customer-add'); // add
+    $app->any('/customerview[/{customer_id}]', CustomerController::class . ':view')->add(PermissionMiddleware::class)->setName('customerview-customer-view'); // view
+    $app->any('/customeredit[/{customer_id}]', CustomerController::class . ':edit')->add(PermissionMiddleware::class)->setName('customeredit-customer-edit'); // edit
+    $app->any('/customerupdate', CustomerController::class . ':update')->add(PermissionMiddleware::class)->setName('customerupdate-customer-update'); // update
+    $app->any('/customerdelete[/{customer_id}]', CustomerController::class . ':delete')->add(PermissionMiddleware::class)->setName('customerdelete-customer-delete'); // delete
+    $app->any('/customersearch', CustomerController::class . ':search')->add(PermissionMiddleware::class)->setName('customersearch-customer-search'); // search
+    $app->any('/customerpreview', CustomerController::class . ':preview')->add(PermissionMiddleware::class)->setName('customerpreview-customer-preview'); // preview
+    $app->group(
+        '/customer',
+        function (RouteCollectorProxy $group) {
+            $group->any('/' . Config("LIST_ACTION") . '[/{customer_id}]', CustomerController::class . ':list')->add(PermissionMiddleware::class)->setName('customer/list-customer-list-2'); // list
+            $group->any('/' . Config("ADD_ACTION") . '[/{customer_id}]', CustomerController::class . ':add')->add(PermissionMiddleware::class)->setName('customer/add-customer-add-2'); // add
+            $group->any('/' . Config("VIEW_ACTION") . '[/{customer_id}]', CustomerController::class . ':view')->add(PermissionMiddleware::class)->setName('customer/view-customer-view-2'); // view
+            $group->any('/' . Config("EDIT_ACTION") . '[/{customer_id}]', CustomerController::class . ':edit')->add(PermissionMiddleware::class)->setName('customer/edit-customer-edit-2'); // edit
+            $group->any('/' . Config("UPDATE_ACTION") . '', CustomerController::class . ':update')->add(PermissionMiddleware::class)->setName('customer/update-customer-update-2'); // update
+            $group->any('/' . Config("DELETE_ACTION") . '[/{customer_id}]', CustomerController::class . ':delete')->add(PermissionMiddleware::class)->setName('customer/delete-customer-delete-2'); // delete
+            $group->any('/' . Config("SEARCH_ACTION") . '', CustomerController::class . ':search')->add(PermissionMiddleware::class)->setName('customer/search-customer-search-2'); // search
+            $group->any('/' . Config("PREVIEW_ACTION") . '', CustomerController::class . ':preview')->add(PermissionMiddleware::class)->setName('customer/preview-customer-preview-2'); // preview
+        }
+    );
+
+    // employee_quotation
+    $app->any('/employeequotationlist[/{quotation_id}]', EmployeeQuotationController::class . ':list')->add(PermissionMiddleware::class)->setName('employeequotationlist-employee_quotation-list'); // list
+    $app->any('/employeequotationadd[/{quotation_id}]', EmployeeQuotationController::class . ':add')->add(PermissionMiddleware::class)->setName('employeequotationadd-employee_quotation-add'); // add
+    $app->any('/employeequotationview[/{quotation_id}]', EmployeeQuotationController::class . ':view')->add(PermissionMiddleware::class)->setName('employeequotationview-employee_quotation-view'); // view
+    $app->any('/employeequotationedit[/{quotation_id}]', EmployeeQuotationController::class . ':edit')->add(PermissionMiddleware::class)->setName('employeequotationedit-employee_quotation-edit'); // edit
+    $app->any('/employeequotationupdate', EmployeeQuotationController::class . ':update')->add(PermissionMiddleware::class)->setName('employeequotationupdate-employee_quotation-update'); // update
+    $app->any('/employeequotationdelete[/{quotation_id}]', EmployeeQuotationController::class . ':delete')->add(PermissionMiddleware::class)->setName('employeequotationdelete-employee_quotation-delete'); // delete
+    $app->any('/employeequotationsearch', EmployeeQuotationController::class . ':search')->add(PermissionMiddleware::class)->setName('employeequotationsearch-employee_quotation-search'); // search
+    $app->group(
+        '/employee_quotation',
+        function (RouteCollectorProxy $group) {
+            $group->any('/' . Config("LIST_ACTION") . '[/{quotation_id}]', EmployeeQuotationController::class . ':list')->add(PermissionMiddleware::class)->setName('employee_quotation/list-employee_quotation-list-2'); // list
+            $group->any('/' . Config("ADD_ACTION") . '[/{quotation_id}]', EmployeeQuotationController::class . ':add')->add(PermissionMiddleware::class)->setName('employee_quotation/add-employee_quotation-add-2'); // add
+            $group->any('/' . Config("VIEW_ACTION") . '[/{quotation_id}]', EmployeeQuotationController::class . ':view')->add(PermissionMiddleware::class)->setName('employee_quotation/view-employee_quotation-view-2'); // view
+            $group->any('/' . Config("EDIT_ACTION") . '[/{quotation_id}]', EmployeeQuotationController::class . ':edit')->add(PermissionMiddleware::class)->setName('employee_quotation/edit-employee_quotation-edit-2'); // edit
+            $group->any('/' . Config("UPDATE_ACTION") . '', EmployeeQuotationController::class . ':update')->add(PermissionMiddleware::class)->setName('employee_quotation/update-employee_quotation-update-2'); // update
+            $group->any('/' . Config("DELETE_ACTION") . '[/{quotation_id}]', EmployeeQuotationController::class . ':delete')->add(PermissionMiddleware::class)->setName('employee_quotation/delete-employee_quotation-delete-2'); // delete
+            $group->any('/' . Config("SEARCH_ACTION") . '', EmployeeQuotationController::class . ':search')->add(PermissionMiddleware::class)->setName('employee_quotation/search-employee_quotation-search-2'); // search
+        }
+    );
+
+    // employee_quotation_detail
+    $app->any('/employeequotationdetaillist[/{detail_id}]', EmployeeQuotationDetailController::class . ':list')->add(PermissionMiddleware::class)->setName('employeequotationdetaillist-employee_quotation_detail-list'); // list
+    $app->any('/employeequotationdetailadd[/{detail_id}]', EmployeeQuotationDetailController::class . ':add')->add(PermissionMiddleware::class)->setName('employeequotationdetailadd-employee_quotation_detail-add'); // add
+    $app->any('/employeequotationdetailview[/{detail_id}]', EmployeeQuotationDetailController::class . ':view')->add(PermissionMiddleware::class)->setName('employeequotationdetailview-employee_quotation_detail-view'); // view
+    $app->any('/employeequotationdetailedit[/{detail_id}]', EmployeeQuotationDetailController::class . ':edit')->add(PermissionMiddleware::class)->setName('employeequotationdetailedit-employee_quotation_detail-edit'); // edit
+    $app->any('/employeequotationdetaildelete[/{detail_id}]', EmployeeQuotationDetailController::class . ':delete')->add(PermissionMiddleware::class)->setName('employeequotationdetaildelete-employee_quotation_detail-delete'); // delete
+    $app->any('/employeequotationdetailpreview', EmployeeQuotationDetailController::class . ':preview')->add(PermissionMiddleware::class)->setName('employeequotationdetailpreview-employee_quotation_detail-preview'); // preview
+    $app->group(
+        '/employee_quotation_detail',
+        function (RouteCollectorProxy $group) {
+            $group->any('/' . Config("LIST_ACTION") . '[/{detail_id}]', EmployeeQuotationDetailController::class . ':list')->add(PermissionMiddleware::class)->setName('employee_quotation_detail/list-employee_quotation_detail-list-2'); // list
+            $group->any('/' . Config("ADD_ACTION") . '[/{detail_id}]', EmployeeQuotationDetailController::class . ':add')->add(PermissionMiddleware::class)->setName('employee_quotation_detail/add-employee_quotation_detail-add-2'); // add
+            $group->any('/' . Config("VIEW_ACTION") . '[/{detail_id}]', EmployeeQuotationDetailController::class . ':view')->add(PermissionMiddleware::class)->setName('employee_quotation_detail/view-employee_quotation_detail-view-2'); // view
+            $group->any('/' . Config("EDIT_ACTION") . '[/{detail_id}]', EmployeeQuotationDetailController::class . ':edit')->add(PermissionMiddleware::class)->setName('employee_quotation_detail/edit-employee_quotation_detail-edit-2'); // edit
+            $group->any('/' . Config("DELETE_ACTION") . '[/{detail_id}]', EmployeeQuotationDetailController::class . ':delete')->add(PermissionMiddleware::class)->setName('employee_quotation_detail/delete-employee_quotation_detail-delete-2'); // delete
+            $group->any('/' . Config("PREVIEW_ACTION") . '', EmployeeQuotationDetailController::class . ':preview')->add(PermissionMiddleware::class)->setName('employee_quotation_detail/preview-employee_quotation_detail-preview-2'); // preview
+        }
+    );
+
+    // setting
+    $app->any('/settinglist[/{setting_id}]', SettingController::class . ':list')->add(PermissionMiddleware::class)->setName('settinglist-setting-list'); // list
+    $app->any('/settingadd[/{setting_id}]', SettingController::class . ':add')->add(PermissionMiddleware::class)->setName('settingadd-setting-add'); // add
+    $app->any('/settingview[/{setting_id}]', SettingController::class . ':view')->add(PermissionMiddleware::class)->setName('settingview-setting-view'); // view
+    $app->any('/settingedit[/{setting_id}]', SettingController::class . ':edit')->add(PermissionMiddleware::class)->setName('settingedit-setting-edit'); // edit
+    $app->any('/settingupdate', SettingController::class . ':update')->add(PermissionMiddleware::class)->setName('settingupdate-setting-update'); // update
+    $app->any('/settingdelete[/{setting_id}]', SettingController::class . ':delete')->add(PermissionMiddleware::class)->setName('settingdelete-setting-delete'); // delete
+    $app->any('/settingsearch', SettingController::class . ':search')->add(PermissionMiddleware::class)->setName('settingsearch-setting-search'); // search
+    $app->group(
+        '/setting',
+        function (RouteCollectorProxy $group) {
+            $group->any('/' . Config("LIST_ACTION") . '[/{setting_id}]', SettingController::class . ':list')->add(PermissionMiddleware::class)->setName('setting/list-setting-list-2'); // list
+            $group->any('/' . Config("ADD_ACTION") . '[/{setting_id}]', SettingController::class . ':add')->add(PermissionMiddleware::class)->setName('setting/add-setting-add-2'); // add
+            $group->any('/' . Config("VIEW_ACTION") . '[/{setting_id}]', SettingController::class . ':view')->add(PermissionMiddleware::class)->setName('setting/view-setting-view-2'); // view
+            $group->any('/' . Config("EDIT_ACTION") . '[/{setting_id}]', SettingController::class . ':edit')->add(PermissionMiddleware::class)->setName('setting/edit-setting-edit-2'); // edit
+            $group->any('/' . Config("UPDATE_ACTION") . '', SettingController::class . ':update')->add(PermissionMiddleware::class)->setName('setting/update-setting-update-2'); // update
+            $group->any('/' . Config("DELETE_ACTION") . '[/{setting_id}]', SettingController::class . ':delete')->add(PermissionMiddleware::class)->setName('setting/delete-setting-delete-2'); // delete
+            $group->any('/' . Config("SEARCH_ACTION") . '', SettingController::class . ':search')->add(PermissionMiddleware::class)->setName('setting/search-setting-search-2'); // search
+        }
+    );
+
+    // quotation_list
+    $app->any('/quotationlistlist[/{quotation_id}]', QuotationListController::class . ':list')->add(PermissionMiddleware::class)->setName('quotationlistlist-quotation_list-list'); // list
+    $app->group(
+        '/quotation_list',
+        function (RouteCollectorProxy $group) {
+            $group->any('/' . Config("LIST_ACTION") . '[/{quotation_id}]', QuotationListController::class . ':list')->add(PermissionMiddleware::class)->setName('quotation_list/list-quotation_list-list-2'); // list
+        }
+    );
+
+    // quotation_print
+    $app->any('/quotationprint', QuotationPrintController::class)->add(PermissionMiddleware::class)->setName('quotationprint-quotation_print-summary'); // summary
+
+    // timesheet_list
+    $app->any('/timesheetlistlist[/{work_date}]', TimesheetListController::class . ':list')->add(PermissionMiddleware::class)->setName('timesheetlistlist-timesheet_list-list'); // list
+    $app->any('/timesheetlistview[/{work_date}]', TimesheetListController::class . ':view')->add(PermissionMiddleware::class)->setName('timesheetlistview-timesheet_list-view'); // view
+    $app->any('/timesheetlistsearch', TimesheetListController::class . ':search')->add(PermissionMiddleware::class)->setName('timesheetlistsearch-timesheet_list-search'); // search
+    $app->group(
+        '/timesheet_list',
+        function (RouteCollectorProxy $group) {
+            $group->any('/' . Config("LIST_ACTION") . '[/{work_date}]', TimesheetListController::class . ':list')->add(PermissionMiddleware::class)->setName('timesheet_list/list-timesheet_list-list-2'); // list
+            $group->any('/' . Config("VIEW_ACTION") . '[/{work_date}]', TimesheetListController::class . ':view')->add(PermissionMiddleware::class)->setName('timesheet_list/view-timesheet_list-view-2'); // view
+            $group->any('/' . Config("SEARCH_ACTION") . '', TimesheetListController::class . ':search')->add(PermissionMiddleware::class)->setName('timesheet_list/search-timesheet_list-search-2'); // search
+        }
+    );
+
+    // welcome
+    $app->any('/welcome', WelcomeController::class)->add(PermissionMiddleware::class)->setName('welcome-welcome-custom'); // custom
 
     // error
     $app->any('/error', OthersController::class . ':error')->add(PermissionMiddleware::class)->setName('error');

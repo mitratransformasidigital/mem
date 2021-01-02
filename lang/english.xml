@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<ew-language date="2020/12/10" version="17.0.3" id="en" name="English" desc="English" author="e.World Technology Limited">
+<ew-language date="2020/12/19" version="17.0.3" id="en" name="English" desc="English" author="e.World Technology Limited">
   <!--
     *** Important Notes:
     1. Language ID should follow: https://developers.google.com/recaptcha/docs/language,
@@ -923,6 +923,18 @@
   <project>
     <phrase id="bodytitle" value="MEM - Mitral Employee Management" />
     <phrase id="footertext" value="&amp;copy;2020 e.Mitra Transformasi Digital. All rights reserved." />
+    <menu id="214">
+      <phrase id="menutext" value="Home" />
+    </menu>
+    <menu id="213">
+      <phrase id="menutext" value="master work date" />
+    </menu>
+    <menu id="172">
+      <phrase id="menutext" value="Quotation List" />
+    </menu>
+    <menu id="135">
+      <phrase id="menutext" value="Employee Quotation Detail" />
+    </menu>
     <menu id="101">
       <phrase id="menutext" value="Top 10 Days" />
     </menu>
@@ -950,6 +962,9 @@
     <menu id="46">
       <phrase id="menutext" value="Transaction" />
     </menu>
+    <menu id="133">
+      <phrase id="menutext" value="HR" />
+    </menu>
     <menu id="47">
       <phrase id="menutext" value="Employee Permit" />
     </menu>
@@ -967,6 +982,12 @@
     </menu>
     <menu id="14">
       <phrase id="menutext" value="Employee Timesheet" />
+    </menu>
+    <menu id="169">
+      <phrase id="menutext" value="Invoice" />
+    </menu>
+    <menu id="134">
+      <phrase id="menutext" value="Employee Quotation" />
     </menu>
     <menu id="2">
       <phrase id="menutext" value="Master" />
@@ -1001,6 +1022,9 @@
     <menu id="13">
       <phrase id="menutext" value="Status" />
     </menu>
+    <menu id="102">
+      <phrase id="menutext" value="Customer" />
+    </menu>
     <menu id="5">
       <phrase id="menutext" value="Location" />
     </menu>
@@ -1010,11 +1034,23 @@
     <menu id="1">
       <phrase id="menutext" value="City" />
     </menu>
+    <menu id="210">
+      <phrase id="menutext" value="Report" />
+    </menu>
+    <menu id="211">
+      <phrase id="menutext" value="Quotation - Print" />
+    </menu>
+    <menu id="212">
+      <phrase id="menutext" value="Timesheet List" />
+    </menu>
     <menu id="69">
       <phrase id="menutext" value="Users Management" />
     </menu>
     <menu id="71">
       <phrase id="menutext" value="User Access" />
+    </menu>
+    <menu id="173">
+      <phrase id="menutext" value="Seting" />
     </menu>
     <table id="employee">
       <phrase id="tblcaption" value="Employee" />
@@ -1177,7 +1213,7 @@
         <phrase id="fldcaption" value="Document" />
       </field>
       <field id="notes">
-        <phrase id="fldcaption" value="Notes" />
+        <phrase id="fldcaption" value="Approved" />
       </field>
     </table>
     <table id="employee_timesheet">
@@ -1486,8 +1522,11 @@
       <field id="employee_username">
         <phrase id="fldcaption" value="Employee Name" />
       </field>
-      <field id="permit_date">
+      <field id="start_date">
         <phrase id="fldcaption" value="Start Date" />
+      </field>
+      <field id="end_date">
+        <phrase id="fldcaption" value="End date" />
       </field>
       <field id="permit_type">
         <phrase id="fldcaption" value="Permit Type" />
@@ -1497,6 +1536,8 @@
         <phrase id="fldtagcaption2" value="Sick" />
         <phrase id="fldtagvalue3" value="Leave" />
         <phrase id="fldtagcaption3" value="Leave" />
+        <phrase id="fldtagvalue4" value="Join Leave" />
+        <phrase id="fldtagcaption4" value="Join Leave" />
       </field>
       <field id="document">
         <phrase id="fldcaption" value="Document" />
@@ -1648,7 +1689,7 @@
         <phrase id="fldcaption" value="Termination Date" />
       </field>
       <field id="user_level">
-        <phrase id="fldcaption" value="Permission" />
+        <phrase id="fldcaption" value="ID" />
         <phrase id="fldtagvalue1" value="-2" />
         <phrase id="fldtagcaption1" value="Anonymous" />
         <phrase id="fldtagvalue2" value="-1" />
@@ -1693,7 +1734,7 @@
     <table id="mycontract">
       <phrase id="tblcaption" value="My Contract" />
       <field id="contract_id">
-        <phrase id="fldcaption" value="contract id" />
+        <phrase id="fldcaption" value="ID" />
       </field>
       <field id="employee_username">
         <phrase id="fldcaption" value="Employee Name" />
@@ -1726,7 +1767,7 @@
     <table id="mytimesheet">
       <phrase id="tblcaption" value="My Timesheet" />
       <field id="timesheet_id">
-        <phrase id="fldcaption" value="timesheet id" />
+        <phrase id="fldcaption" value="ID" />
       </field>
       <field id="employee_username">
         <phrase id="fldcaption" value="Employee Name" />
@@ -1820,7 +1861,7 @@
         <phrase id="fldcaption" value="Company Notes" />
       </field>
       <field id="approved">
-        <phrase id="fldcaption" value="Start" />
+        <phrase id="fldcaption" value="Approved" />
         <phrase id="fldtagvalue1" value="Approved" />
         <phrase id="fldtagcaption1" value="Approved" />
         <phrase id="fldtagvalue2" value="Not Approved" />
@@ -1832,7 +1873,7 @@
     <table id="mytraining">
       <phrase id="tblcaption" value="My Training" />
       <field id="training_id">
-        <phrase id="fldcaption" value="training id" />
+        <phrase id="fldcaption" value="ID" />
       </field>
       <field id="employee_username">
         <phrase id="fldcaption" value="Employee Name" />
@@ -1972,6 +2013,198 @@
         <phrase id="fldtagvalue3" value="Approved With Notes" />
         <phrase id="fldtagcaption3" value="Approved With Notes" />
       </field>
+    </table>
+    <table id="customer">
+      <phrase id="tblcaption" value="Customer" />
+      <phrase id="tblpagecaption1" value="Data" />
+      <phrase id="tblpagecaption2" value="Privacy" />
+      <phrase id="tblpagecaption3" value="Position" />
+      <phrase id="tblpagecaption4" value="Note" />
+      <field id="customer_id">
+        <phrase id="fldcaption" value="ID" />
+      </field>
+      <field id="customer_name">
+        <phrase id="fldcaption" value="Name" />
+      </field>
+      <field id="address">
+        <phrase id="fldcaption" value="Address" />
+      </field>
+      <field id="city_id">
+        <phrase id="fldcaption" value="City" />
+      </field>
+      <field id="phone_number">
+        <phrase id="fldcaption" value="Phone Number" />
+      </field>
+      <field id="contact">
+        <phrase id="fldcaption" value="Contact" />
+      </field>
+    </table>
+    <table id="employee_quotation">
+      <phrase id="tblcaption" value="Employee Quotation" />
+      <phrase id="tblpagecaption1" value="Data" />
+      <phrase id="tblpagecaption2" value="Privacy" />
+      <phrase id="tblpagecaption3" value="Position" />
+      <phrase id="tblpagecaption4" value="Note" />
+      <field id="quotation_id">
+        <phrase id="fldcaption" value="ID" />
+      </field>
+      <field id="quotation_no">
+        <phrase id="fldcaption" value="Quotation No" />
+      </field>
+      <field id="customer_id">
+        <phrase id="fldcaption" value="Customer" />
+      </field>
+      <field id="quotation_date">
+        <phrase id="fldcaption" value="Date" />
+      </field>
+    </table>
+    <table id="employee_quotation_detail">
+      <phrase id="tblcaption" value="Employee Quotation Detail" />
+      <field id="quotation_id">
+        <phrase id="fldcaption" value="Quotation ID" />
+      </field>
+      <field id="detail_id">
+        <phrase id="fldcaption" value="ID" />
+      </field>
+      <field id="employee_username">
+        <phrase id="fldcaption" value="Employee Name" />
+      </field>
+      <field id="rate">
+        <phrase id="fldcaption" value="Rate" />
+      </field>
+      <field id="qty">
+        <phrase id="fldcaption" value="Months" />
+      </field>
+      <field id="total">
+        <phrase id="fldcaption" value="Total" />
+      </field>
+    </table>
+    <table id="setting">
+      <phrase id="tblcaption" value="Seting" />
+      <phrase id="tblpagecaption1" value="Data" />
+      <phrase id="tblpagecaption2" value="Privacy" />
+      <phrase id="tblpagecaption3" value="Position" />
+      <phrase id="tblpagecaption4" value="Note" />
+      <field id="setting_id">
+        <phrase id="fldcaption" value="ID" />
+      </field>
+      <field id="setting_name">
+        <phrase id="fldcaption" value="Name" />
+      </field>
+      <field id="setting_value">
+        <phrase id="fldcaption" value="Value" />
+      </field>
+    </table>
+    <table id="quotation_list">
+      <phrase id="tblcaption" value="Quotation List" />
+      <field id="quotation_id">
+        <phrase id="fldcaption" value="ID" />
+      </field>
+      <field id="quotation_no">
+        <phrase id="fldcaption" value="Quotation No" />
+      </field>
+      <field id="quotation_date">
+        <phrase id="fldcaption" value="Date" />
+      </field>
+      <field id="customer_name">
+        <phrase id="fldcaption" value="Name" />
+      </field>
+      <field id="phone_number">
+        <phrase id="fldcaption" value="Phone Number" />
+      </field>
+      <field id="contact">
+        <phrase id="fldcaption" value="Contact" />
+      </field>
+      <field id="city">
+        <phrase id="fldcaption" value="City" />
+      </field>
+      <field id="employee_name">
+        <phrase id="fldcaption" value="Name" />
+      </field>
+      <field id="rate">
+        <phrase id="fldcaption" value="Rate" />
+      </field>
+      <field id="qty">
+        <phrase id="fldcaption" value="Months" />
+      </field>
+      <field id="total">
+        <phrase id="fldcaption" value="Total" />
+      </field>
+      <field id="customer_address">
+        <phrase id="fldcaption" value="customer address" />
+      </field>
+    </table>
+    <table id="quotation_print">
+      <phrase id="tblcaption" value="Quotation - Print" />
+      <field id="quotation_id">
+        <phrase id="fldcaption" value="Quotation No" />
+      </field>
+      <field id="quotation_no">
+        <phrase id="fldcaption" value="Quotation No" />
+      </field>
+      <field id="quotation_date">
+        <phrase id="fldcaption" value="Date" />
+      </field>
+      <field id="customer_name">
+        <phrase id="fldcaption" value="Name" />
+      </field>
+      <field id="phone_number">
+        <phrase id="fldcaption" value="Phone Number" />
+      </field>
+      <field id="contact">
+        <phrase id="fldcaption" value="Contact" />
+      </field>
+      <field id="city">
+        <phrase id="fldcaption" value="City" />
+      </field>
+      <field id="employee_name">
+        <phrase id="fldcaption" value="Name" />
+      </field>
+      <field id="rate">
+        <phrase id="fldcaption" value="Rate" />
+      </field>
+      <field id="qty">
+        <phrase id="fldcaption" value="Months" />
+      </field>
+      <field id="total">
+        <phrase id="fldcaption" value="Total" />
+      </field>
+      <field id="customer_address">
+        <phrase id="fldcaption" value="customer address" />
+      </field>
+    </table>
+    <table id="master_work_date">
+      <phrase id="tblcaption" value="master work date" />
+      <field id="work_date">
+        <phrase id="fldcaption" value="work date" />
+      </field>
+    </table>
+    <table id="timesheet_list">
+      <phrase id="tblcaption" value="Timesheet List" />
+      <field id="employee_username">
+        <phrase id="fldcaption" value="Employee Name" />
+      </field>
+      <field id="work_date">
+        <phrase id="fldcaption" value="Work Date" />
+      </field>
+      <field id="time_in">
+        <phrase id="fldcaption" value="Time In" />
+      </field>
+      <field id="time_out">
+        <phrase id="fldcaption" value="Time Out" />
+      </field>
+      <field id="description">
+        <phrase id="fldcaption" value="Description" />
+      </field>
+      <field id="absence">
+        <phrase id="fldcaption" value="Absence" />
+      </field>
+      <field id="days">
+        <phrase id="fldcaption" value="Days" />
+      </field>
+    </table>
+    <table id="welcome">
+      <phrase id="tblcaption" value="Home" />
     </table>
   </project>
 </ew-language>

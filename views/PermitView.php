@@ -61,13 +61,24 @@ $Page->showMessage();
 </td>
     </tr>
 <?php } ?>
-<?php if ($Page->permit_date->Visible) { // permit_date ?>
-    <tr id="r_permit_date">
-        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_permit_permit_date"><?= $Page->permit_date->caption() ?></span></td>
-        <td data-name="permit_date" <?= $Page->permit_date->cellAttributes() ?>>
-<span id="el_permit_permit_date">
-<span<?= $Page->permit_date->viewAttributes() ?>>
-<?= $Page->permit_date->getViewValue() ?></span>
+<?php if ($Page->start_date->Visible) { // start_date ?>
+    <tr id="r_start_date">
+        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_permit_start_date"><?= $Page->start_date->caption() ?></span></td>
+        <td data-name="start_date" <?= $Page->start_date->cellAttributes() ?>>
+<span id="el_permit_start_date">
+<span<?= $Page->start_date->viewAttributes() ?>>
+<?= $Page->start_date->getViewValue() ?></span>
+</span>
+</td>
+    </tr>
+<?php } ?>
+<?php if ($Page->end_date->Visible) { // end_date ?>
+    <tr id="r_end_date">
+        <td class="<?= $Page->TableLeftColumnClass ?>"><span id="elh_permit_end_date"><?= $Page->end_date->caption() ?></span></td>
+        <td data-name="end_date" <?= $Page->end_date->cellAttributes() ?>>
+<span id="el_permit_end_date">
+<span<?= $Page->end_date->viewAttributes() ?>>
+<?= $Page->end_date->getViewValue() ?></span>
 </span>
 </td>
     </tr>

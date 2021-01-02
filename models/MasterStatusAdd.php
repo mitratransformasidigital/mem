@@ -816,12 +816,12 @@ class MasterStatusAdd extends MasterStatus
 
         // Validate detail grid
         $detailTblVar = explode(",", $this->getCurrentDetailTable());
-        $detailPage = Container("EmployeeGrid");
-        if (in_array("employee", $detailTblVar) && $detailPage->DetailAdd) {
-            $detailPage->validateGridForm();
-        }
         $detailPage = Container("MyprofileGrid");
         if (in_array("myprofile", $detailTblVar) && $detailPage->DetailAdd) {
+            $detailPage->validateGridForm();
+        }
+        $detailPage = Container("EmployeeGrid");
+        if (in_array("employee", $detailTblVar) && $detailPage->DetailAdd) {
             $detailPage->validateGridForm();
         }
 
@@ -891,20 +891,20 @@ class MasterStatusAdd extends MasterStatus
         // Add detail records
         if ($addRow) {
             $detailTblVar = explode(",", $this->getCurrentDetailTable());
-            $detailPage = Container("EmployeeGrid");
-            if (in_array("employee", $detailTblVar) && $detailPage->DetailAdd) {
+            $detailPage = Container("MyprofileGrid");
+            if (in_array("myprofile", $detailTblVar) && $detailPage->DetailAdd) {
                 $detailPage->status_id->setSessionValue($this->status_id->CurrentValue); // Set master key
-                $Security->loadCurrentUserLevel($this->ProjectID . "employee"); // Load user level of detail table
+                $Security->loadCurrentUserLevel($this->ProjectID . "myprofile"); // Load user level of detail table
                 $addRow = $detailPage->gridInsert();
                 $Security->loadCurrentUserLevel($this->ProjectID . $this->TableName); // Restore user level of master table
                 if (!$addRow) {
                 $detailPage->status_id->setSessionValue(""); // Clear master key if insert failed
                 }
             }
-            $detailPage = Container("MyprofileGrid");
-            if (in_array("myprofile", $detailTblVar) && $detailPage->DetailAdd) {
+            $detailPage = Container("EmployeeGrid");
+            if (in_array("employee", $detailTblVar) && $detailPage->DetailAdd) {
                 $detailPage->status_id->setSessionValue($this->status_id->CurrentValue); // Set master key
-                $Security->loadCurrentUserLevel($this->ProjectID . "myprofile"); // Load user level of detail table
+                $Security->loadCurrentUserLevel($this->ProjectID . "employee"); // Load user level of detail table
                 $addRow = $detailPage->gridInsert();
                 $Security->loadCurrentUserLevel($this->ProjectID . $this->TableName); // Restore user level of master table
                 if (!$addRow) {
@@ -950,8 +950,8 @@ class MasterStatusAdd extends MasterStatus
         }
         if ($detailTblVar != "") {
             $detailTblVar = explode(",", $detailTblVar);
-            if (in_array("employee", $detailTblVar)) {
-                $detailPageObj = Container("EmployeeGrid");
+            if (in_array("myprofile", $detailTblVar)) {
+                $detailPageObj = Container("MyprofileGrid");
                 if ($detailPageObj->DetailAdd) {
                     if ($this->CopyRecord) {
                         $detailPageObj->CurrentMode = "copy";
@@ -972,8 +972,8 @@ class MasterStatusAdd extends MasterStatus
                     $detailPageObj->city_id->setSessionValue(""); // Clear session key
                 }
             }
-            if (in_array("myprofile", $detailTblVar)) {
-                $detailPageObj = Container("MyprofileGrid");
+            if (in_array("employee", $detailTblVar)) {
+                $detailPageObj = Container("EmployeeGrid");
                 if ($detailPageObj->DetailAdd) {
                     if ($this->CopyRecord) {
                         $detailPageObj->CurrentMode = "copy";
@@ -1001,7 +1001,7 @@ class MasterStatusAdd extends MasterStatus
     protected function setupBreadcrumb()
     {
         global $Breadcrumb, $Language;
-        $Breadcrumb = new Breadcrumb("top10days");
+        $Breadcrumb = new Breadcrumb("welcome");
         $url = CurrentUrl();
         $Breadcrumb->add("list", $this->TableVar, $this->addMasterUrl("masterstatuslist"), "", $this->TableVar, true);
         $pageId = ($this->isCopy()) ? "Copy" : "Add";
@@ -1013,8 +1013,8 @@ class MasterStatusAdd extends MasterStatus
     {
         $pages = new SubPages();
         $pages->Style = "tabs";
-        $pages->add('employee');
         $pages->add('myprofile');
+        $pages->add('employee');
         $this->DetailPages = $pages;
     }
 

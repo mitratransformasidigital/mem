@@ -22,7 +22,7 @@ loadjs.ready("head", function () {
     // Add fields
     var fields = ew.vars.tables.mytraining.fields;
     fmytrainingsearch.addFields([
-        ["training_id", [ew.Validators.integer], fields.training_id.isInvalid],
+        ["training_id", [], fields.training_id.isInvalid],
         ["employee_username", [], fields.employee_username.isInvalid],
         ["training_name", [], fields.training_name.isInvalid],
         ["y_training_name", [ew.Validators.between], false],
@@ -99,7 +99,7 @@ $Page->showMessage();
 <div class="ew-search-div"><!-- page* -->
 <?php if ($Page->training_id->Visible) { // training_id ?>
     <div id="r_training_id" class="form-group row">
-        <label for="x_training_id" class="<?= $Page->LeftColumnClass ?>"><span id="elh_mytraining_training_id"><?= $Page->training_id->caption() ?></span>
+        <label class="<?= $Page->LeftColumnClass ?>"><span id="elh_mytraining_training_id"><?= $Page->training_id->caption() ?></span>
         <span class="ew-search-operator">
 <?= $Language->phrase("=") ?>
 <input type="hidden" name="z_training_id" id="z_training_id" value="=">

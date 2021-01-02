@@ -49,4 +49,10 @@ class MytimesheetController extends ControllerBase
     {
         return $this->runPage($request, $response, $args, "MytimesheetSearch");
     }
+
+    // preview
+    public function preview(Request $request, Response $response, array $args): Response
+    {
+        return $this->runPage($request, $response, $args, "MytimesheetPreview", false);
+    }
 }

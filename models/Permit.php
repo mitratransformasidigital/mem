@@ -30,7 +30,8 @@ class Permit extends DbTable
     // Fields
     public $permit_id;
     public $employee_username;
-    public $permit_date;
+    public $start_date;
+    public $end_date;
     public $permit_type;
     public $document;
     public $note;
@@ -89,13 +90,21 @@ class Permit extends DbTable
         $this->employee_username->Lookup = new Lookup('employee_username', 'employee', false, 'employee_username', ["employee_name","","",""], [], [], [], [], [], [], '', '');
         $this->Fields['employee_username'] = &$this->employee_username;
 
-        // permit_date
-        $this->permit_date = new DbField('permit', 'permit', 'x_permit_date', 'permit_date', '`permit_date`', CastDateFieldForLike("`permit_date`", 5, "DB"), 133, 10, 5, false, '`permit_date`', false, false, false, 'FORMATTED TEXT', 'TEXT');
-        $this->permit_date->Nullable = false; // NOT NULL field
-        $this->permit_date->Required = true; // Required field
-        $this->permit_date->Sortable = true; // Allow sort
-        $this->permit_date->DefaultErrorMessage = str_replace("%s", $GLOBALS["DATE_SEPARATOR"], $Language->phrase("IncorrectDateYMD"));
-        $this->Fields['permit_date'] = &$this->permit_date;
+        // start_date
+        $this->start_date = new DbField('permit', 'permit', 'x_start_date', 'start_date', '`start_date`', CastDateFieldForLike("`start_date`", 5, "DB"), 133, 10, 5, false, '`start_date`', false, false, false, 'FORMATTED TEXT', 'TEXT');
+        $this->start_date->Nullable = false; // NOT NULL field
+        $this->start_date->Required = true; // Required field
+        $this->start_date->Sortable = true; // Allow sort
+        $this->start_date->DefaultErrorMessage = str_replace("%s", $GLOBALS["DATE_SEPARATOR"], $Language->phrase("IncorrectDateYMD"));
+        $this->Fields['start_date'] = &$this->start_date;
+
+        // end_date
+        $this->end_date = new DbField('permit', 'permit', 'x_end_date', 'end_date', '`end_date`', CastDateFieldForLike("`end_date`", 5, "DB"), 133, 10, 5, false, '`end_date`', false, false, false, 'FORMATTED TEXT', 'TEXT');
+        $this->end_date->Nullable = false; // NOT NULL field
+        $this->end_date->Required = true; // Required field
+        $this->end_date->Sortable = true; // Allow sort
+        $this->end_date->DefaultErrorMessage = str_replace("%s", $GLOBALS["DATE_SEPARATOR"], $Language->phrase("IncorrectDateYMD"));
+        $this->Fields['end_date'] = &$this->end_date;
 
         // permit_type
         $this->permit_type = new DbField('permit', 'permit', 'x_permit_type', 'permit_type', '`permit_type`', '`permit_type`', 200, 50, -1, false, '`permit_type`', false, false, false, 'FORMATTED TEXT', 'SELECT');
@@ -105,7 +114,7 @@ class Permit extends DbTable
         $this->permit_type->UsePleaseSelect = true; // Use PleaseSelect by default
         $this->permit_type->PleaseSelectText = $Language->phrase("PleaseSelect"); // "PleaseSelect" text
         $this->permit_type->Lookup = new Lookup('permit_type', 'permit', false, '', ["","","",""], [], [], [], [], [], [], '', '');
-        $this->permit_type->OptionCount = 3;
+        $this->permit_type->OptionCount = 4;
         $this->Fields['permit_type'] = &$this->permit_type;
 
         // document
@@ -581,7 +590,8 @@ class Permit extends DbTable
         }
         $this->permit_id->DbValue = $row['permit_id'];
         $this->employee_username->DbValue = $row['employee_username'];
-        $this->permit_date->DbValue = $row['permit_date'];
+        $this->start_date->DbValue = $row['start_date'];
+        $this->end_date->DbValue = $row['end_date'];
         $this->permit_type->DbValue = $row['permit_type'];
         $this->document->Upload->DbValue = $row['document'];
         $this->note->DbValue = $row['note'];
@@ -917,7 +927,8 @@ SORTHTML;
         }
         $this->permit_id->setDbValue($row['permit_id']);
         $this->employee_username->setDbValue($row['employee_username']);
-        $this->permit_date->setDbValue($row['permit_date']);
+        $this->start_date->setDbValue($row['start_date']);
+        $this->end_date->setDbValue($row['end_date']);
         $this->permit_type->setDbValue($row['permit_type']);
         $this->document->Upload->DbValue = $row['document'];
         $this->note->setDbValue($row['note']);
@@ -937,7 +948,9 @@ SORTHTML;
 
         // employee_username
 
-        // permit_date
+        // start_date
+
+        // end_date
 
         // permit_type
 
@@ -970,10 +983,15 @@ SORTHTML;
         }
         $this->employee_username->ViewCustomAttributes = "";
 
-        // permit_date
-        $this->permit_date->ViewValue = $this->permit_date->CurrentValue;
-        $this->permit_date->ViewValue = FormatDateTime($this->permit_date->ViewValue, 5);
-        $this->permit_date->ViewCustomAttributes = "";
+        // start_date
+        $this->start_date->ViewValue = $this->start_date->CurrentValue;
+        $this->start_date->ViewValue = FormatDateTime($this->start_date->ViewValue, 5);
+        $this->start_date->ViewCustomAttributes = "";
+
+        // end_date
+        $this->end_date->ViewValue = $this->end_date->CurrentValue;
+        $this->end_date->ViewValue = FormatDateTime($this->end_date->ViewValue, 5);
+        $this->end_date->ViewCustomAttributes = "";
 
         // permit_type
         if (strval($this->permit_type->CurrentValue) != "") {
@@ -1005,10 +1023,15 @@ SORTHTML;
         $this->employee_username->HrefValue = "";
         $this->employee_username->TooltipValue = "";
 
-        // permit_date
-        $this->permit_date->LinkCustomAttributes = "";
-        $this->permit_date->HrefValue = "";
-        $this->permit_date->TooltipValue = "";
+        // start_date
+        $this->start_date->LinkCustomAttributes = "";
+        $this->start_date->HrefValue = "";
+        $this->start_date->TooltipValue = "";
+
+        // end_date
+        $this->end_date->LinkCustomAttributes = "";
+        $this->end_date->HrefValue = "";
+        $this->end_date->TooltipValue = "";
 
         // permit_type
         $this->permit_type->LinkCustomAttributes = "";
@@ -1089,11 +1112,17 @@ SORTHTML;
             $this->employee_username->PlaceHolder = RemoveHtml($this->employee_username->caption());
         }
 
-        // permit_date
-        $this->permit_date->EditAttrs["class"] = "form-control";
-        $this->permit_date->EditCustomAttributes = "";
-        $this->permit_date->EditValue = FormatDateTime($this->permit_date->CurrentValue, 5);
-        $this->permit_date->PlaceHolder = RemoveHtml($this->permit_date->caption());
+        // start_date
+        $this->start_date->EditAttrs["class"] = "form-control";
+        $this->start_date->EditCustomAttributes = "";
+        $this->start_date->EditValue = FormatDateTime($this->start_date->CurrentValue, 5);
+        $this->start_date->PlaceHolder = RemoveHtml($this->start_date->caption());
+
+        // end_date
+        $this->end_date->EditAttrs["class"] = "form-control";
+        $this->end_date->EditCustomAttributes = "";
+        $this->end_date->EditValue = FormatDateTime($this->end_date->CurrentValue, 5);
+        $this->end_date->PlaceHolder = RemoveHtml($this->end_date->caption());
 
         // permit_type
         $this->permit_type->EditAttrs["class"] = "form-control";
@@ -1148,13 +1177,15 @@ SORTHTML;
                 $doc->beginExportRow();
                 if ($exportPageType == "view") {
                     $doc->exportCaption($this->employee_username);
-                    $doc->exportCaption($this->permit_date);
+                    $doc->exportCaption($this->start_date);
+                    $doc->exportCaption($this->end_date);
                     $doc->exportCaption($this->permit_type);
                     $doc->exportCaption($this->document);
                     $doc->exportCaption($this->note);
                 } else {
                     $doc->exportCaption($this->employee_username);
-                    $doc->exportCaption($this->permit_date);
+                    $doc->exportCaption($this->start_date);
+                    $doc->exportCaption($this->end_date);
                     $doc->exportCaption($this->permit_type);
                     $doc->exportCaption($this->document);
                     $doc->exportCaption($this->note);
@@ -1188,13 +1219,15 @@ SORTHTML;
                     $doc->beginExportRow($rowCnt); // Allow CSS styles if enabled
                     if ($exportPageType == "view") {
                         $doc->exportField($this->employee_username);
-                        $doc->exportField($this->permit_date);
+                        $doc->exportField($this->start_date);
+                        $doc->exportField($this->end_date);
                         $doc->exportField($this->permit_type);
                         $doc->exportField($this->document);
                         $doc->exportField($this->note);
                     } else {
                         $doc->exportField($this->employee_username);
-                        $doc->exportField($this->permit_date);
+                        $doc->exportField($this->start_date);
+                        $doc->exportField($this->end_date);
                         $doc->exportField($this->permit_type);
                         $doc->exportField($this->document);
                         $doc->exportField($this->note);

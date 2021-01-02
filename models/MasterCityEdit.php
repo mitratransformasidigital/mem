@@ -998,12 +998,16 @@ class MasterCityEdit extends MasterCity
         if (in_array("master_office", $detailTblVar) && $detailPage->DetailEdit) {
             $detailPage->validateGridForm();
         }
-        $detailPage = Container("EmployeeGrid");
-        if (in_array("employee", $detailTblVar) && $detailPage->DetailEdit) {
-            $detailPage->validateGridForm();
-        }
         $detailPage = Container("MyprofileGrid");
         if (in_array("myprofile", $detailTblVar) && $detailPage->DetailEdit) {
+            $detailPage->validateGridForm();
+        }
+        $detailPage = Container("CustomerGrid");
+        if (in_array("customer", $detailTblVar) && $detailPage->DetailEdit) {
+            $detailPage->validateGridForm();
+        }
+        $detailPage = Container("EmployeeGrid");
+        if (in_array("employee", $detailTblVar) && $detailPage->DetailEdit) {
             $detailPage->validateGridForm();
         }
 
@@ -1125,17 +1129,25 @@ class MasterCityEdit extends MasterCity
                     }
                 }
                 if ($editRow) {
-                    $detailPage = Container("EmployeeGrid");
-                    if (in_array("employee", $detailTblVar) && $detailPage->DetailEdit) {
-                        $Security->loadCurrentUserLevel($this->ProjectID . "employee"); // Load user level of detail table
+                    $detailPage = Container("MyprofileGrid");
+                    if (in_array("myprofile", $detailTblVar) && $detailPage->DetailEdit) {
+                        $Security->loadCurrentUserLevel($this->ProjectID . "myprofile"); // Load user level of detail table
                         $editRow = $detailPage->gridUpdate();
                         $Security->loadCurrentUserLevel($this->ProjectID . $this->TableName); // Restore user level of master table
                     }
                 }
                 if ($editRow) {
-                    $detailPage = Container("MyprofileGrid");
-                    if (in_array("myprofile", $detailTblVar) && $detailPage->DetailEdit) {
-                        $Security->loadCurrentUserLevel($this->ProjectID . "myprofile"); // Load user level of detail table
+                    $detailPage = Container("CustomerGrid");
+                    if (in_array("customer", $detailTblVar) && $detailPage->DetailEdit) {
+                        $Security->loadCurrentUserLevel($this->ProjectID . "customer"); // Load user level of detail table
+                        $editRow = $detailPage->gridUpdate();
+                        $Security->loadCurrentUserLevel($this->ProjectID . $this->TableName); // Restore user level of master table
+                    }
+                }
+                if ($editRow) {
+                    $detailPage = Container("EmployeeGrid");
+                    if (in_array("employee", $detailTblVar) && $detailPage->DetailEdit) {
+                        $Security->loadCurrentUserLevel($this->ProjectID . "employee"); // Load user level of detail table
                         $editRow = $detailPage->gridUpdate();
                         $Security->loadCurrentUserLevel($this->ProjectID . $this->TableName); // Restore user level of master table
                     }
@@ -1269,8 +1281,8 @@ class MasterCityEdit extends MasterCity
                     $detailPageObj->city_id->setSessionValue($detailPageObj->city_id->CurrentValue);
                 }
             }
-            if (in_array("employee", $detailTblVar)) {
-                $detailPageObj = Container("EmployeeGrid");
+            if (in_array("myprofile", $detailTblVar)) {
+                $detailPageObj = Container("MyprofileGrid");
                 if ($detailPageObj->DetailEdit) {
                     $detailPageObj->CurrentMode = "edit";
                     $detailPageObj->CurrentAction = "gridedit";
@@ -1287,8 +1299,22 @@ class MasterCityEdit extends MasterCity
                     $detailPageObj->status_id->setSessionValue(""); // Clear session key
                 }
             }
-            if (in_array("myprofile", $detailTblVar)) {
-                $detailPageObj = Container("MyprofileGrid");
+            if (in_array("customer", $detailTblVar)) {
+                $detailPageObj = Container("CustomerGrid");
+                if ($detailPageObj->DetailEdit) {
+                    $detailPageObj->CurrentMode = "edit";
+                    $detailPageObj->CurrentAction = "gridedit";
+
+                    // Save current master table to detail table
+                    $detailPageObj->setCurrentMasterTable($this->TableVar);
+                    $detailPageObj->setStartRecordNumber(1);
+                    $detailPageObj->city_id->IsDetailKey = true;
+                    $detailPageObj->city_id->CurrentValue = $this->city_id->CurrentValue;
+                    $detailPageObj->city_id->setSessionValue($detailPageObj->city_id->CurrentValue);
+                }
+            }
+            if (in_array("employee", $detailTblVar)) {
+                $detailPageObj = Container("EmployeeGrid");
                 if ($detailPageObj->DetailEdit) {
                     $detailPageObj->CurrentMode = "edit";
                     $detailPageObj->CurrentAction = "gridedit";
@@ -1312,7 +1338,7 @@ class MasterCityEdit extends MasterCity
     protected function setupBreadcrumb()
     {
         global $Breadcrumb, $Language;
-        $Breadcrumb = new Breadcrumb("top10days");
+        $Breadcrumb = new Breadcrumb("welcome");
         $url = CurrentUrl();
         $Breadcrumb->add("list", $this->TableVar, $this->addMasterUrl("mastercitylist"), "", $this->TableVar, true);
         $pageId = "edit";

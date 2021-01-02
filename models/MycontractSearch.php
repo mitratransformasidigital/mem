@@ -923,7 +923,7 @@ class MycontractSearch extends Mycontract
     protected function setupBreadcrumb()
     {
         global $Breadcrumb, $Language;
-        $Breadcrumb = new Breadcrumb("top10days");
+        $Breadcrumb = new Breadcrumb("welcome");
         $url = CurrentUrl();
         $Breadcrumb->add("list", $this->TableVar, $this->addMasterUrl("mycontractlist"), "", $this->TableVar, true);
         $pageId = "search";

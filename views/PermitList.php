@@ -30,6 +30,30 @@ loadjs.ready("head", function () {
     loadjs.done("fpermitlistsrch");
 });
 </script>
+<style type="text/css">
+.ew-table-preview-row { /* main table preview row color */
+    background-color: #FFFFFF; /* preview row color */
+}
+.ew-table-preview-row .ew-grid {
+    display: table;
+}
+</style>
+<div id="ew-preview" class="d-none"><!-- preview -->
+    <div class="ew-nav-tabs"><!-- .ew-nav-tabs -->
+        <ul class="nav nav-tabs"></ul>
+        <div class="tab-content"><!-- .tab-content -->
+            <div class="tab-pane fade active show"></div>
+        </div><!-- /.tab-content -->
+    </div><!-- /.ew-nav-tabs -->
+</div><!-- /preview -->
+<script>
+loadjs.ready("head", function() {
+    ew.PREVIEW_PLACEMENT = ew.CSS_FLIP ? "left" : "right";
+    ew.PREVIEW_SINGLE_ROW = false;
+    ew.PREVIEW_OVERLAY = false;
+    loadjs(ew.PATH_BASE + "js/ewpreview.js", "preview");
+});
+</script>
 <script>
 loadjs.ready("head", function () {
     // Write your table-specific client script here, no need to add script tags.
@@ -140,8 +164,11 @@ $Page->ListOptions->render("header", "left");
 <?php if ($Page->employee_username->Visible) { // employee_username ?>
         <th data-name="employee_username" class="<?= $Page->employee_username->headerCellClass() ?>"><div id="elh_permit_employee_username" class="permit_employee_username"><?= $Page->renderSort($Page->employee_username) ?></div></th>
 <?php } ?>
-<?php if ($Page->permit_date->Visible) { // permit_date ?>
-        <th data-name="permit_date" class="<?= $Page->permit_date->headerCellClass() ?>"><div id="elh_permit_permit_date" class="permit_permit_date"><?= $Page->renderSort($Page->permit_date) ?></div></th>
+<?php if ($Page->start_date->Visible) { // start_date ?>
+        <th data-name="start_date" class="<?= $Page->start_date->headerCellClass() ?>"><div id="elh_permit_start_date" class="permit_start_date"><?= $Page->renderSort($Page->start_date) ?></div></th>
+<?php } ?>
+<?php if ($Page->end_date->Visible) { // end_date ?>
+        <th data-name="end_date" class="<?= $Page->end_date->headerCellClass() ?>"><div id="elh_permit_end_date" class="permit_end_date"><?= $Page->renderSort($Page->end_date) ?></div></th>
 <?php } ?>
 <?php if ($Page->permit_type->Visible) { // permit_type ?>
         <th data-name="permit_type" class="<?= $Page->permit_type->headerCellClass() ?>"><div id="elh_permit_permit_type" class="permit_permit_type"><?= $Page->renderSort($Page->permit_type) ?></div></th>
@@ -227,11 +254,19 @@ $Page->ListOptions->render("body", "left", $Page->RowCount);
 </span>
 </td>
     <?php } ?>
-    <?php if ($Page->permit_date->Visible) { // permit_date ?>
-        <td data-name="permit_date" <?= $Page->permit_date->cellAttributes() ?>>
-<span id="el<?= $Page->RowCount ?>_permit_permit_date">
-<span<?= $Page->permit_date->viewAttributes() ?>>
-<?= $Page->permit_date->getViewValue() ?></span>
+    <?php if ($Page->start_date->Visible) { // start_date ?>
+        <td data-name="start_date" <?= $Page->start_date->cellAttributes() ?>>
+<span id="el<?= $Page->RowCount ?>_permit_start_date">
+<span<?= $Page->start_date->viewAttributes() ?>>
+<?= $Page->start_date->getViewValue() ?></span>
+</span>
+</td>
+    <?php } ?>
+    <?php if ($Page->end_date->Visible) { // end_date ?>
+        <td data-name="end_date" <?= $Page->end_date->cellAttributes() ?>>
+<span id="el<?= $Page->RowCount ?>_permit_end_date">
+<span<?= $Page->end_date->viewAttributes() ?>>
+<?= $Page->end_date->getViewValue() ?></span>
 </span>
 </td>
     <?php } ?>

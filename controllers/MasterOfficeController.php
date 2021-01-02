@@ -55,4 +55,10 @@ class MasterOfficeController extends ControllerBase
     {
         return $this->runPage($request, $response, $args, "MasterOfficeSearch");
     }
+
+    // preview
+    public function preview(Request $request, Response $response, array $args): Response
+    {
+        return $this->runPage($request, $response, $args, "MasterOfficePreview", false);
+    }
 }

@@ -49,4 +49,10 @@ class MycontractController extends ControllerBase
     {
         return $this->runPage($request, $response, $args, "MycontractSearch");
     }
+
+    // preview
+    public function preview(Request $request, Response $response, array $args): Response
+    {
+        return $this->runPage($request, $response, $args, "MycontractPreview", false);
+    }
 }

@@ -88,6 +88,30 @@ loadjs.ready("head", function () {
     loadjs.done("fmytimesheetlistsrch");
 });
 </script>
+<style type="text/css">
+.ew-table-preview-row { /* main table preview row color */
+    background-color: #FFFFFF; /* preview row color */
+}
+.ew-table-preview-row .ew-grid {
+    display: table;
+}
+</style>
+<div id="ew-preview" class="d-none"><!-- preview -->
+    <div class="ew-nav-tabs"><!-- .ew-nav-tabs -->
+        <ul class="nav nav-tabs"></ul>
+        <div class="tab-content"><!-- .tab-content -->
+            <div class="tab-pane fade active show"></div>
+        </div><!-- /.tab-content -->
+    </div><!-- /.ew-nav-tabs -->
+</div><!-- /preview -->
+<script>
+loadjs.ready("head", function() {
+    ew.PREVIEW_PLACEMENT = ew.CSS_FLIP ? "left" : "right";
+    ew.PREVIEW_SINGLE_ROW = false;
+    ew.PREVIEW_OVERLAY = false;
+    loadjs(ew.PATH_BASE + "js/ewpreview.js", "preview");
+});
+</script>
 <script>
 loadjs.ready("head", function () {
     // Write your table-specific client script here, no need to add script tags.
@@ -112,13 +136,6 @@ loadjs.ready("head", function () {
 </div>
 <?php } ?>
 <?php if (!$Page->isExport() || Config("EXPORT_MASTER_RECORD") && $Page->isExport("print")) { ?>
-<?php
-if ($Page->DbMasterFilter != "" && $Page->getCurrentMasterTable() == "employee") {
-    if ($Page->MasterRecordExists) {
-        include_once "views/EmployeeMaster.php";
-    }
-}
-?>
 <?php
 if ($Page->DbMasterFilter != "" && $Page->getCurrentMasterTable() == "myprofile") {
     if ($Page->MasterRecordExists) {
@@ -284,10 +301,6 @@ $Page->showMessage();
 <input type="hidden" name="<?= $TokenValueKey ?>" value="<?= $TokenValue ?>"><!-- CSRF token value -->
 <?php } ?>
 <input type="hidden" name="t" value="mytimesheet">
-<?php if ($Page->getCurrentMasterTable() == "employee" && $Page->CurrentAction) { ?>
-<input type="hidden" name="<?= Config("TABLE_SHOW_MASTER") ?>" value="employee">
-<input type="hidden" name="fk_employee_username" value="<?= HtmlEncode($Page->employee_username->getSessionValue()) ?>">
-<?php } ?>
 <?php if ($Page->getCurrentMasterTable() == "myprofile" && $Page->CurrentAction) { ?>
 <input type="hidden" name="<?= Config("TABLE_SHOW_MASTER") ?>" value="myprofile">
 <input type="hidden" name="fk_employee_username" value="<?= HtmlEncode($Page->employee_username->getSessionValue()) ?>">
@@ -597,4 +610,16 @@ loadjs.ready("load", function () {
     // Write your table-specific startup script here, no need to add script tags.
 });
 </script>
+<?php if (!$Page->isExport()) { ?>
+<script>
+loadjs.ready("fixedheadertable", function () {
+    ew.fixedHeaderTable({
+        delay: 0,
+        container: "gmp_mytimesheet",
+        width: "",
+        height: "500px"
+    });
+});
+</script>
+<?php } ?>
 <?php } ?>

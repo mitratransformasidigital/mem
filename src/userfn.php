@@ -29,7 +29,7 @@ function GetStartsWithAFilter($FldExpression, $dbid = 0)
 // Database Connecting event
 function Database_Connecting(&$info)
 {
-          if ($info["id"] == "DB" && IsLocal()){ // setting koneksi database di komputer localhost
+   if ($info["id"] == "DB" && IsLocal()){ // setting koneksi database di komputer localhost
         $info["host"] = "localhost";
         $info["user"] = "root"; // sesuaikan dengan username database di komputer localhost
         $info["pass"] = ""; // sesuaikan dengan password database di komputer localhost
@@ -38,8 +38,9 @@ function Database_Connecting(&$info)
         $info["host"] = "localhost";  // sesuaikan dengan ip address atau hostname komputer server
         $info["user"] = "mitral_yudhabs"; // sesuaikan dengan username database di komputer server
         $info["pass"] = "n4diad4fa"; // sesuaikan deengan password database di komputer server
-        $info["db"] = "mitral_mem"; // sesuaikan dengan nama database dikomputer server
+        $info["db"] = "mitral_mem"; // sesuaikan dengan nama database di komputer server
     }
+
     // Example:
     //var_dump($info);
     //if ($info["id"] == "DB" && IsLocal()) { // Testing on local PC

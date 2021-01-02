@@ -121,10 +121,6 @@ $Page->showMessage();
 <input type="hidden" name="action" id="action" value="update">
 <input type="hidden" name="modal" value="<?= (int)$Page->IsModal ?>">
 <input type="hidden" name="<?= $Page->OldKeyName ?>" value="<?= $Page->OldKey ?>">
-<?php if ($Page->getCurrentMasterTable() == "employee") { ?>
-<input type="hidden" name="<?= Config("TABLE_SHOW_MASTER") ?>" value="employee">
-<input type="hidden" name="fk_employee_username" value="<?= HtmlEncode($Page->employee_username->getSessionValue()) ?>">
-<?php } ?>
 <?php if ($Page->getCurrentMasterTable() == "myprofile") { ?>
 <input type="hidden" name="<?= Config("TABLE_SHOW_MASTER") ?>" value="myprofile">
 <input type="hidden" name="fk_employee_username" value="<?= HtmlEncode($Page->employee_username->getSessionValue()) ?>">

@@ -115,10 +115,6 @@ $Page->showMessage();
 <input type="hidden" name="action" id="action" value="insert">
 <input type="hidden" name="modal" value="<?= (int)$Page->IsModal ?>">
 <input type="hidden" name="<?= $Page->OldKeyName ?>" value="<?= $Page->OldKey ?>">
-<?php if ($Page->getCurrentMasterTable() == "employee") { ?>
-<input type="hidden" name="<?= Config("TABLE_SHOW_MASTER") ?>" value="employee">
-<input type="hidden" name="fk_employee_username" value="<?= HtmlEncode($Page->employee_username->getSessionValue()) ?>">
-<?php } ?>
 <?php if ($Page->getCurrentMasterTable() == "myprofile") { ?>
 <input type="hidden" name="<?= Config("TABLE_SHOW_MASTER") ?>" value="myprofile">
 <input type="hidden" name="fk_employee_username" value="<?= HtmlEncode($Page->employee_username->getSessionValue()) ?>">
@@ -161,8 +157,8 @@ $Page->showMessage();
         <div class="<?= $Page->RightColumnClass ?>"><div <?= $Page->thr->cellAttributes() ?>>
 <span id="el_mycontract_thr">
 <div class="custom-control custom-checkbox d-inline-block">
-    <input type="checkbox" class="custom-control-input<?= $Page->thr->isInvalidClass() ?>" data-table="mycontract" data-field="x_thr" name="x_thr[]" id="x_thr_254632" value="1"<?= ConvertToBool($Page->thr->CurrentValue) ? " checked" : "" ?><?= $Page->thr->editAttributes() ?> aria-describedby="x_thr_help">
-    <label class="custom-control-label" for="x_thr_254632"></label>
+    <input type="checkbox" class="custom-control-input<?= $Page->thr->isInvalidClass() ?>" data-table="mycontract" data-field="x_thr" name="x_thr[]" id="x_thr_633901" value="1"<?= ConvertToBool($Page->thr->CurrentValue) ? " checked" : "" ?><?= $Page->thr->editAttributes() ?> aria-describedby="x_thr_help">
+    <label class="custom-control-label" for="x_thr_633901"></label>
 </div>
 <?= $Page->thr->getCustomMessage() ?>
 <div class="invalid-feedback"><?= $Page->thr->getErrorMessage() ?></div>

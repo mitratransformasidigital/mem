@@ -417,6 +417,7 @@ class EmployeeAdd extends Employee
     public $OldRecordset;
     public $CopyRecord;
     public $MultiPages; // Multi pages object
+    public $DetailPages; // Detail pages object
 
     /**
      * Page run
@@ -466,6 +467,9 @@ class EmployeeAdd extends Employee
 
         // Set up multi page object
         $this->setupMultiPages();
+
+        // Set up detail page object
+        $this->setupDetailPages();
 
         // Global Page Loading event (in userfn*.php)
         Page_Loading();
@@ -2273,22 +2277,6 @@ class EmployeeAdd extends Employee
         if (in_array("employee_trainings", $detailTblVar) && $detailPage->DetailAdd) {
             $detailPage->validateGridForm();
         }
-        $detailPage = Container("MyassetGrid");
-        if (in_array("myasset", $detailTblVar) && $detailPage->DetailAdd) {
-            $detailPage->validateGridForm();
-        }
-        $detailPage = Container("MycontractGrid");
-        if (in_array("mycontract", $detailTblVar) && $detailPage->DetailAdd) {
-            $detailPage->validateGridForm();
-        }
-        $detailPage = Container("MytimesheetGrid");
-        if (in_array("mytimesheet", $detailTblVar) && $detailPage->DetailAdd) {
-            $detailPage->validateGridForm();
-        }
-        $detailPage = Container("MytrainingGrid");
-        if (in_array("mytraining", $detailTblVar) && $detailPage->DetailAdd) {
-            $detailPage->validateGridForm();
-        }
 
         // Return validate result
         $validateForm = !$this->hasInvalidFields();
@@ -2743,46 +2731,6 @@ class EmployeeAdd extends Employee
                 $detailPage->employee_username->setSessionValue(""); // Clear master key if insert failed
                 }
             }
-            $detailPage = Container("MyassetGrid");
-            if (in_array("myasset", $detailTblVar) && $detailPage->DetailAdd) {
-                $detailPage->employee_username->setSessionValue($this->employee_username->CurrentValue); // Set master key
-                $Security->loadCurrentUserLevel($this->ProjectID . "myasset"); // Load user level of detail table
-                $addRow = $detailPage->gridInsert();
-                $Security->loadCurrentUserLevel($this->ProjectID . $this->TableName); // Restore user level of master table
-                if (!$addRow) {
-                $detailPage->employee_username->setSessionValue(""); // Clear master key if insert failed
-                }
-            }
-            $detailPage = Container("MycontractGrid");
-            if (in_array("mycontract", $detailTblVar) && $detailPage->DetailAdd) {
-                $detailPage->employee_username->setSessionValue($this->employee_username->CurrentValue); // Set master key
-                $Security->loadCurrentUserLevel($this->ProjectID . "mycontract"); // Load user level of detail table
-                $addRow = $detailPage->gridInsert();
-                $Security->loadCurrentUserLevel($this->ProjectID . $this->TableName); // Restore user level of master table
-                if (!$addRow) {
-                $detailPage->employee_username->setSessionValue(""); // Clear master key if insert failed
-                }
-            }
-            $detailPage = Container("MytimesheetGrid");
-            if (in_array("mytimesheet", $detailTblVar) && $detailPage->DetailAdd) {
-                $detailPage->employee_username->setSessionValue($this->employee_username->CurrentValue); // Set master key
-                $Security->loadCurrentUserLevel($this->ProjectID . "mytimesheet"); // Load user level of detail table
-                $addRow = $detailPage->gridInsert();
-                $Security->loadCurrentUserLevel($this->ProjectID . $this->TableName); // Restore user level of master table
-                if (!$addRow) {
-                $detailPage->employee_username->setSessionValue(""); // Clear master key if insert failed
-                }
-            }
-            $detailPage = Container("MytrainingGrid");
-            if (in_array("mytraining", $detailTblVar) && $detailPage->DetailAdd) {
-                $detailPage->employee_username->setSessionValue($this->employee_username->CurrentValue); // Set master key
-                $Security->loadCurrentUserLevel($this->ProjectID . "mytraining"); // Load user level of detail table
-                $addRow = $detailPage->gridInsert();
-                $Security->loadCurrentUserLevel($this->ProjectID . $this->TableName); // Restore user level of master table
-                if (!$addRow) {
-                $detailPage->employee_username->setSessionValue(""); // Clear master key if insert failed
-                }
-            }
         }
 
         // Commit/Rollback transaction
@@ -3152,78 +3100,6 @@ class EmployeeAdd extends Employee
                     $detailPageObj->employee_username->setSessionValue($detailPageObj->employee_username->CurrentValue);
                 }
             }
-            if (in_array("myasset", $detailTblVar)) {
-                $detailPageObj = Container("MyassetGrid");
-                if ($detailPageObj->DetailAdd) {
-                    if ($this->CopyRecord) {
-                        $detailPageObj->CurrentMode = "copy";
-                    } else {
-                        $detailPageObj->CurrentMode = "add";
-                    }
-                    $detailPageObj->CurrentAction = "gridadd";
-
-                    // Save current master table to detail table
-                    $detailPageObj->setCurrentMasterTable($this->TableVar);
-                    $detailPageObj->setStartRecordNumber(1);
-                    $detailPageObj->employee_username->IsDetailKey = true;
-                    $detailPageObj->employee_username->CurrentValue = $this->employee_username->CurrentValue;
-                    $detailPageObj->employee_username->setSessionValue($detailPageObj->employee_username->CurrentValue);
-                }
-            }
-            if (in_array("mycontract", $detailTblVar)) {
-                $detailPageObj = Container("MycontractGrid");
-                if ($detailPageObj->DetailAdd) {
-                    if ($this->CopyRecord) {
-                        $detailPageObj->CurrentMode = "copy";
-                    } else {
-                        $detailPageObj->CurrentMode = "add";
-                    }
-                    $detailPageObj->CurrentAction = "gridadd";
-
-                    // Save current master table to detail table
-                    $detailPageObj->setCurrentMasterTable($this->TableVar);
-                    $detailPageObj->setStartRecordNumber(1);
-                    $detailPageObj->employee_username->IsDetailKey = true;
-                    $detailPageObj->employee_username->CurrentValue = $this->employee_username->CurrentValue;
-                    $detailPageObj->employee_username->setSessionValue($detailPageObj->employee_username->CurrentValue);
-                }
-            }
-            if (in_array("mytimesheet", $detailTblVar)) {
-                $detailPageObj = Container("MytimesheetGrid");
-                if ($detailPageObj->DetailAdd) {
-                    if ($this->CopyRecord) {
-                        $detailPageObj->CurrentMode = "copy";
-                    } else {
-                        $detailPageObj->CurrentMode = "add";
-                    }
-                    $detailPageObj->CurrentAction = "gridadd";
-
-                    // Save current master table to detail table
-                    $detailPageObj->setCurrentMasterTable($this->TableVar);
-                    $detailPageObj->setStartRecordNumber(1);
-                    $detailPageObj->employee_username->IsDetailKey = true;
-                    $detailPageObj->employee_username->CurrentValue = $this->employee_username->CurrentValue;
-                    $detailPageObj->employee_username->setSessionValue($detailPageObj->employee_username->CurrentValue);
-                }
-            }
-            if (in_array("mytraining", $detailTblVar)) {
-                $detailPageObj = Container("MytrainingGrid");
-                if ($detailPageObj->DetailAdd) {
-                    if ($this->CopyRecord) {
-                        $detailPageObj->CurrentMode = "copy";
-                    } else {
-                        $detailPageObj->CurrentMode = "add";
-                    }
-                    $detailPageObj->CurrentAction = "gridadd";
-
-                    // Save current master table to detail table
-                    $detailPageObj->setCurrentMasterTable($this->TableVar);
-                    $detailPageObj->setStartRecordNumber(1);
-                    $detailPageObj->employee_username->IsDetailKey = true;
-                    $detailPageObj->employee_username->CurrentValue = $this->employee_username->CurrentValue;
-                    $detailPageObj->employee_username->setSessionValue($detailPageObj->employee_username->CurrentValue);
-                }
-            }
         }
     }
 
@@ -3231,7 +3107,7 @@ class EmployeeAdd extends Employee
     protected function setupBreadcrumb()
     {
         global $Breadcrumb, $Language;
-        $Breadcrumb = new Breadcrumb("top10days");
+        $Breadcrumb = new Breadcrumb("welcome");
         $url = CurrentUrl();
         $Breadcrumb->add("list", $this->TableVar, $this->addMasterUrl("employeelist"), "", $this->TableVar, true);
         $pageId = ($this->isCopy()) ? "Copy" : "Add";
@@ -3249,6 +3125,21 @@ class EmployeeAdd extends Employee
         $pages->add(3);
         $pages->add(4);
         $this->MultiPages = $pages;
+    }
+
+    // Set up detail pages
+    protected function setupDetailPages()
+    {
+        $pages = new SubPages();
+        $pages->Style = "tabs";
+        $pages->add('employee_shift');
+        $pages->add('activity');
+        $pages->add('permit');
+        $pages->add('employee_contract');
+        $pages->add('employee_asset');
+        $pages->add('employee_timesheet');
+        $pages->add('employee_trainings');
+        $this->DetailPages = $pages;
     }
 
     // Setup lookup options

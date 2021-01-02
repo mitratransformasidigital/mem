@@ -55,7 +55,7 @@ class Mytraining extends DbTable
         $this->TableType = 'VIEW';
 
         // Update Table
-        $this->UpdateTable = "employee_trainings";
+        $this->UpdateTable = "`mytraining`";
         $this->Dbid = 'DB';
         $this->ExportAll = true;
         $this->ExportPageBreakCount = 0; // Page break per every n record (PDF only)
@@ -75,7 +75,7 @@ class Mytraining extends DbTable
         $this->BasicSearch = new BasicSearch($this->TableVar);
 
         // training_id
-        $this->training_id = new DbField('mytraining', 'mytraining', 'x_training_id', 'training_id', '`training_id`', '`training_id`', 3, 11, -1, false, '`training_id`', false, false, false, 'FORMATTED TEXT', 'NO');
+        $this->training_id = new DbField('mytraining', 'mytraining', 'x_training_id', 'training_id', '`training_id`', '`training_id`', 3, 11, -1, false, '`training_id`', false, false, false, 'FORMATTED TEXT', 'HIDDEN');
         $this->training_id->IsAutoIncrement = true; // Autoincrement field
         $this->training_id->IsPrimaryKey = true; // Primary key field
         $this->training_id->Sortable = false; // Allow sort
@@ -189,13 +189,6 @@ class Mytraining extends DbTable
     {
         // Master filter
         $masterFilter = "";
-        if ($this->getCurrentMasterTable() == "employee") {
-            if ($this->employee_username->getSessionValue() != "") {
-                $masterFilter .= "" . GetForeignKeySql("`employee_username`", $this->employee_username->getSessionValue(), DATATYPE_STRING, "DB");
-            } else {
-                return "";
-            }
-        }
         if ($this->getCurrentMasterTable() == "myprofile") {
             if ($this->employee_username->getSessionValue() != "") {
                 $masterFilter .= "" . GetForeignKeySql("`employee_username`", $this->employee_username->getSessionValue(), DATATYPE_STRING, "DB");
@@ -211,13 +204,6 @@ class Mytraining extends DbTable
     {
         // Detail filter
         $detailFilter = "";
-        if ($this->getCurrentMasterTable() == "employee") {
-            if ($this->employee_username->getSessionValue() != "") {
-                $detailFilter .= "" . GetForeignKeySql("`employee_username`", $this->employee_username->getSessionValue(), DATATYPE_STRING, "DB");
-            } else {
-                return "";
-            }
-        }
         if ($this->getCurrentMasterTable() == "myprofile") {
             if ($this->employee_username->getSessionValue() != "") {
                 $detailFilter .= "" . GetForeignKeySql("`employee_username`", $this->employee_username->getSessionValue(), DATATYPE_STRING, "DB");
@@ -226,17 +212,6 @@ class Mytraining extends DbTable
             }
         }
         return $detailFilter;
-    }
-
-    // Master filter
-    public function sqlMasterFilter_employee()
-    {
-        return "`employee_username`='@employee_username@'";
-    }
-    // Detail filter
-    public function sqlDetailFilter_employee()
-    {
-        return "`employee_username`='@employee_username@'";
     }
 
     // Master filter
@@ -816,10 +791,6 @@ class Mytraining extends DbTable
     // Add master url
     public function addMasterUrl($url)
     {
-        if ($this->getCurrentMasterTable() == "employee" && !ContainsString($url, Config("TABLE_SHOW_MASTER") . "=")) {
-            $url .= (ContainsString($url, "?") ? "&" : "?") . Config("TABLE_SHOW_MASTER") . "=" . $this->getCurrentMasterTable();
-            $url .= "&" . GetForeignKeyUrl("fk_employee_username", $this->employee_username->CurrentValue);
-        }
         if ($this->getCurrentMasterTable() == "myprofile" && !ContainsString($url, Config("TABLE_SHOW_MASTER") . "=")) {
             $url .= (ContainsString($url, "?") ? "&" : "?") . Config("TABLE_SHOW_MASTER") . "=" . $this->getCurrentMasterTable();
             $url .= "&" . GetForeignKeyUrl("fk_employee_username", $this->employee_username->CurrentValue);
@@ -1134,8 +1105,6 @@ SORTHTML;
         // training_id
         $this->training_id->EditAttrs["class"] = "form-control";
         $this->training_id->EditCustomAttributes = "";
-        $this->training_id->EditValue = $this->training_id->CurrentValue;
-        $this->training_id->ViewCustomAttributes = "";
 
         // employee_username
         $this->employee_username->EditAttrs["class"] = "form-control";

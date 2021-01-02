@@ -423,8 +423,8 @@ loadjs.ready("head", function() {
 <?php if ($Grid->RowType == ROWTYPE_ADD) { // Add record ?>
 <span id="el<?= $Grid->RowCount ?>_employee_contract_thr" class="form-group">
 <div class="custom-control custom-checkbox d-inline-block">
-    <input type="checkbox" class="custom-control-input<?= $Grid->thr->isInvalidClass() ?>" data-table="employee_contract" data-field="x_thr" name="x<?= $Grid->RowIndex ?>_thr[]" id="x<?= $Grid->RowIndex ?>_thr_421295" value="1"<?= ConvertToBool($Grid->thr->CurrentValue) ? " checked" : "" ?><?= $Grid->thr->editAttributes() ?>>
-    <label class="custom-control-label" for="x<?= $Grid->RowIndex ?>_thr_421295"></label>
+    <input type="checkbox" class="custom-control-input<?= $Grid->thr->isInvalidClass() ?>" data-table="employee_contract" data-field="x_thr" name="x<?= $Grid->RowIndex ?>_thr[]" id="x<?= $Grid->RowIndex ?>_thr_601356" value="1"<?= ConvertToBool($Grid->thr->CurrentValue) ? " checked" : "" ?><?= $Grid->thr->editAttributes() ?>>
+    <label class="custom-control-label" for="x<?= $Grid->RowIndex ?>_thr_601356"></label>
 </div>
 <div class="invalid-feedback"><?= $Grid->thr->getErrorMessage() ?></div>
 </span>
@@ -433,8 +433,8 @@ loadjs.ready("head", function() {
 <?php if ($Grid->RowType == ROWTYPE_EDIT) { // Edit record ?>
 <span id="el<?= $Grid->RowCount ?>_employee_contract_thr" class="form-group">
 <div class="custom-control custom-checkbox d-inline-block">
-    <input type="checkbox" class="custom-control-input<?= $Grid->thr->isInvalidClass() ?>" data-table="employee_contract" data-field="x_thr" name="x<?= $Grid->RowIndex ?>_thr[]" id="x<?= $Grid->RowIndex ?>_thr_294137" value="1"<?= ConvertToBool($Grid->thr->CurrentValue) ? " checked" : "" ?><?= $Grid->thr->editAttributes() ?>>
-    <label class="custom-control-label" for="x<?= $Grid->RowIndex ?>_thr_294137"></label>
+    <input type="checkbox" class="custom-control-input<?= $Grid->thr->isInvalidClass() ?>" data-table="employee_contract" data-field="x_thr" name="x<?= $Grid->RowIndex ?>_thr[]" id="x<?= $Grid->RowIndex ?>_thr_444216" value="1"<?= ConvertToBool($Grid->thr->CurrentValue) ? " checked" : "" ?><?= $Grid->thr->editAttributes() ?>>
+    <label class="custom-control-label" for="x<?= $Grid->RowIndex ?>_thr_444216"></label>
 </div>
 <div class="invalid-feedback"><?= $Grid->thr->getErrorMessage() ?></div>
 </span>
@@ -792,8 +792,8 @@ loadjs.ready("head", function() {
 <?php if (!$Grid->isConfirm()) { ?>
 <span id="el$rowindex$_employee_contract_thr" class="form-group employee_contract_thr">
 <div class="custom-control custom-checkbox d-inline-block">
-    <input type="checkbox" class="custom-control-input<?= $Grid->thr->isInvalidClass() ?>" data-table="employee_contract" data-field="x_thr" name="x<?= $Grid->RowIndex ?>_thr[]" id="x<?= $Grid->RowIndex ?>_thr_369649" value="1"<?= ConvertToBool($Grid->thr->CurrentValue) ? " checked" : "" ?><?= $Grid->thr->editAttributes() ?>>
-    <label class="custom-control-label" for="x<?= $Grid->RowIndex ?>_thr_369649"></label>
+    <input type="checkbox" class="custom-control-input<?= $Grid->thr->isInvalidClass() ?>" data-table="employee_contract" data-field="x_thr" name="x<?= $Grid->RowIndex ?>_thr[]" id="x<?= $Grid->RowIndex ?>_thr_407729" value="1"<?= ConvertToBool($Grid->thr->CurrentValue) ? " checked" : "" ?><?= $Grid->thr->editAttributes() ?>>
+    <label class="custom-control-label" for="x<?= $Grid->RowIndex ?>_thr_407729"></label>
 </div>
 <div class="invalid-feedback"><?= $Grid->thr->getErrorMessage() ?></div>
 </span>

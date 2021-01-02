@@ -1015,7 +1015,7 @@ class Top10DaysSummary extends Top10Days
     protected function setupBreadcrumb()
     {
         global $Breadcrumb, $Language;
-        $Breadcrumb = new Breadcrumb("top10days");
+        $Breadcrumb = new Breadcrumb("welcome");
         $url = CurrentUrl();
         $url = preg_replace('/\?cmd=reset(all){0,1}$/i', '', $url); // Remove cmd=reset / cmd=resetall
         $Breadcrumb->add("summary", $this->TableVar, $url, "", $this->TableVar, true);

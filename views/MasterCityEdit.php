@@ -199,20 +199,28 @@ loadjs.ready("head", function() {
 <?php include_once "MasterOfficeGrid.php" ?>
 <?php } ?>
 <?php
-    if (in_array("employee", explode(",", $Page->getCurrentDetailTable())) && $employee->DetailEdit) {
-?>
-<?php if ($Page->getCurrentDetailTable() != "") { ?>
-<h4 class="ew-detail-caption"><?= $Language->tablePhrase("employee", "TblCaption") ?></h4>
-<?php } ?>
-<?php include_once "EmployeeGrid.php" ?>
-<?php } ?>
-<?php
     if (in_array("myprofile", explode(",", $Page->getCurrentDetailTable())) && $myprofile->DetailEdit) {
 ?>
 <?php if ($Page->getCurrentDetailTable() != "") { ?>
 <h4 class="ew-detail-caption"><?= $Language->tablePhrase("myprofile", "TblCaption") ?></h4>
 <?php } ?>
 <?php include_once "MyprofileGrid.php" ?>
+<?php } ?>
+<?php
+    if (in_array("customer", explode(",", $Page->getCurrentDetailTable())) && $customer->DetailEdit) {
+?>
+<?php if ($Page->getCurrentDetailTable() != "") { ?>
+<h4 class="ew-detail-caption"><?= $Language->tablePhrase("customer", "TblCaption") ?></h4>
+<?php } ?>
+<?php include_once "CustomerGrid.php" ?>
+<?php } ?>
+<?php
+    if (in_array("employee", explode(",", $Page->getCurrentDetailTable())) && $employee->DetailEdit) {
+?>
+<?php if ($Page->getCurrentDetailTable() != "") { ?>
+<h4 class="ew-detail-caption"><?= $Language->tablePhrase("employee", "TblCaption") ?></h4>
+<?php } ?>
+<?php include_once "EmployeeGrid.php" ?>
 <?php } ?>
 <?php if (!$Page->IsModal) { ?>
 <div class="form-group row"><!-- buttons .form-group -->

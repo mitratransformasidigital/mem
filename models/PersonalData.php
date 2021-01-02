@@ -196,7 +196,7 @@ class PersonalData
 
         // Global Page Loading event (in userfn*.php)
         Page_Loading();
-        $Breadcrumb = new Breadcrumb("top10days");
+        $Breadcrumb = new Breadcrumb("welcome");
         $Breadcrumb->add("personal_data", "PersonalDataTitle", CurrentUrl(), "ew-personal-data", "", true);
         $this->Heading = $Language->phrase("PersonalDataTitle");
         $cmd = Get("cmd", "");

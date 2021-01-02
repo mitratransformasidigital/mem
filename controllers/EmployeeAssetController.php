@@ -49,4 +49,10 @@ class EmployeeAssetController extends ControllerBase
     {
         return $this->runPage($request, $response, $args, "EmployeeAssetSearch");
     }
+
+    // preview
+    public function preview(Request $request, Response $response, array $args): Response
+    {
+        return $this->runPage($request, $response, $args, "EmployeeAssetPreview", false);
+    }
 }

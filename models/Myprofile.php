@@ -70,7 +70,7 @@ class Myprofile extends DbTable
         $this->TableType = 'VIEW';
 
         // Update Table
-        $this->UpdateTable = "employee";
+        $this->UpdateTable = "`myprofile`";
         $this->Dbid = 'DB';
         $this->ExportAll = true;
         $this->ExportPageBreakCount = 0; // Page break per every n record (PDF only)
@@ -811,6 +811,114 @@ class Myprofile extends DbTable
     // Update
     public function update(&$rs, $where = "", $rsold = null, $curfilter = true)
     {
+        // Cascade Update detail table 'myasset'
+        $cascadeUpdate = false;
+        $rscascade = [];
+        if ($rsold && (isset($rs['employee_username']) && $rsold['employee_username'] != $rs['employee_username'])) { // Update detail field 'employee_username'
+            $cascadeUpdate = true;
+            $rscascade['employee_username'] = $rs['employee_username'];
+        }
+        if ($cascadeUpdate) {
+            $rswrk = Container("myasset")->loadRs("`employee_username` = " . QuotedValue($rsold['employee_username'], DATATYPE_STRING, 'DB'))->fetchAll(\PDO::FETCH_ASSOC);
+            foreach ($rswrk as $rsdtlold) {
+                $rskey = [];
+                $fldname = 'asset_id';
+                $rskey[$fldname] = $rsdtlold[$fldname];
+                $rsdtlnew = array_merge($rsdtlold, $rscascade);
+                // Call Row_Updating event
+                $success = Container("myasset")->rowUpdating($rsdtlold, $rsdtlnew);
+                if ($success) {
+                    $success = Container("myasset")->update($rscascade, $rskey, $rsdtlold);
+                }
+                if (!$success) {
+                    return false;
+                }
+                // Call Row_Updated event
+                Container("myasset")->rowUpdated($rsdtlold, $rsdtlnew);
+            }
+        }
+
+        // Cascade Update detail table 'mycontract'
+        $cascadeUpdate = false;
+        $rscascade = [];
+        if ($rsold && (isset($rs['employee_username']) && $rsold['employee_username'] != $rs['employee_username'])) { // Update detail field 'employee_username'
+            $cascadeUpdate = true;
+            $rscascade['employee_username'] = $rs['employee_username'];
+        }
+        if ($cascadeUpdate) {
+            $rswrk = Container("mycontract")->loadRs("`employee_username` = " . QuotedValue($rsold['employee_username'], DATATYPE_STRING, 'DB'))->fetchAll(\PDO::FETCH_ASSOC);
+            foreach ($rswrk as $rsdtlold) {
+                $rskey = [];
+                $fldname = 'contract_id';
+                $rskey[$fldname] = $rsdtlold[$fldname];
+                $rsdtlnew = array_merge($rsdtlold, $rscascade);
+                // Call Row_Updating event
+                $success = Container("mycontract")->rowUpdating($rsdtlold, $rsdtlnew);
+                if ($success) {
+                    $success = Container("mycontract")->update($rscascade, $rskey, $rsdtlold);
+                }
+                if (!$success) {
+                    return false;
+                }
+                // Call Row_Updated event
+                Container("mycontract")->rowUpdated($rsdtlold, $rsdtlnew);
+            }
+        }
+
+        // Cascade Update detail table 'mytimesheet'
+        $cascadeUpdate = false;
+        $rscascade = [];
+        if ($rsold && (isset($rs['employee_username']) && $rsold['employee_username'] != $rs['employee_username'])) { // Update detail field 'employee_username'
+            $cascadeUpdate = true;
+            $rscascade['employee_username'] = $rs['employee_username'];
+        }
+        if ($cascadeUpdate) {
+            $rswrk = Container("mytimesheet")->loadRs("`employee_username` = " . QuotedValue($rsold['employee_username'], DATATYPE_STRING, 'DB'))->fetchAll(\PDO::FETCH_ASSOC);
+            foreach ($rswrk as $rsdtlold) {
+                $rskey = [];
+                $fldname = 'timesheet_id';
+                $rskey[$fldname] = $rsdtlold[$fldname];
+                $rsdtlnew = array_merge($rsdtlold, $rscascade);
+                // Call Row_Updating event
+                $success = Container("mytimesheet")->rowUpdating($rsdtlold, $rsdtlnew);
+                if ($success) {
+                    $success = Container("mytimesheet")->update($rscascade, $rskey, $rsdtlold);
+                }
+                if (!$success) {
+                    return false;
+                }
+                // Call Row_Updated event
+                Container("mytimesheet")->rowUpdated($rsdtlold, $rsdtlnew);
+            }
+        }
+
+        // Cascade Update detail table 'mytraining'
+        $cascadeUpdate = false;
+        $rscascade = [];
+        if ($rsold && (isset($rs['employee_username']) && $rsold['employee_username'] != $rs['employee_username'])) { // Update detail field 'employee_username'
+            $cascadeUpdate = true;
+            $rscascade['employee_username'] = $rs['employee_username'];
+        }
+        if ($cascadeUpdate) {
+            $rswrk = Container("mytraining")->loadRs("`employee_username` = " . QuotedValue($rsold['employee_username'], DATATYPE_STRING, 'DB'))->fetchAll(\PDO::FETCH_ASSOC);
+            foreach ($rswrk as $rsdtlold) {
+                $rskey = [];
+                $fldname = 'training_id';
+                $rskey[$fldname] = $rsdtlold[$fldname];
+                $rsdtlnew = array_merge($rsdtlold, $rscascade);
+                // Call Row_Updating event
+                $success = Container("mytraining")->rowUpdating($rsdtlold, $rsdtlnew);
+                if ($success) {
+                    $success = Container("mytraining")->update($rscascade, $rskey, $rsdtlold);
+                }
+                if (!$success) {
+                    return false;
+                }
+                // Call Row_Updated event
+                Container("mytraining")->rowUpdated($rsdtlold, $rsdtlnew);
+            }
+        }
+
         // If no field is updated, execute may return 0. Treat as success
         $success = $this->updateSql($rs, $where, $curfilter)->execute();
         $success = ($success > 0) ? $success : true;
@@ -846,6 +954,102 @@ class Myprofile extends DbTable
     public function delete(&$rs, $where = "", $curfilter = false)
     {
         $success = true;
+
+        // Cascade delete detail table 'myasset'
+        $dtlrows = Container("myasset")->loadRs("`employee_username` = " . QuotedValue($rs['employee_username'], DATATYPE_STRING, "DB"))->fetchAll(\PDO::FETCH_ASSOC);
+        // Call Row Deleting event
+        foreach ($dtlrows as $dtlrow) {
+            $success = Container("myasset")->rowDeleting($dtlrow);
+            if (!$success) {
+                break;
+            }
+        }
+        if ($success) {
+            foreach ($dtlrows as $dtlrow) {
+                $success = Container("myasset")->delete($dtlrow); // Delete
+                if (!$success) {
+                    break;
+                }
+            }
+        }
+        // Call Row Deleted event
+        if ($success) {
+            foreach ($dtlrows as $dtlrow) {
+                Container("myasset")->rowDeleted($dtlrow);
+            }
+        }
+
+        // Cascade delete detail table 'mycontract'
+        $dtlrows = Container("mycontract")->loadRs("`employee_username` = " . QuotedValue($rs['employee_username'], DATATYPE_STRING, "DB"))->fetchAll(\PDO::FETCH_ASSOC);
+        // Call Row Deleting event
+        foreach ($dtlrows as $dtlrow) {
+            $success = Container("mycontract")->rowDeleting($dtlrow);
+            if (!$success) {
+                break;
+            }
+        }
+        if ($success) {
+            foreach ($dtlrows as $dtlrow) {
+                $success = Container("mycontract")->delete($dtlrow); // Delete
+                if (!$success) {
+                    break;
+                }
+            }
+        }
+        // Call Row Deleted event
+        if ($success) {
+            foreach ($dtlrows as $dtlrow) {
+                Container("mycontract")->rowDeleted($dtlrow);
+            }
+        }
+
+        // Cascade delete detail table 'mytimesheet'
+        $dtlrows = Container("mytimesheet")->loadRs("`employee_username` = " . QuotedValue($rs['employee_username'], DATATYPE_STRING, "DB"))->fetchAll(\PDO::FETCH_ASSOC);
+        // Call Row Deleting event
+        foreach ($dtlrows as $dtlrow) {
+            $success = Container("mytimesheet")->rowDeleting($dtlrow);
+            if (!$success) {
+                break;
+            }
+        }
+        if ($success) {
+            foreach ($dtlrows as $dtlrow) {
+                $success = Container("mytimesheet")->delete($dtlrow); // Delete
+                if (!$success) {
+                    break;
+                }
+            }
+        }
+        // Call Row Deleted event
+        if ($success) {
+            foreach ($dtlrows as $dtlrow) {
+                Container("mytimesheet")->rowDeleted($dtlrow);
+            }
+        }
+
+        // Cascade delete detail table 'mytraining'
+        $dtlrows = Container("mytraining")->loadRs("`employee_username` = " . QuotedValue($rs['employee_username'], DATATYPE_STRING, "DB"))->fetchAll(\PDO::FETCH_ASSOC);
+        // Call Row Deleting event
+        foreach ($dtlrows as $dtlrow) {
+            $success = Container("mytraining")->rowDeleting($dtlrow);
+            if (!$success) {
+                break;
+            }
+        }
+        if ($success) {
+            foreach ($dtlrows as $dtlrow) {
+                $success = Container("mytraining")->delete($dtlrow); // Delete
+                if (!$success) {
+                    break;
+                }
+            }
+        }
+        // Call Row Deleted event
+        if ($success) {
+            foreach ($dtlrows as $dtlrow) {
+                Container("mytraining")->rowDeleted($dtlrow);
+            }
+        }
         if ($success) {
             $success = $this->deleteSql($rs, $where, $curfilter)->execute();
         }
