@@ -14,6 +14,7 @@ Your changes should be visible here: https://mem.mitral.co.id/
 
 
 ### cPanel Git 
+This is the file where all the deployments are listed on. please do not remove it from the code.
 ```yaml
 ---
 deployment:
