@@ -217,7 +217,7 @@ class Userpriv extends Userlevels
         if (method_exists($this, "pageLoad")) {
             $this->pageLoad();
         }
-        $Breadcrumb = new Breadcrumb("top10days");
+        $Breadcrumb = new Breadcrumb("welcome");
         $Breadcrumb->add("list", "userlevels", "userlevelslist", "", "userlevels");
         $Breadcrumb->add("userpriv", "UserLevelPermission", CurrentUrl());
         $this->Heading = $Language->phrase("UserLevelPermission");

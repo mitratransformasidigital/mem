@@ -794,22 +794,6 @@ class MyassetList extends Myasset
         AddFilter($filter, $this->SearchWhere);
 
         // Load master record
-        if ($this->CurrentMode != "add" && $this->getMasterFilter() != "" && $this->getCurrentMasterTable() == "employee") {
-            $masterTbl = Container("employee");
-            $rsmaster = $masterTbl->loadRs($this->DbMasterFilter)->fetch(\PDO::FETCH_ASSOC);
-            $this->MasterRecordExists = $rsmaster !== false;
-            if (!$this->MasterRecordExists) {
-                $this->setFailureMessage($Language->phrase("NoRecord")); // Set no record found
-                $this->terminate("employeelist"); // Return to master page
-                return;
-            } else {
-                $masterTbl->loadListRowValues($rsmaster);
-                $masterTbl->RowType = ROWTYPE_MASTER; // Master row
-                $masterTbl->renderListRow();
-            }
-        }
-
-        // Load master record
         if ($this->CurrentMode != "add" && $this->getMasterFilter() != "" && $this->getCurrentMasterTable() == "myprofile") {
             $masterTbl = Container("myprofile");
             $rsmaster = $masterTbl->loadRs($this->DbMasterFilter)->fetch(\PDO::FETCH_ASSOC);
@@ -1437,7 +1421,6 @@ class MyassetList extends Myasset
                 $this->DbMasterFilter = "";
                 $this->DbDetailFilter = "";
                         $this->employee_username->setSessionValue("");
-                        $this->employee_username->setSessionValue("");
             }
 
             // Reset (clear) sorting order
@@ -1783,11 +1766,14 @@ class MyassetList extends Myasset
     // Set up list options (extended codes)
     protected function setupListOptionsExt()
     {
+        // Hide detail items for dropdown if necessary
+        $this->ListOptions->hideDetailItemsForDropDown();
     }
 
     // Render list options (extended codes)
     protected function renderListOptionsExt()
     {
+        global $Security, $Language;
     }
 
     // Load basic search values
@@ -2664,24 +2650,6 @@ class MyassetList extends Myasset
         $this->ExportDoc->ExportCustom = !$this->pageExporting();
 
         // Export master record
-        if (Config("EXPORT_MASTER_RECORD") && $this->getMasterFilter() != "" && $this->getCurrentMasterTable() == "employee") {
-            $employee = Container("employee");
-            $rsmaster = $employee->loadRs($this->DbMasterFilter); // Load master record
-            if ($rsmaster) {
-                $exportStyle = $doc->Style;
-                $doc->setStyle("v"); // Change to vertical
-                if (!$this->isExport("csv") || Config("EXPORT_MASTER_RECORD_FOR_CSV")) {
-                    $doc->Table = $employee;
-                    $employee->exportDocument($doc, new Recordset($rsmaster));
-                    $doc->exportEmptyRow();
-                    $doc->Table = &$this;
-                }
-                $doc->setStyle($exportStyle); // Restore
-                $rsmaster->closeCursor();
-            }
-        }
-
-        // Export master record
         if (Config("EXPORT_MASTER_RECORD") && $this->getMasterFilter() != "" && $this->getCurrentMasterTable() == "myprofile") {
             $myprofile = Container("myprofile");
             $rsmaster = $myprofile->loadRs($this->DbMasterFilter); // Load master record
@@ -2848,17 +2816,6 @@ class MyassetList extends Myasset
                 $this->DbMasterFilter = "";
                 $this->DbDetailFilter = "";
             }
-            if ($masterTblVar == "employee") {
-                $validMaster = true;
-                $masterTbl = Container("employee");
-                if (($parm = Get("fk_employee_username", Get("employee_username"))) !== null) {
-                    $masterTbl->employee_username->setQueryStringValue($parm);
-                    $this->employee_username->setQueryStringValue($masterTbl->employee_username->QueryStringValue);
-                    $this->employee_username->setSessionValue($this->employee_username->QueryStringValue);
-                } else {
-                    $validMaster = false;
-                }
-            }
             if ($masterTblVar == "myprofile") {
                 $validMaster = true;
                 $masterTbl = Container("myprofile");
@@ -2876,17 +2833,6 @@ class MyassetList extends Myasset
                     $validMaster = true;
                     $this->DbMasterFilter = "";
                     $this->DbDetailFilter = "";
-            }
-            if ($masterTblVar == "employee") {
-                $validMaster = true;
-                $masterTbl = Container("employee");
-                if (($parm = Post("fk_employee_username", Post("employee_username"))) !== null) {
-                    $masterTbl->employee_username->setFormValue($parm);
-                    $this->employee_username->setFormValue($masterTbl->employee_username->FormValue);
-                    $this->employee_username->setSessionValue($this->employee_username->FormValue);
-                } else {
-                    $validMaster = false;
-                }
             }
             if ($masterTblVar == "myprofile") {
                 $validMaster = true;
@@ -2917,11 +2863,6 @@ class MyassetList extends Myasset
             }
 
             // Clear previous master key from Session
-            if ($masterTblVar != "employee") {
-                if ($this->employee_username->CurrentValue == "") {
-                    $this->employee_username->setSessionValue("");
-                }
-            }
             if ($masterTblVar != "myprofile") {
                 if ($this->employee_username->CurrentValue == "") {
                     $this->employee_username->setSessionValue("");
@@ -2936,7 +2877,7 @@ class MyassetList extends Myasset
     protected function setupBreadcrumb()
     {
         global $Breadcrumb, $Language;
-        $Breadcrumb = new Breadcrumb("top10days");
+        $Breadcrumb = new Breadcrumb("welcome");
         $url = CurrentUrl();
         $url = preg_replace('/\?cmd=reset(all){0,1}$/i', '', $url); // Remove cmd=reset / cmd=resetall
         $Breadcrumb->add("list", $this->TableVar, $url, "", $this->TableVar, true);

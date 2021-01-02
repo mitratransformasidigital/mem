@@ -100,6 +100,9 @@ class Error
         global $Language, $DashboardReport, $DebugTimer;
         global $UserTable;
 
+        // Custom template
+        $this->UseCustomTemplate = true;
+
         // Initialize
         $GLOBALS["Page"] = &$this;
         $this->TokenTimeout = SessionTimeoutTime();
@@ -158,7 +161,7 @@ class Error
         global $ExportType, $CustomExportType, $ExportFileName, $UserProfile,
             $Language, $Security, $CurrentForm, $SkipHeaderFooter;
         global $Breadcrumb;
-        $Breadcrumb = new Breadcrumb("top10days");
+        $Breadcrumb = new Breadcrumb("welcome");
         $Breadcrumb->add("error", "Error", "", "", "", true);
         $this->Heading = $Language->phrase("Error");
 

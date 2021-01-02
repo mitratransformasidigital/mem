@@ -155,7 +155,7 @@ include_once $RELATIVE_PATH . "src/userlevelsettings.php";
 $CONFIG = [
 
     // Debug
-    "DEBUG" => false, // Enabled
+    "DEBUG" => true, // Enabled
     "REPORT_ALL_ERRORS" => false, // Treat PHP warnings and notices as errors
     "LOG_ERROR_TO_FILE" => false, // Log error to file
     "DEBUG_MESSAGE_TEMPLATE" => '<div class="card card-danger ew-debug"><div class="card-header">' .
@@ -171,7 +171,7 @@ $CONFIG = [
 
     // General
     "UNFORMAT_YEAR" => 50, // Unformat year
-    "RANDOM_KEY" => 'Ljd5t24LBm3lpwy2', // Random key for encryption
+    "RANDOM_KEY" => '4kZloexb7o44hebY', // Random key for encryption
     "ENCRYPTION_KEY" => '', // Encryption key for data protection
     "PROJECT_STYLESHEET_FILENAME" => "css/prjmitralphp.css", // Project stylesheet file name
     "PROJECT_CHARSET" => "utf-8", // Project charset
@@ -180,7 +180,7 @@ $CONFIG = [
     "HIGHLIGHT_COMPARE" => true, // Highlight compare mode, true(case-insensitive)|false(case-sensitive)
     "RELATED_PROJECT_ID" => "", // Related Project ID (GUID)
     "COMPOSITE_KEY_SEPARATOR" => ",", // Composite key separator
-    "CACHE" => true, // Cache
+    "CACHE" => false, // Cache
     "LAZY_LOAD" => true, // Lazy loading of images
     "BODY_CLASS" => "hold-transition layout-fixed",
     "SIDEBAR_CLASS" => "main-sidebar sidebar-dark-primary",
@@ -307,19 +307,19 @@ $CONFIG = [
     "TABLE_GRID_ADD_ROW_COUNT" => "gridaddcnt", // Grid add row count
 
     // Audit Trail
-    "AUDIT_TRAIL_TO_DATABASE" => false, // Write audit trail to DB
+    "AUDIT_TRAIL_TO_DATABASE" => true, // Write audit trail to DB
     "AUDIT_TRAIL_DBID" => "DB", // Audit trail DBID
     "AUDIT_TRAIL_TABLE_NAME" => "audittrail", // Audit trail table name
     "AUDIT_TRAIL_TABLE_VAR" => "audittrail", // Audit trail table var
-    "AUDIT_TRAIL_FIELD_NAME_DATETIME" => "DateTime", // Audit trail DateTime field name
-    "AUDIT_TRAIL_FIELD_NAME_SCRIPT" => "Script", // Audit trail Script field name
-    "AUDIT_TRAIL_FIELD_NAME_USER" => "Action", // Audit trail User field name
-    "AUDIT_TRAIL_FIELD_NAME_ACTION" => "Action", // Audit trail Action field name
-    "AUDIT_TRAIL_FIELD_NAME_TABLE" => "Table", // Audit trail Table field name
-    "AUDIT_TRAIL_FIELD_NAME_FIELD" => "Field", // Audit trail Field field name
-    "AUDIT_TRAIL_FIELD_NAME_KEYVALUE" => "KeyValue", // Audit trail Key Value field name
-    "AUDIT_TRAIL_FIELD_NAME_OLDVALUE" => "OldValue", // Audit trail Old Value field name
-    "AUDIT_TRAIL_FIELD_NAME_NEWVALUE" => "NewValue", // Audit trail New Value field name
+    "AUDIT_TRAIL_FIELD_NAME_DATETIME" => "", // Audit trail DateTime field name
+    "AUDIT_TRAIL_FIELD_NAME_SCRIPT" => "", // Audit trail Script field name
+    "AUDIT_TRAIL_FIELD_NAME_USER" => "", // Audit trail User field name
+    "AUDIT_TRAIL_FIELD_NAME_ACTION" => "", // Audit trail Action field name
+    "AUDIT_TRAIL_FIELD_NAME_TABLE" => "", // Audit trail Table field name
+    "AUDIT_TRAIL_FIELD_NAME_FIELD" => "", // Audit trail Field field name
+    "AUDIT_TRAIL_FIELD_NAME_KEYVALUE" => "", // Audit trail Key Value field name
+    "AUDIT_TRAIL_FIELD_NAME_OLDVALUE" => "", // Audit trail Old Value field name
+    "AUDIT_TRAIL_FIELD_NAME_NEWVALUE" => "", // Audit trail New Value field name
 
     // Security
     "CSRF_PREFIX" => "csrf",
@@ -389,7 +389,7 @@ $CONFIG = [
     "SEARCH_FILTER_OPTION" => "Client",
 
     // Email
-    "SENDER_EMAIL" => "", // Sender email address
+    "SENDER_EMAIL" => "marketing@mitral.co.id", // Sender email address
     "RECIPIENT_EMAIL" => "", // Recipient email address
     "MAX_EMAIL_RECIPIENT" => 3,
     "MAX_EMAIL_SENT_COUNT" => 3,

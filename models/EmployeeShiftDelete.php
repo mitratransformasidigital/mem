@@ -822,7 +822,7 @@ class EmployeeShiftDelete extends EmployeeShift
     protected function setupBreadcrumb()
     {
         global $Breadcrumb, $Language;
-        $Breadcrumb = new Breadcrumb("top10days");
+        $Breadcrumb = new Breadcrumb("welcome");
         $url = CurrentUrl();
         $Breadcrumb->add("list", $this->TableVar, $this->addMasterUrl("employeeshiftlist"), "", $this->TableVar, true);
         $pageId = "delete";

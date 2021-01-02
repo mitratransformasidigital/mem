@@ -786,93 +786,159 @@ loadjs.ready("head", function() {
     </div><!-- /multi-page tabs .tab-content -->
 </div><!-- /multi-page tabs -->
 </div><!-- /multi-page -->
+<?php if ($Page->getCurrentDetailTable() != "") { ?>
+<?php
+    $Page->DetailPages->ValidKeys = explode(",", $Page->getCurrentDetailTable());
+    $firstActiveDetailTable = $Page->DetailPages->activePageIndex();
+?>
+<div class="ew-detail-pages"><!-- detail-pages -->
+<div class="ew-nav-tabs" id="Page_details"><!-- tabs -->
+    <ul class="<?= $Page->DetailPages->navStyle() ?>"><!-- .nav -->
 <?php
     if (in_array("employee_shift", explode(",", $Page->getCurrentDetailTable())) && $employee_shift->DetailEdit) {
+        if ($firstActiveDetailTable == "" || $firstActiveDetailTable == "employee_shift") {
+            $firstActiveDetailTable = "employee_shift";
+        }
 ?>
-<?php if ($Page->getCurrentDetailTable() != "") { ?>
-<h4 class="ew-detail-caption"><?= $Language->tablePhrase("employee_shift", "TblCaption") ?></h4>
-<?php } ?>
+        <li class="nav-item"><a class="nav-link <?= $Page->DetailPages->pageStyle("employee_shift") ?>" href="#tab_employee_shift" data-toggle="tab"><?= $Language->tablePhrase("employee_shift", "TblCaption") ?></a></li>
+<?php
+    }
+?>
+<?php
+    if (in_array("activity", explode(",", $Page->getCurrentDetailTable())) && $activity->DetailEdit) {
+        if ($firstActiveDetailTable == "" || $firstActiveDetailTable == "activity") {
+            $firstActiveDetailTable = "activity";
+        }
+?>
+        <li class="nav-item"><a class="nav-link <?= $Page->DetailPages->pageStyle("activity") ?>" href="#tab_activity" data-toggle="tab"><?= $Language->tablePhrase("activity", "TblCaption") ?></a></li>
+<?php
+    }
+?>
+<?php
+    if (in_array("permit", explode(",", $Page->getCurrentDetailTable())) && $permit->DetailEdit) {
+        if ($firstActiveDetailTable == "" || $firstActiveDetailTable == "permit") {
+            $firstActiveDetailTable = "permit";
+        }
+?>
+        <li class="nav-item"><a class="nav-link <?= $Page->DetailPages->pageStyle("permit") ?>" href="#tab_permit" data-toggle="tab"><?= $Language->tablePhrase("permit", "TblCaption") ?></a></li>
+<?php
+    }
+?>
+<?php
+    if (in_array("employee_contract", explode(",", $Page->getCurrentDetailTable())) && $employee_contract->DetailEdit) {
+        if ($firstActiveDetailTable == "" || $firstActiveDetailTable == "employee_contract") {
+            $firstActiveDetailTable = "employee_contract";
+        }
+?>
+        <li class="nav-item"><a class="nav-link <?= $Page->DetailPages->pageStyle("employee_contract") ?>" href="#tab_employee_contract" data-toggle="tab"><?= $Language->tablePhrase("employee_contract", "TblCaption") ?></a></li>
+<?php
+    }
+?>
+<?php
+    if (in_array("employee_asset", explode(",", $Page->getCurrentDetailTable())) && $employee_asset->DetailEdit) {
+        if ($firstActiveDetailTable == "" || $firstActiveDetailTable == "employee_asset") {
+            $firstActiveDetailTable = "employee_asset";
+        }
+?>
+        <li class="nav-item"><a class="nav-link <?= $Page->DetailPages->pageStyle("employee_asset") ?>" href="#tab_employee_asset" data-toggle="tab"><?= $Language->tablePhrase("employee_asset", "TblCaption") ?></a></li>
+<?php
+    }
+?>
+<?php
+    if (in_array("employee_timesheet", explode(",", $Page->getCurrentDetailTable())) && $employee_timesheet->DetailEdit) {
+        if ($firstActiveDetailTable == "" || $firstActiveDetailTable == "employee_timesheet") {
+            $firstActiveDetailTable = "employee_timesheet";
+        }
+?>
+        <li class="nav-item"><a class="nav-link <?= $Page->DetailPages->pageStyle("employee_timesheet") ?>" href="#tab_employee_timesheet" data-toggle="tab"><?= $Language->tablePhrase("employee_timesheet", "TblCaption") ?></a></li>
+<?php
+    }
+?>
+<?php
+    if (in_array("employee_trainings", explode(",", $Page->getCurrentDetailTable())) && $employee_trainings->DetailEdit) {
+        if ($firstActiveDetailTable == "" || $firstActiveDetailTable == "employee_trainings") {
+            $firstActiveDetailTable = "employee_trainings";
+        }
+?>
+        <li class="nav-item"><a class="nav-link <?= $Page->DetailPages->pageStyle("employee_trainings") ?>" href="#tab_employee_trainings" data-toggle="tab"><?= $Language->tablePhrase("employee_trainings", "TblCaption") ?></a></li>
+<?php
+    }
+?>
+    </ul><!-- /.nav -->
+    <div class="tab-content"><!-- .tab-content -->
+<?php
+    if (in_array("employee_shift", explode(",", $Page->getCurrentDetailTable())) && $employee_shift->DetailEdit) {
+        if ($firstActiveDetailTable == "" || $firstActiveDetailTable == "employee_shift") {
+            $firstActiveDetailTable = "employee_shift";
+        }
+?>
+        <div class="tab-pane <?= $Page->DetailPages->pageStyle("employee_shift") ?>" id="tab_employee_shift"><!-- page* -->
 <?php include_once "EmployeeShiftGrid.php" ?>
+        </div><!-- /page* -->
 <?php } ?>
 <?php
     if (in_array("activity", explode(",", $Page->getCurrentDetailTable())) && $activity->DetailEdit) {
+        if ($firstActiveDetailTable == "" || $firstActiveDetailTable == "activity") {
+            $firstActiveDetailTable = "activity";
+        }
 ?>
-<?php if ($Page->getCurrentDetailTable() != "") { ?>
-<h4 class="ew-detail-caption"><?= $Language->tablePhrase("activity", "TblCaption") ?></h4>
-<?php } ?>
+        <div class="tab-pane <?= $Page->DetailPages->pageStyle("activity") ?>" id="tab_activity"><!-- page* -->
 <?php include_once "ActivityGrid.php" ?>
+        </div><!-- /page* -->
 <?php } ?>
 <?php
     if (in_array("permit", explode(",", $Page->getCurrentDetailTable())) && $permit->DetailEdit) {
+        if ($firstActiveDetailTable == "" || $firstActiveDetailTable == "permit") {
+            $firstActiveDetailTable = "permit";
+        }
 ?>
-<?php if ($Page->getCurrentDetailTable() != "") { ?>
-<h4 class="ew-detail-caption"><?= $Language->tablePhrase("permit", "TblCaption") ?></h4>
-<?php } ?>
+        <div class="tab-pane <?= $Page->DetailPages->pageStyle("permit") ?>" id="tab_permit"><!-- page* -->
 <?php include_once "PermitGrid.php" ?>
+        </div><!-- /page* -->
 <?php } ?>
 <?php
     if (in_array("employee_contract", explode(",", $Page->getCurrentDetailTable())) && $employee_contract->DetailEdit) {
+        if ($firstActiveDetailTable == "" || $firstActiveDetailTable == "employee_contract") {
+            $firstActiveDetailTable = "employee_contract";
+        }
 ?>
-<?php if ($Page->getCurrentDetailTable() != "") { ?>
-<h4 class="ew-detail-caption"><?= $Language->tablePhrase("employee_contract", "TblCaption") ?></h4>
-<?php } ?>
+        <div class="tab-pane <?= $Page->DetailPages->pageStyle("employee_contract") ?>" id="tab_employee_contract"><!-- page* -->
 <?php include_once "EmployeeContractGrid.php" ?>
+        </div><!-- /page* -->
 <?php } ?>
 <?php
     if (in_array("employee_asset", explode(",", $Page->getCurrentDetailTable())) && $employee_asset->DetailEdit) {
+        if ($firstActiveDetailTable == "" || $firstActiveDetailTable == "employee_asset") {
+            $firstActiveDetailTable = "employee_asset";
+        }
 ?>
-<?php if ($Page->getCurrentDetailTable() != "") { ?>
-<h4 class="ew-detail-caption"><?= $Language->tablePhrase("employee_asset", "TblCaption") ?></h4>
-<?php } ?>
+        <div class="tab-pane <?= $Page->DetailPages->pageStyle("employee_asset") ?>" id="tab_employee_asset"><!-- page* -->
 <?php include_once "EmployeeAssetGrid.php" ?>
+        </div><!-- /page* -->
 <?php } ?>
 <?php
     if (in_array("employee_timesheet", explode(",", $Page->getCurrentDetailTable())) && $employee_timesheet->DetailEdit) {
+        if ($firstActiveDetailTable == "" || $firstActiveDetailTable == "employee_timesheet") {
+            $firstActiveDetailTable = "employee_timesheet";
+        }
 ?>
-<?php if ($Page->getCurrentDetailTable() != "") { ?>
-<h4 class="ew-detail-caption"><?= $Language->tablePhrase("employee_timesheet", "TblCaption") ?></h4>
-<?php } ?>
+        <div class="tab-pane <?= $Page->DetailPages->pageStyle("employee_timesheet") ?>" id="tab_employee_timesheet"><!-- page* -->
 <?php include_once "EmployeeTimesheetGrid.php" ?>
+        </div><!-- /page* -->
 <?php } ?>
 <?php
     if (in_array("employee_trainings", explode(",", $Page->getCurrentDetailTable())) && $employee_trainings->DetailEdit) {
+        if ($firstActiveDetailTable == "" || $firstActiveDetailTable == "employee_trainings") {
+            $firstActiveDetailTable = "employee_trainings";
+        }
 ?>
-<?php if ($Page->getCurrentDetailTable() != "") { ?>
-<h4 class="ew-detail-caption"><?= $Language->tablePhrase("employee_trainings", "TblCaption") ?></h4>
-<?php } ?>
+        <div class="tab-pane <?= $Page->DetailPages->pageStyle("employee_trainings") ?>" id="tab_employee_trainings"><!-- page* -->
 <?php include_once "EmployeeTrainingsGrid.php" ?>
+        </div><!-- /page* -->
 <?php } ?>
-<?php
-    if (in_array("myasset", explode(",", $Page->getCurrentDetailTable())) && $myasset->DetailEdit) {
-?>
-<?php if ($Page->getCurrentDetailTable() != "") { ?>
-<h4 class="ew-detail-caption"><?= $Language->tablePhrase("myasset", "TblCaption") ?></h4>
-<?php } ?>
-<?php include_once "MyassetGrid.php" ?>
-<?php } ?>
-<?php
-    if (in_array("mycontract", explode(",", $Page->getCurrentDetailTable())) && $mycontract->DetailEdit) {
-?>
-<?php if ($Page->getCurrentDetailTable() != "") { ?>
-<h4 class="ew-detail-caption"><?= $Language->tablePhrase("mycontract", "TblCaption") ?></h4>
-<?php } ?>
-<?php include_once "MycontractGrid.php" ?>
-<?php } ?>
-<?php
-    if (in_array("mytimesheet", explode(",", $Page->getCurrentDetailTable())) && $mytimesheet->DetailEdit) {
-?>
-<?php if ($Page->getCurrentDetailTable() != "") { ?>
-<h4 class="ew-detail-caption"><?= $Language->tablePhrase("mytimesheet", "TblCaption") ?></h4>
-<?php } ?>
-<?php include_once "MytimesheetGrid.php" ?>
-<?php } ?>
-<?php
-    if (in_array("mytraining", explode(",", $Page->getCurrentDetailTable())) && $mytraining->DetailEdit) {
-?>
-<?php if ($Page->getCurrentDetailTable() != "") { ?>
-<h4 class="ew-detail-caption"><?= $Language->tablePhrase("mytraining", "TblCaption") ?></h4>
-<?php } ?>
-<?php include_once "MytrainingGrid.php" ?>
+    </div><!-- /.tab-content -->
+</div><!-- /tabs -->
+</div><!-- /detail-pages -->
 <?php } ?>
 <?php if (!$Page->IsModal) { ?>
 <div class="form-group row"><!-- buttons .form-group -->

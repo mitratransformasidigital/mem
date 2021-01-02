@@ -24,7 +24,7 @@ class Top10Days extends ReportTable
     public $OffsetColumnClass = "col-sm-10 offset-sm-2";
     public $TableLeftColumnClass = "w-col-2";
     public $ShowGroupHeaderAsRow = false;
-    public $ShowCompactSummaryFooter = false;
+    public $ShowCompactSummaryFooter = true;
 
     // Export
     public $ExportDoc;

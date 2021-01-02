@@ -453,6 +453,13 @@ class EmployeeGrid extends Employee
     public $MultiSelectKey;
     public $Command;
     public $RestoreSearch = false;
+            public $employee_shift_Count;
+            public $activity_Count;
+            public $permit_Count;
+            public $employee_contract_Count;
+            public $employee_asset_Count;
+            public $employee_timesheet_Count;
+            public $employee_trainings_Count;
     public $DetailPages;
     public $OldRecordset;
 
@@ -1425,11 +1432,316 @@ class EmployeeGrid extends Employee
     // Set up list options (extended codes)
     protected function setupListOptionsExt()
     {
+        // Hide detail items for dropdown if necessary
+        $this->ListOptions->hideDetailItemsForDropDown();
     }
 
     // Render list options (extended codes)
     protected function renderListOptionsExt()
     {
+        global $Security, $Language;
+        $links = "";
+        $btngrps = "";
+        $sqlwrk = "`employee_username`='" . AdjustSql($this->employee_username->CurrentValue, $this->Dbid) . "'";
+
+        // Column "detail_employee_shift"
+        if ($this->DetailPages && $this->DetailPages["employee_shift"] && $this->DetailPages["employee_shift"]->Visible) {
+            $link = "";
+            $option = $this->ListOptions["detail_employee_shift"];
+            $url = "employeeshiftpreview?t=employee&f=" . Encrypt($sqlwrk);
+            $btngrp = "<div data-table=\"employee_shift\" data-url=\"" . $url . "\">";
+            if ($Security->allowList(CurrentProjectID() . 'employee')) {
+                $label = $Language->TablePhrase("employee_shift", "TblCaption");
+                $label .= "&nbsp;" . JsEncode(str_replace("%c", $this->employee_shift_Count, $Language->phrase("DetailCount")));
+                $link = "<li class=\"nav-item\"><a href=\"#\" class=\"nav-link\" data-toggle=\"tab\" data-table=\"employee_shift\" data-url=\"" . $url . "\">" . $label . "</a></li>";
+                $links .= $link;
+                $detaillnk = JsEncodeAttribute("employeeshiftlist?" . Config("TABLE_SHOW_MASTER") . "=employee&" . GetForeignKeyUrl("fk_employee_username", $this->employee_username->CurrentValue) . "");
+                $btngrp .= "<a href=\"#\" class=\"mr-2\" title=\"" . $Language->TablePhrase("employee_shift", "TblCaption") . "\" onclick=\"window.location='" . $detaillnk . "';return false;\">" . $Language->phrase("MasterDetailListLink") . "</a>";
+            }
+            $detailPageObj = Container("EmployeeShiftGrid");
+            if ($detailPageObj->DetailView && $Security->canView() && $Security->allowView(CurrentProjectID() . 'employee')) {
+                $caption = $Language->phrase("MasterDetailViewLink");
+                $url = $this->getViewUrl(Config("TABLE_SHOW_DETAIL") . "=employee_shift");
+                $btngrp .= "<a href=\"#\" class=\"mr-2\" title=\"" . HtmlTitle($caption) . "\" onclick=\"window.location='" . HtmlEncode($url) . "';return false;\">" . $caption . "</a>";
+            }
+            if ($detailPageObj->DetailEdit && $Security->canEdit() && $Security->allowEdit(CurrentProjectID() . 'employee')) {
+                $caption = $Language->phrase("MasterDetailEditLink");
+                $url = $this->getEditUrl(Config("TABLE_SHOW_DETAIL") . "=employee_shift");
+                $btngrp .= "<a href=\"#\" class=\"mr-2\" title=\"" . HtmlTitle($caption) . "\" onclick=\"window.location='" . HtmlEncode($url) . "';return false;\">" . $caption . "</a>";
+            }
+            if ($detailPageObj->DetailAdd && $Security->canAdd() && $Security->allowAdd(CurrentProjectID() . 'employee')) {
+                $caption = $Language->phrase("MasterDetailCopyLink");
+                $url = $this->getCopyUrl(Config("TABLE_SHOW_DETAIL") . "=employee_shift");
+                $btngrp .= "<a href=\"#\" class=\"mr-2\" title=\"" . HtmlTitle($caption) . "\" onclick=\"window.location='" . HtmlEncode($url) . "';return false;\">" . $caption . "</a>";
+            }
+            $btngrp .= "</div>";
+            if ($link != "") {
+                $btngrps .= $btngrp;
+                $option->Body .= "<div class=\"d-none ew-preview\">" . $link . $btngrp . "</div>";
+            }
+        }
+        $sqlwrk = "`employee_username`='" . AdjustSql($this->employee_username->CurrentValue, $this->Dbid) . "'";
+
+        // Column "detail_activity"
+        if ($this->DetailPages && $this->DetailPages["activity"] && $this->DetailPages["activity"]->Visible) {
+            $link = "";
+            $option = $this->ListOptions["detail_activity"];
+            $url = "activitypreview?t=employee&f=" . Encrypt($sqlwrk);
+            $btngrp = "<div data-table=\"activity\" data-url=\"" . $url . "\">";
+            if ($Security->allowList(CurrentProjectID() . 'employee')) {
+                $label = $Language->TablePhrase("activity", "TblCaption");
+                $label .= "&nbsp;" . JsEncode(str_replace("%c", $this->activity_Count, $Language->phrase("DetailCount")));
+                $link = "<li class=\"nav-item\"><a href=\"#\" class=\"nav-link\" data-toggle=\"tab\" data-table=\"activity\" data-url=\"" . $url . "\">" . $label . "</a></li>";
+                $links .= $link;
+                $detaillnk = JsEncodeAttribute("activitylist?" . Config("TABLE_SHOW_MASTER") . "=employee&" . GetForeignKeyUrl("fk_employee_username", $this->employee_username->CurrentValue) . "");
+                $btngrp .= "<a href=\"#\" class=\"mr-2\" title=\"" . $Language->TablePhrase("activity", "TblCaption") . "\" onclick=\"window.location='" . $detaillnk . "';return false;\">" . $Language->phrase("MasterDetailListLink") . "</a>";
+            }
+            $detailPageObj = Container("ActivityGrid");
+            if ($detailPageObj->DetailView && $Security->canView() && $Security->allowView(CurrentProjectID() . 'employee')) {
+                $caption = $Language->phrase("MasterDetailViewLink");
+                $url = $this->getViewUrl(Config("TABLE_SHOW_DETAIL") . "=activity");
+                $btngrp .= "<a href=\"#\" class=\"mr-2\" title=\"" . HtmlTitle($caption) . "\" onclick=\"window.location='" . HtmlEncode($url) . "';return false;\">" . $caption . "</a>";
+            }
+            if ($detailPageObj->DetailEdit && $Security->canEdit() && $Security->allowEdit(CurrentProjectID() . 'employee')) {
+                $caption = $Language->phrase("MasterDetailEditLink");
+                $url = $this->getEditUrl(Config("TABLE_SHOW_DETAIL") . "=activity");
+                $btngrp .= "<a href=\"#\" class=\"mr-2\" title=\"" . HtmlTitle($caption) . "\" onclick=\"window.location='" . HtmlEncode($url) . "';return false;\">" . $caption . "</a>";
+            }
+            if ($detailPageObj->DetailAdd && $Security->canAdd() && $Security->allowAdd(CurrentProjectID() . 'employee')) {
+                $caption = $Language->phrase("MasterDetailCopyLink");
+                $url = $this->getCopyUrl(Config("TABLE_SHOW_DETAIL") . "=activity");
+                $btngrp .= "<a href=\"#\" class=\"mr-2\" title=\"" . HtmlTitle($caption) . "\" onclick=\"window.location='" . HtmlEncode($url) . "';return false;\">" . $caption . "</a>";
+            }
+            $btngrp .= "</div>";
+            if ($link != "") {
+                $btngrps .= $btngrp;
+                $option->Body .= "<div class=\"d-none ew-preview\">" . $link . $btngrp . "</div>";
+            }
+        }
+        $sqlwrk = "`employee_username`='" . AdjustSql($this->employee_username->CurrentValue, $this->Dbid) . "'";
+
+        // Column "detail_permit"
+        if ($this->DetailPages && $this->DetailPages["permit"] && $this->DetailPages["permit"]->Visible) {
+            $link = "";
+            $option = $this->ListOptions["detail_permit"];
+            $url = "permitpreview?t=employee&f=" . Encrypt($sqlwrk);
+            $btngrp = "<div data-table=\"permit\" data-url=\"" . $url . "\">";
+            if ($Security->allowList(CurrentProjectID() . 'employee')) {
+                $label = $Language->TablePhrase("permit", "TblCaption");
+                $label .= "&nbsp;" . JsEncode(str_replace("%c", $this->permit_Count, $Language->phrase("DetailCount")));
+                $link = "<li class=\"nav-item\"><a href=\"#\" class=\"nav-link\" data-toggle=\"tab\" data-table=\"permit\" data-url=\"" . $url . "\">" . $label . "</a></li>";
+                $links .= $link;
+                $detaillnk = JsEncodeAttribute("permitlist?" . Config("TABLE_SHOW_MASTER") . "=employee&" . GetForeignKeyUrl("fk_employee_username", $this->employee_username->CurrentValue) . "");
+                $btngrp .= "<a href=\"#\" class=\"mr-2\" title=\"" . $Language->TablePhrase("permit", "TblCaption") . "\" onclick=\"window.location='" . $detaillnk . "';return false;\">" . $Language->phrase("MasterDetailListLink") . "</a>";
+            }
+            $detailPageObj = Container("PermitGrid");
+            if ($detailPageObj->DetailView && $Security->canView() && $Security->allowView(CurrentProjectID() . 'employee')) {
+                $caption = $Language->phrase("MasterDetailViewLink");
+                $url = $this->getViewUrl(Config("TABLE_SHOW_DETAIL") . "=permit");
+                $btngrp .= "<a href=\"#\" class=\"mr-2\" title=\"" . HtmlTitle($caption) . "\" onclick=\"window.location='" . HtmlEncode($url) . "';return false;\">" . $caption . "</a>";
+            }
+            if ($detailPageObj->DetailEdit && $Security->canEdit() && $Security->allowEdit(CurrentProjectID() . 'employee')) {
+                $caption = $Language->phrase("MasterDetailEditLink");
+                $url = $this->getEditUrl(Config("TABLE_SHOW_DETAIL") . "=permit");
+                $btngrp .= "<a href=\"#\" class=\"mr-2\" title=\"" . HtmlTitle($caption) . "\" onclick=\"window.location='" . HtmlEncode($url) . "';return false;\">" . $caption . "</a>";
+            }
+            if ($detailPageObj->DetailAdd && $Security->canAdd() && $Security->allowAdd(CurrentProjectID() . 'employee')) {
+                $caption = $Language->phrase("MasterDetailCopyLink");
+                $url = $this->getCopyUrl(Config("TABLE_SHOW_DETAIL") . "=permit");
+                $btngrp .= "<a href=\"#\" class=\"mr-2\" title=\"" . HtmlTitle($caption) . "\" onclick=\"window.location='" . HtmlEncode($url) . "';return false;\">" . $caption . "</a>";
+            }
+            $btngrp .= "</div>";
+            if ($link != "") {
+                $btngrps .= $btngrp;
+                $option->Body .= "<div class=\"d-none ew-preview\">" . $link . $btngrp . "</div>";
+            }
+        }
+        $sqlwrk = "`employee_username`='" . AdjustSql($this->employee_username->CurrentValue, $this->Dbid) . "'";
+
+        // Column "detail_employee_contract"
+        if ($this->DetailPages && $this->DetailPages["employee_contract"] && $this->DetailPages["employee_contract"]->Visible) {
+            $link = "";
+            $option = $this->ListOptions["detail_employee_contract"];
+            $url = "employeecontractpreview?t=employee&f=" . Encrypt($sqlwrk);
+            $btngrp = "<div data-table=\"employee_contract\" data-url=\"" . $url . "\">";
+            if ($Security->allowList(CurrentProjectID() . 'employee')) {
+                $label = $Language->TablePhrase("employee_contract", "TblCaption");
+                $label .= "&nbsp;" . JsEncode(str_replace("%c", $this->employee_contract_Count, $Language->phrase("DetailCount")));
+                $link = "<li class=\"nav-item\"><a href=\"#\" class=\"nav-link\" data-toggle=\"tab\" data-table=\"employee_contract\" data-url=\"" . $url . "\">" . $label . "</a></li>";
+                $links .= $link;
+                $detaillnk = JsEncodeAttribute("employeecontractlist?" . Config("TABLE_SHOW_MASTER") . "=employee&" . GetForeignKeyUrl("fk_employee_username", $this->employee_username->CurrentValue) . "");
+                $btngrp .= "<a href=\"#\" class=\"mr-2\" title=\"" . $Language->TablePhrase("employee_contract", "TblCaption") . "\" onclick=\"window.location='" . $detaillnk . "';return false;\">" . $Language->phrase("MasterDetailListLink") . "</a>";
+            }
+            $detailPageObj = Container("EmployeeContractGrid");
+            if ($detailPageObj->DetailView && $Security->canView() && $Security->allowView(CurrentProjectID() . 'employee')) {
+                $caption = $Language->phrase("MasterDetailViewLink");
+                $url = $this->getViewUrl(Config("TABLE_SHOW_DETAIL") . "=employee_contract");
+                $btngrp .= "<a href=\"#\" class=\"mr-2\" title=\"" . HtmlTitle($caption) . "\" onclick=\"window.location='" . HtmlEncode($url) . "';return false;\">" . $caption . "</a>";
+            }
+            if ($detailPageObj->DetailEdit && $Security->canEdit() && $Security->allowEdit(CurrentProjectID() . 'employee')) {
+                $caption = $Language->phrase("MasterDetailEditLink");
+                $url = $this->getEditUrl(Config("TABLE_SHOW_DETAIL") . "=employee_contract");
+                $btngrp .= "<a href=\"#\" class=\"mr-2\" title=\"" . HtmlTitle($caption) . "\" onclick=\"window.location='" . HtmlEncode($url) . "';return false;\">" . $caption . "</a>";
+            }
+            if ($detailPageObj->DetailAdd && $Security->canAdd() && $Security->allowAdd(CurrentProjectID() . 'employee')) {
+                $caption = $Language->phrase("MasterDetailCopyLink");
+                $url = $this->getCopyUrl(Config("TABLE_SHOW_DETAIL") . "=employee_contract");
+                $btngrp .= "<a href=\"#\" class=\"mr-2\" title=\"" . HtmlTitle($caption) . "\" onclick=\"window.location='" . HtmlEncode($url) . "';return false;\">" . $caption . "</a>";
+            }
+            $btngrp .= "</div>";
+            if ($link != "") {
+                $btngrps .= $btngrp;
+                $option->Body .= "<div class=\"d-none ew-preview\">" . $link . $btngrp . "</div>";
+            }
+        }
+        $sqlwrk = "`employee_username`='" . AdjustSql($this->employee_username->CurrentValue, $this->Dbid) . "'";
+
+        // Column "detail_employee_asset"
+        if ($this->DetailPages && $this->DetailPages["employee_asset"] && $this->DetailPages["employee_asset"]->Visible) {
+            $link = "";
+            $option = $this->ListOptions["detail_employee_asset"];
+            $url = "employeeassetpreview?t=employee&f=" . Encrypt($sqlwrk);
+            $btngrp = "<div data-table=\"employee_asset\" data-url=\"" . $url . "\">";
+            if ($Security->allowList(CurrentProjectID() . 'employee')) {
+                $label = $Language->TablePhrase("employee_asset", "TblCaption");
+                $label .= "&nbsp;" . JsEncode(str_replace("%c", $this->employee_asset_Count, $Language->phrase("DetailCount")));
+                $link = "<li class=\"nav-item\"><a href=\"#\" class=\"nav-link\" data-toggle=\"tab\" data-table=\"employee_asset\" data-url=\"" . $url . "\">" . $label . "</a></li>";
+                $links .= $link;
+                $detaillnk = JsEncodeAttribute("employeeassetlist?" . Config("TABLE_SHOW_MASTER") . "=employee&" . GetForeignKeyUrl("fk_employee_username", $this->employee_username->CurrentValue) . "");
+                $btngrp .= "<a href=\"#\" class=\"mr-2\" title=\"" . $Language->TablePhrase("employee_asset", "TblCaption") . "\" onclick=\"window.location='" . $detaillnk . "';return false;\">" . $Language->phrase("MasterDetailListLink") . "</a>";
+            }
+            $detailPageObj = Container("EmployeeAssetGrid");
+            if ($detailPageObj->DetailView && $Security->canView() && $Security->allowView(CurrentProjectID() . 'employee')) {
+                $caption = $Language->phrase("MasterDetailViewLink");
+                $url = $this->getViewUrl(Config("TABLE_SHOW_DETAIL") . "=employee_asset");
+                $btngrp .= "<a href=\"#\" class=\"mr-2\" title=\"" . HtmlTitle($caption) . "\" onclick=\"window.location='" . HtmlEncode($url) . "';return false;\">" . $caption . "</a>";
+            }
+            if ($detailPageObj->DetailEdit && $Security->canEdit() && $Security->allowEdit(CurrentProjectID() . 'employee')) {
+                $caption = $Language->phrase("MasterDetailEditLink");
+                $url = $this->getEditUrl(Config("TABLE_SHOW_DETAIL") . "=employee_asset");
+                $btngrp .= "<a href=\"#\" class=\"mr-2\" title=\"" . HtmlTitle($caption) . "\" onclick=\"window.location='" . HtmlEncode($url) . "';return false;\">" . $caption . "</a>";
+            }
+            if ($detailPageObj->DetailAdd && $Security->canAdd() && $Security->allowAdd(CurrentProjectID() . 'employee')) {
+                $caption = $Language->phrase("MasterDetailCopyLink");
+                $url = $this->getCopyUrl(Config("TABLE_SHOW_DETAIL") . "=employee_asset");
+                $btngrp .= "<a href=\"#\" class=\"mr-2\" title=\"" . HtmlTitle($caption) . "\" onclick=\"window.location='" . HtmlEncode($url) . "';return false;\">" . $caption . "</a>";
+            }
+            $btngrp .= "</div>";
+            if ($link != "") {
+                $btngrps .= $btngrp;
+                $option->Body .= "<div class=\"d-none ew-preview\">" . $link . $btngrp . "</div>";
+            }
+        }
+        $sqlwrk = "`employee_username`='" . AdjustSql($this->employee_username->CurrentValue, $this->Dbid) . "'";
+
+        // Column "detail_employee_timesheet"
+        if ($this->DetailPages && $this->DetailPages["employee_timesheet"] && $this->DetailPages["employee_timesheet"]->Visible) {
+            $link = "";
+            $option = $this->ListOptions["detail_employee_timesheet"];
+            $url = "employeetimesheetpreview?t=employee&f=" . Encrypt($sqlwrk);
+            $btngrp = "<div data-table=\"employee_timesheet\" data-url=\"" . $url . "\">";
+            if ($Security->allowList(CurrentProjectID() . 'employee')) {
+                $label = $Language->TablePhrase("employee_timesheet", "TblCaption");
+                $label .= "&nbsp;" . JsEncode(str_replace("%c", $this->employee_timesheet_Count, $Language->phrase("DetailCount")));
+                $link = "<li class=\"nav-item\"><a href=\"#\" class=\"nav-link\" data-toggle=\"tab\" data-table=\"employee_timesheet\" data-url=\"" . $url . "\">" . $label . "</a></li>";
+                $links .= $link;
+                $detaillnk = JsEncodeAttribute("employeetimesheetlist?" . Config("TABLE_SHOW_MASTER") . "=employee&" . GetForeignKeyUrl("fk_employee_username", $this->employee_username->CurrentValue) . "");
+                $btngrp .= "<a href=\"#\" class=\"mr-2\" title=\"" . $Language->TablePhrase("employee_timesheet", "TblCaption") . "\" onclick=\"window.location='" . $detaillnk . "';return false;\">" . $Language->phrase("MasterDetailListLink") . "</a>";
+            }
+            $detailPageObj = Container("EmployeeTimesheetGrid");
+            if ($detailPageObj->DetailView && $Security->canView() && $Security->allowView(CurrentProjectID() . 'employee')) {
+                $caption = $Language->phrase("MasterDetailViewLink");
+                $url = $this->getViewUrl(Config("TABLE_SHOW_DETAIL") . "=employee_timesheet");
+                $btngrp .= "<a href=\"#\" class=\"mr-2\" title=\"" . HtmlTitle($caption) . "\" onclick=\"window.location='" . HtmlEncode($url) . "';return false;\">" . $caption . "</a>";
+            }
+            if ($detailPageObj->DetailEdit && $Security->canEdit() && $Security->allowEdit(CurrentProjectID() . 'employee')) {
+                $caption = $Language->phrase("MasterDetailEditLink");
+                $url = $this->getEditUrl(Config("TABLE_SHOW_DETAIL") . "=employee_timesheet");
+                $btngrp .= "<a href=\"#\" class=\"mr-2\" title=\"" . HtmlTitle($caption) . "\" onclick=\"window.location='" . HtmlEncode($url) . "';return false;\">" . $caption . "</a>";
+            }
+            if ($detailPageObj->DetailAdd && $Security->canAdd() && $Security->allowAdd(CurrentProjectID() . 'employee')) {
+                $caption = $Language->phrase("MasterDetailCopyLink");
+                $url = $this->getCopyUrl(Config("TABLE_SHOW_DETAIL") . "=employee_timesheet");
+                $btngrp .= "<a href=\"#\" class=\"mr-2\" title=\"" . HtmlTitle($caption) . "\" onclick=\"window.location='" . HtmlEncode($url) . "';return false;\">" . $caption . "</a>";
+            }
+            $btngrp .= "</div>";
+            if ($link != "") {
+                $btngrps .= $btngrp;
+                $option->Body .= "<div class=\"d-none ew-preview\">" . $link . $btngrp . "</div>";
+            }
+        }
+        $sqlwrk = "`employee_username`='" . AdjustSql($this->employee_username->CurrentValue, $this->Dbid) . "'";
+
+        // Column "detail_employee_trainings"
+        if ($this->DetailPages && $this->DetailPages["employee_trainings"] && $this->DetailPages["employee_trainings"]->Visible) {
+            $link = "";
+            $option = $this->ListOptions["detail_employee_trainings"];
+            $url = "employeetrainingspreview?t=employee&f=" . Encrypt($sqlwrk);
+            $btngrp = "<div data-table=\"employee_trainings\" data-url=\"" . $url . "\">";
+            if ($Security->allowList(CurrentProjectID() . 'employee')) {
+                $label = $Language->TablePhrase("employee_trainings", "TblCaption");
+                $label .= "&nbsp;" . JsEncode(str_replace("%c", $this->employee_trainings_Count, $Language->phrase("DetailCount")));
+                $link = "<li class=\"nav-item\"><a href=\"#\" class=\"nav-link\" data-toggle=\"tab\" data-table=\"employee_trainings\" data-url=\"" . $url . "\">" . $label . "</a></li>";
+                $links .= $link;
+                $detaillnk = JsEncodeAttribute("employeetrainingslist?" . Config("TABLE_SHOW_MASTER") . "=employee&" . GetForeignKeyUrl("fk_employee_username", $this->employee_username->CurrentValue) . "");
+                $btngrp .= "<a href=\"#\" class=\"mr-2\" title=\"" . $Language->TablePhrase("employee_trainings", "TblCaption") . "\" onclick=\"window.location='" . $detaillnk . "';return false;\">" . $Language->phrase("MasterDetailListLink") . "</a>";
+            }
+            $detailPageObj = Container("EmployeeTrainingsGrid");
+            if ($detailPageObj->DetailView && $Security->canView() && $Security->allowView(CurrentProjectID() . 'employee')) {
+                $caption = $Language->phrase("MasterDetailViewLink");
+                $url = $this->getViewUrl(Config("TABLE_SHOW_DETAIL") . "=employee_trainings");
+                $btngrp .= "<a href=\"#\" class=\"mr-2\" title=\"" . HtmlTitle($caption) . "\" onclick=\"window.location='" . HtmlEncode($url) . "';return false;\">" . $caption . "</a>";
+            }
+            if ($detailPageObj->DetailEdit && $Security->canEdit() && $Security->allowEdit(CurrentProjectID() . 'employee')) {
+                $caption = $Language->phrase("MasterDetailEditLink");
+                $url = $this->getEditUrl(Config("TABLE_SHOW_DETAIL") . "=employee_trainings");
+                $btngrp .= "<a href=\"#\" class=\"mr-2\" title=\"" . HtmlTitle($caption) . "\" onclick=\"window.location='" . HtmlEncode($url) . "';return false;\">" . $caption . "</a>";
+            }
+            if ($detailPageObj->DetailAdd && $Security->canAdd() && $Security->allowAdd(CurrentProjectID() . 'employee')) {
+                $caption = $Language->phrase("MasterDetailCopyLink");
+                $url = $this->getCopyUrl(Config("TABLE_SHOW_DETAIL") . "=employee_trainings");
+                $btngrp .= "<a href=\"#\" class=\"mr-2\" title=\"" . HtmlTitle($caption) . "\" onclick=\"window.location='" . HtmlEncode($url) . "';return false;\">" . $caption . "</a>";
+            }
+            $btngrp .= "</div>";
+            if ($link != "") {
+                $btngrps .= $btngrp;
+                $option->Body .= "<div class=\"d-none ew-preview\">" . $link . $btngrp . "</div>";
+            }
+        }
+
+        // Hide detail items if necessary
+        $this->ListOptions->hideDetailItemsForDropDown();
+
+        // Column "preview"
+        $option = $this->ListOptions["preview"];
+        if (!$option) { // Add preview column
+            $option = &$this->ListOptions->add("preview");
+            $option->OnLeft = true;
+            if ($option->OnLeft) {
+                $option->moveTo($this->ListOptions->itemPos("checkbox") + 1);
+            } else {
+                $option->moveTo($this->ListOptions->itemPos("checkbox"));
+            }
+            $option->Visible = !($this->isExport() || $this->isGridAdd() || $this->isGridEdit());
+            $option->ShowInDropDown = false;
+            $option->ShowInButtonGroup = false;
+        }
+        if ($option) {
+            $option->Body = "<i class=\"ew-preview-row-btn ew-icon icon-expand\"></i>";
+            $option->Body .= "<div class=\"d-none ew-preview\">" . $links . $btngrps . "</div>";
+            if ($option->Visible) {
+                $option->Visible = $links != "";
+            }
+        }
+
+        // Column "details" (Multiple details)
+        $option = $this->ListOptions["details"];
+        if ($option) {
+            $option->Body .= "<div class=\"d-none ew-preview\">" . $links . $btngrps . "</div>";
+            if ($option->Visible) {
+                $option->Visible = $links != "";
+            }
+        }
     }
 
     // Get upload files

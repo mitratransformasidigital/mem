@@ -1739,11 +1739,88 @@ class MasterProvinceList extends MasterProvince
     // Set up list options (extended codes)
     protected function setupListOptionsExt()
     {
+        // Hide detail items for dropdown if necessary
+        $this->ListOptions->hideDetailItemsForDropDown();
     }
 
     // Render list options (extended codes)
     protected function renderListOptionsExt()
     {
+        global $Security, $Language;
+        $links = "";
+        $btngrps = "";
+        $sqlwrk = "`province_id`='" . AdjustSql($this->province_id->CurrentValue, $this->Dbid) . "'";
+
+        // Column "detail_master_city"
+        if ($this->DetailPages && $this->DetailPages["master_city"] && $this->DetailPages["master_city"]->Visible) {
+            $link = "";
+            $option = $this->ListOptions["detail_master_city"];
+            $url = "mastercitypreview?t=master_province&f=" . Encrypt($sqlwrk);
+            $btngrp = "<div data-table=\"master_city\" data-url=\"" . $url . "\">";
+            if ($Security->allowList(CurrentProjectID() . 'master_province')) {
+                $label = $Language->TablePhrase("master_city", "TblCaption");
+                $label .= "&nbsp;" . JsEncode(str_replace("%c", $this->master_city_Count, $Language->phrase("DetailCount")));
+                $link = "<li class=\"nav-item\"><a href=\"#\" class=\"nav-link\" data-toggle=\"tab\" data-table=\"master_city\" data-url=\"" . $url . "\">" . $label . "</a></li>";
+                $links .= $link;
+                $detaillnk = JsEncodeAttribute("mastercitylist?" . Config("TABLE_SHOW_MASTER") . "=master_province&" . GetForeignKeyUrl("fk_province_id", $this->province_id->CurrentValue) . "");
+                $btngrp .= "<a href=\"#\" class=\"mr-2\" title=\"" . $Language->TablePhrase("master_city", "TblCaption") . "\" onclick=\"window.location='" . $detaillnk . "';return false;\">" . $Language->phrase("MasterDetailListLink") . "</a>";
+            }
+            $detailPageObj = Container("MasterCityGrid");
+            if ($detailPageObj->DetailView && $Security->canView() && $Security->allowView(CurrentProjectID() . 'master_province')) {
+                $caption = $Language->phrase("MasterDetailViewLink");
+                $url = $this->getViewUrl(Config("TABLE_SHOW_DETAIL") . "=master_city");
+                $btngrp .= "<a href=\"#\" class=\"mr-2\" title=\"" . HtmlTitle($caption) . "\" onclick=\"window.location='" . HtmlEncode($url) . "';return false;\">" . $caption . "</a>";
+            }
+            if ($detailPageObj->DetailEdit && $Security->canEdit() && $Security->allowEdit(CurrentProjectID() . 'master_province')) {
+                $caption = $Language->phrase("MasterDetailEditLink");
+                $url = $this->getEditUrl(Config("TABLE_SHOW_DETAIL") . "=master_city");
+                $btngrp .= "<a href=\"#\" class=\"mr-2\" title=\"" . HtmlTitle($caption) . "\" onclick=\"window.location='" . HtmlEncode($url) . "';return false;\">" . $caption . "</a>";
+            }
+            if ($detailPageObj->DetailAdd && $Security->canAdd() && $Security->allowAdd(CurrentProjectID() . 'master_province')) {
+                $caption = $Language->phrase("MasterDetailCopyLink");
+                $url = $this->getCopyUrl(Config("TABLE_SHOW_DETAIL") . "=master_city");
+                $btngrp .= "<a href=\"#\" class=\"mr-2\" title=\"" . HtmlTitle($caption) . "\" onclick=\"window.location='" . HtmlEncode($url) . "';return false;\">" . $caption . "</a>";
+            }
+            $btngrp .= "</div>";
+            if ($link != "") {
+                $btngrps .= $btngrp;
+                $option->Body .= "<div class=\"d-none ew-preview\">" . $link . $btngrp . "</div>";
+            }
+        }
+
+        // Hide detail items if necessary
+        $this->ListOptions->hideDetailItemsForDropDown();
+
+        // Column "preview"
+        $option = $this->ListOptions["preview"];
+        if (!$option) { // Add preview column
+            $option = &$this->ListOptions->add("preview");
+            $option->OnLeft = true;
+            if ($option->OnLeft) {
+                $option->moveTo($this->ListOptions->itemPos("checkbox") + 1);
+            } else {
+                $option->moveTo($this->ListOptions->itemPos("checkbox"));
+            }
+            $option->Visible = !($this->isExport() || $this->isGridAdd() || $this->isGridEdit());
+            $option->ShowInDropDown = false;
+            $option->ShowInButtonGroup = false;
+        }
+        if ($option) {
+            $option->Body = "<i class=\"ew-preview-row-btn ew-icon icon-expand\"></i>";
+            $option->Body .= "<div class=\"d-none ew-preview\">" . $links . $btngrps . "</div>";
+            if ($option->Visible) {
+                $option->Visible = $links != "";
+            }
+        }
+
+        // Column "details" (Multiple details)
+        $option = $this->ListOptions["details"];
+        if ($option) {
+            $option->Body .= "<div class=\"d-none ew-preview\">" . $links . $btngrps . "</div>";
+            if ($option->Visible) {
+                $option->Visible = $links != "";
+            }
+        }
     }
 
     // Load basic search values
@@ -2618,7 +2695,7 @@ class MasterProvinceList extends MasterProvince
     protected function setupBreadcrumb()
     {
         global $Breadcrumb, $Language;
-        $Breadcrumb = new Breadcrumb("top10days");
+        $Breadcrumb = new Breadcrumb("welcome");
         $url = CurrentUrl();
         $url = preg_replace('/\?cmd=reset(all){0,1}$/i', '', $url); // Remove cmd=reset / cmd=resetall
         $Breadcrumb->add("list", $this->TableVar, $url, "", $this->TableVar, true);

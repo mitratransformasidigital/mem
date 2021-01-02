@@ -1,0 +1,5 @@
+[2020-12-11T09:02:30.481167+08:00] log.DEBUG: SELECT `employee_username` AS `lf`, `employee_name` AS `df`, '' AS `df2`, '' AS `df3`, '' AS `df4` FROM `employee` [] []
+[2020-12-11T09:04:55.577552+08:00] log.DEBUG: SELECT `employee_username` AS `lf`, `employee_name` AS `df`, '' AS `df2`, '' AS `df3`, '' AS `df4` FROM `employee` [] []
+[2020-12-11T09:05:35.302086+08:00] log.DEBUG: SELECT `employee_username` AS `lf`, `employee_name` AS `df`, '' AS `df2`, '' AS `df3`, '' AS `df4` FROM `employee` [] []
+[2020-12-11T17:54:19.408059+08:00] log.DEBUG: SELECT `city_id` AS `lf`, `city` AS `df`, '' AS `df2`, '' AS `df3`, '' AS `df4` FROM `master_city` [] []
+[2020-12-11T17:56:29.032460+08:00] log.DEBUG: SELECT `city_id` AS `lf`, `city` AS `df`, '' AS `df2`, '' AS `df3`, '' AS `df4` FROM `master_city` [] []

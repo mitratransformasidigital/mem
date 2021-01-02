@@ -788,4 +788,16 @@ loadjs.ready("load", function () {
     // Write your table-specific startup script here, no need to add script tags.
 });
 </script>
+<?php if (!$Grid->isExport()) { ?>
+<script>
+loadjs.ready("fixedheadertable", function () {
+    ew.fixedHeaderTable({
+        delay: 0,
+        container: "gmp_mytraining",
+        width: "",
+        height: "500px"
+    });
+});
+</script>
+<?php } ?>
 <?php } ?>

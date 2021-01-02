@@ -666,7 +666,7 @@ class UserlevelsAddopt extends Userlevels
     protected function setupBreadcrumb()
     {
         global $Breadcrumb, $Language;
-        $Breadcrumb = new Breadcrumb("top10days");
+        $Breadcrumb = new Breadcrumb("welcome");
         $url = CurrentUrl();
         $Breadcrumb->add("list", $this->TableVar, $this->addMasterUrl("userlevelslist"), "", $this->TableVar, true);
         $pageId = "addopt";

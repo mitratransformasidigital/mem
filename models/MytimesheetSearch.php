@@ -949,7 +949,7 @@ class MytimesheetSearch extends Mytimesheet
     protected function setupBreadcrumb()
     {
         global $Breadcrumb, $Language;
-        $Breadcrumb = new Breadcrumb("top10days");
+        $Breadcrumb = new Breadcrumb("welcome");
         $url = CurrentUrl();
         $Breadcrumb->add("list", $this->TableVar, $this->addMasterUrl("mytimesheetlist"), "", $this->TableVar, true);
         $pageId = "search";

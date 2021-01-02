@@ -1154,7 +1154,7 @@ class MasterShiftSearch extends MasterShift
     protected function setupBreadcrumb()
     {
         global $Breadcrumb, $Language;
-        $Breadcrumb = new Breadcrumb("top10days");
+        $Breadcrumb = new Breadcrumb("welcome");
         $url = CurrentUrl();
         $Breadcrumb->add("list", $this->TableVar, $this->addMasterUrl("mastershiftlist"), "", $this->TableVar, true);
         $pageId = "search";

@@ -21,7 +21,8 @@ loadjs.ready("head", function () {
     var fields = ew.vars.tables.permit.fields;
     fpermitgrid.addFields([
         ["employee_username", [fields.employee_username.required ? ew.Validators.required(fields.employee_username.caption) : null], fields.employee_username.isInvalid],
-        ["permit_date", [fields.permit_date.required ? ew.Validators.required(fields.permit_date.caption) : null, ew.Validators.datetime(5)], fields.permit_date.isInvalid],
+        ["start_date", [fields.start_date.required ? ew.Validators.required(fields.start_date.caption) : null, ew.Validators.datetime(5)], fields.start_date.isInvalid],
+        ["end_date", [fields.end_date.required ? ew.Validators.required(fields.end_date.caption) : null, ew.Validators.datetime(5)], fields.end_date.isInvalid],
         ["permit_type", [fields.permit_type.required ? ew.Validators.required(fields.permit_type.caption) : null], fields.permit_type.isInvalid],
         ["document", [fields.document.required ? ew.Validators.fileRequired(fields.document.caption) : null], fields.document.isInvalid],
         ["note", [fields.note.required ? ew.Validators.required(fields.note.caption) : null], fields.note.isInvalid]
@@ -80,7 +81,9 @@ loadjs.ready("head", function () {
         var fobj = this.getForm();
         if (ew.valueChanged(fobj, rowIndex, "employee_username", false))
             return false;
-        if (ew.valueChanged(fobj, rowIndex, "permit_date", false))
+        if (ew.valueChanged(fobj, rowIndex, "start_date", false))
+            return false;
+        if (ew.valueChanged(fobj, rowIndex, "end_date", false))
             return false;
         if (ew.valueChanged(fobj, rowIndex, "permit_type", false))
             return false;
@@ -136,8 +139,11 @@ $Grid->ListOptions->render("header", "left");
 <?php if ($Grid->employee_username->Visible) { // employee_username ?>
         <th data-name="employee_username" class="<?= $Grid->employee_username->headerCellClass() ?>"><div id="elh_permit_employee_username" class="permit_employee_username"><?= $Grid->renderSort($Grid->employee_username) ?></div></th>
 <?php } ?>
-<?php if ($Grid->permit_date->Visible) { // permit_date ?>
-        <th data-name="permit_date" class="<?= $Grid->permit_date->headerCellClass() ?>"><div id="elh_permit_permit_date" class="permit_permit_date"><?= $Grid->renderSort($Grid->permit_date) ?></div></th>
+<?php if ($Grid->start_date->Visible) { // start_date ?>
+        <th data-name="start_date" class="<?= $Grid->start_date->headerCellClass() ?>"><div id="elh_permit_start_date" class="permit_start_date"><?= $Grid->renderSort($Grid->start_date) ?></div></th>
+<?php } ?>
+<?php if ($Grid->end_date->Visible) { // end_date ?>
+        <th data-name="end_date" class="<?= $Grid->end_date->headerCellClass() ?>"><div id="elh_permit_end_date" class="permit_end_date"><?= $Grid->renderSort($Grid->end_date) ?></div></th>
 <?php } ?>
 <?php if ($Grid->permit_type->Visible) { // permit_type ?>
         <th data-name="permit_type" class="<?= $Grid->permit_type->headerCellClass() ?>"><div id="elh_permit_permit_type" class="permit_permit_type"><?= $Grid->renderSort($Grid->permit_type) ?></div></th>
@@ -346,43 +352,84 @@ loadjs.ready("head", function() {
 <?php } ?>
 </td>
     <?php } ?>
-    <?php if ($Grid->permit_date->Visible) { // permit_date ?>
-        <td data-name="permit_date" <?= $Grid->permit_date->cellAttributes() ?>>
+    <?php if ($Grid->start_date->Visible) { // start_date ?>
+        <td data-name="start_date" <?= $Grid->start_date->cellAttributes() ?>>
 <?php if ($Grid->RowType == ROWTYPE_ADD) { // Add record ?>
-<span id="el<?= $Grid->RowCount ?>_permit_permit_date" class="form-group">
-<input type="<?= $Grid->permit_date->getInputTextType() ?>" data-table="permit" data-field="x_permit_date" data-format="5" name="x<?= $Grid->RowIndex ?>_permit_date" id="x<?= $Grid->RowIndex ?>_permit_date" placeholder="<?= HtmlEncode($Grid->permit_date->getPlaceHolder()) ?>" value="<?= $Grid->permit_date->EditValue ?>"<?= $Grid->permit_date->editAttributes() ?>>
-<div class="invalid-feedback"><?= $Grid->permit_date->getErrorMessage() ?></div>
-<?php if (!$Grid->permit_date->ReadOnly && !$Grid->permit_date->Disabled && !isset($Grid->permit_date->EditAttrs["readonly"]) && !isset($Grid->permit_date->EditAttrs["disabled"])) { ?>
+<span id="el<?= $Grid->RowCount ?>_permit_start_date" class="form-group">
+<input type="<?= $Grid->start_date->getInputTextType() ?>" data-table="permit" data-field="x_start_date" data-format="5" name="x<?= $Grid->RowIndex ?>_start_date" id="x<?= $Grid->RowIndex ?>_start_date" placeholder="<?= HtmlEncode($Grid->start_date->getPlaceHolder()) ?>" value="<?= $Grid->start_date->EditValue ?>"<?= $Grid->start_date->editAttributes() ?>>
+<div class="invalid-feedback"><?= $Grid->start_date->getErrorMessage() ?></div>
+<?php if (!$Grid->start_date->ReadOnly && !$Grid->start_date->Disabled && !isset($Grid->start_date->EditAttrs["readonly"]) && !isset($Grid->start_date->EditAttrs["disabled"])) { ?>
 <script>
 loadjs.ready(["fpermitgrid", "datetimepicker"], function() {
-    ew.createDateTimePicker("fpermitgrid", "x<?= $Grid->RowIndex ?>_permit_date", {"ignoreReadonly":true,"useCurrent":false,"format":5});
+    ew.createDateTimePicker("fpermitgrid", "x<?= $Grid->RowIndex ?>_start_date", {"ignoreReadonly":true,"useCurrent":false,"format":5});
 });
 </script>
 <?php } ?>
 </span>
-<input type="hidden" data-table="permit" data-field="x_permit_date" data-hidden="1" name="o<?= $Grid->RowIndex ?>_permit_date" id="o<?= $Grid->RowIndex ?>_permit_date" value="<?= HtmlEncode($Grid->permit_date->OldValue) ?>">
+<input type="hidden" data-table="permit" data-field="x_start_date" data-hidden="1" name="o<?= $Grid->RowIndex ?>_start_date" id="o<?= $Grid->RowIndex ?>_start_date" value="<?= HtmlEncode($Grid->start_date->OldValue) ?>">
 <?php } ?>
 <?php if ($Grid->RowType == ROWTYPE_EDIT) { // Edit record ?>
-<span id="el<?= $Grid->RowCount ?>_permit_permit_date" class="form-group">
-<input type="<?= $Grid->permit_date->getInputTextType() ?>" data-table="permit" data-field="x_permit_date" data-format="5" name="x<?= $Grid->RowIndex ?>_permit_date" id="x<?= $Grid->RowIndex ?>_permit_date" placeholder="<?= HtmlEncode($Grid->permit_date->getPlaceHolder()) ?>" value="<?= $Grid->permit_date->EditValue ?>"<?= $Grid->permit_date->editAttributes() ?>>
-<div class="invalid-feedback"><?= $Grid->permit_date->getErrorMessage() ?></div>
-<?php if (!$Grid->permit_date->ReadOnly && !$Grid->permit_date->Disabled && !isset($Grid->permit_date->EditAttrs["readonly"]) && !isset($Grid->permit_date->EditAttrs["disabled"])) { ?>
+<span id="el<?= $Grid->RowCount ?>_permit_start_date" class="form-group">
+<input type="<?= $Grid->start_date->getInputTextType() ?>" data-table="permit" data-field="x_start_date" data-format="5" name="x<?= $Grid->RowIndex ?>_start_date" id="x<?= $Grid->RowIndex ?>_start_date" placeholder="<?= HtmlEncode($Grid->start_date->getPlaceHolder()) ?>" value="<?= $Grid->start_date->EditValue ?>"<?= $Grid->start_date->editAttributes() ?>>
+<div class="invalid-feedback"><?= $Grid->start_date->getErrorMessage() ?></div>
+<?php if (!$Grid->start_date->ReadOnly && !$Grid->start_date->Disabled && !isset($Grid->start_date->EditAttrs["readonly"]) && !isset($Grid->start_date->EditAttrs["disabled"])) { ?>
 <script>
 loadjs.ready(["fpermitgrid", "datetimepicker"], function() {
-    ew.createDateTimePicker("fpermitgrid", "x<?= $Grid->RowIndex ?>_permit_date", {"ignoreReadonly":true,"useCurrent":false,"format":5});
+    ew.createDateTimePicker("fpermitgrid", "x<?= $Grid->RowIndex ?>_start_date", {"ignoreReadonly":true,"useCurrent":false,"format":5});
 });
 </script>
 <?php } ?>
 </span>
 <?php } ?>
 <?php if ($Grid->RowType == ROWTYPE_VIEW) { // View record ?>
-<span id="el<?= $Grid->RowCount ?>_permit_permit_date">
-<span<?= $Grid->permit_date->viewAttributes() ?>>
-<?= $Grid->permit_date->getViewValue() ?></span>
+<span id="el<?= $Grid->RowCount ?>_permit_start_date">
+<span<?= $Grid->start_date->viewAttributes() ?>>
+<?= $Grid->start_date->getViewValue() ?></span>
 </span>
 <?php if ($Grid->isConfirm()) { ?>
-<input type="hidden" data-table="permit" data-field="x_permit_date" data-hidden="1" name="fpermitgrid$x<?= $Grid->RowIndex ?>_permit_date" id="fpermitgrid$x<?= $Grid->RowIndex ?>_permit_date" value="<?= HtmlEncode($Grid->permit_date->FormValue) ?>">
-<input type="hidden" data-table="permit" data-field="x_permit_date" data-hidden="1" name="fpermitgrid$o<?= $Grid->RowIndex ?>_permit_date" id="fpermitgrid$o<?= $Grid->RowIndex ?>_permit_date" value="<?= HtmlEncode($Grid->permit_date->OldValue) ?>">
+<input type="hidden" data-table="permit" data-field="x_start_date" data-hidden="1" name="fpermitgrid$x<?= $Grid->RowIndex ?>_start_date" id="fpermitgrid$x<?= $Grid->RowIndex ?>_start_date" value="<?= HtmlEncode($Grid->start_date->FormValue) ?>">
+<input type="hidden" data-table="permit" data-field="x_start_date" data-hidden="1" name="fpermitgrid$o<?= $Grid->RowIndex ?>_start_date" id="fpermitgrid$o<?= $Grid->RowIndex ?>_start_date" value="<?= HtmlEncode($Grid->start_date->OldValue) ?>">
+<?php } ?>
+<?php } ?>
+</td>
+    <?php } ?>
+    <?php if ($Grid->end_date->Visible) { // end_date ?>
+        <td data-name="end_date" <?= $Grid->end_date->cellAttributes() ?>>
+<?php if ($Grid->RowType == ROWTYPE_ADD) { // Add record ?>
+<span id="el<?= $Grid->RowCount ?>_permit_end_date" class="form-group">
+<input type="<?= $Grid->end_date->getInputTextType() ?>" data-table="permit" data-field="x_end_date" data-format="5" name="x<?= $Grid->RowIndex ?>_end_date" id="x<?= $Grid->RowIndex ?>_end_date" placeholder="<?= HtmlEncode($Grid->end_date->getPlaceHolder()) ?>" value="<?= $Grid->end_date->EditValue ?>"<?= $Grid->end_date->editAttributes() ?>>
+<div class="invalid-feedback"><?= $Grid->end_date->getErrorMessage() ?></div>
+<?php if (!$Grid->end_date->ReadOnly && !$Grid->end_date->Disabled && !isset($Grid->end_date->EditAttrs["readonly"]) && !isset($Grid->end_date->EditAttrs["disabled"])) { ?>
+<script>
+loadjs.ready(["fpermitgrid", "datetimepicker"], function() {
+    ew.createDateTimePicker("fpermitgrid", "x<?= $Grid->RowIndex ?>_end_date", {"ignoreReadonly":true,"useCurrent":false,"format":5});
+});
+</script>
+<?php } ?>
+</span>
+<input type="hidden" data-table="permit" data-field="x_end_date" data-hidden="1" name="o<?= $Grid->RowIndex ?>_end_date" id="o<?= $Grid->RowIndex ?>_end_date" value="<?= HtmlEncode($Grid->end_date->OldValue) ?>">
+<?php } ?>
+<?php if ($Grid->RowType == ROWTYPE_EDIT) { // Edit record ?>
+<span id="el<?= $Grid->RowCount ?>_permit_end_date" class="form-group">
+<input type="<?= $Grid->end_date->getInputTextType() ?>" data-table="permit" data-field="x_end_date" data-format="5" name="x<?= $Grid->RowIndex ?>_end_date" id="x<?= $Grid->RowIndex ?>_end_date" placeholder="<?= HtmlEncode($Grid->end_date->getPlaceHolder()) ?>" value="<?= $Grid->end_date->EditValue ?>"<?= $Grid->end_date->editAttributes() ?>>
+<div class="invalid-feedback"><?= $Grid->end_date->getErrorMessage() ?></div>
+<?php if (!$Grid->end_date->ReadOnly && !$Grid->end_date->Disabled && !isset($Grid->end_date->EditAttrs["readonly"]) && !isset($Grid->end_date->EditAttrs["disabled"])) { ?>
+<script>
+loadjs.ready(["fpermitgrid", "datetimepicker"], function() {
+    ew.createDateTimePicker("fpermitgrid", "x<?= $Grid->RowIndex ?>_end_date", {"ignoreReadonly":true,"useCurrent":false,"format":5});
+});
+</script>
+<?php } ?>
+</span>
+<?php } ?>
+<?php if ($Grid->RowType == ROWTYPE_VIEW) { // View record ?>
+<span id="el<?= $Grid->RowCount ?>_permit_end_date">
+<span<?= $Grid->end_date->viewAttributes() ?>>
+<?= $Grid->end_date->getViewValue() ?></span>
+</span>
+<?php if ($Grid->isConfirm()) { ?>
+<input type="hidden" data-table="permit" data-field="x_end_date" data-hidden="1" name="fpermitgrid$x<?= $Grid->RowIndex ?>_end_date" id="fpermitgrid$x<?= $Grid->RowIndex ?>_end_date" value="<?= HtmlEncode($Grid->end_date->FormValue) ?>">
+<input type="hidden" data-table="permit" data-field="x_end_date" data-hidden="1" name="fpermitgrid$o<?= $Grid->RowIndex ?>_end_date" id="fpermitgrid$o<?= $Grid->RowIndex ?>_end_date" value="<?= HtmlEncode($Grid->end_date->OldValue) ?>">
 <?php } ?>
 <?php } ?>
 </td>
@@ -626,28 +673,52 @@ loadjs.ready("head", function() {
 <input type="hidden" data-table="permit" data-field="x_employee_username" data-hidden="1" name="o<?= $Grid->RowIndex ?>_employee_username" id="o<?= $Grid->RowIndex ?>_employee_username" value="<?= HtmlEncode($Grid->employee_username->OldValue) ?>">
 </td>
     <?php } ?>
-    <?php if ($Grid->permit_date->Visible) { // permit_date ?>
-        <td data-name="permit_date">
+    <?php if ($Grid->start_date->Visible) { // start_date ?>
+        <td data-name="start_date">
 <?php if (!$Grid->isConfirm()) { ?>
-<span id="el$rowindex$_permit_permit_date" class="form-group permit_permit_date">
-<input type="<?= $Grid->permit_date->getInputTextType() ?>" data-table="permit" data-field="x_permit_date" data-format="5" name="x<?= $Grid->RowIndex ?>_permit_date" id="x<?= $Grid->RowIndex ?>_permit_date" placeholder="<?= HtmlEncode($Grid->permit_date->getPlaceHolder()) ?>" value="<?= $Grid->permit_date->EditValue ?>"<?= $Grid->permit_date->editAttributes() ?>>
-<div class="invalid-feedback"><?= $Grid->permit_date->getErrorMessage() ?></div>
-<?php if (!$Grid->permit_date->ReadOnly && !$Grid->permit_date->Disabled && !isset($Grid->permit_date->EditAttrs["readonly"]) && !isset($Grid->permit_date->EditAttrs["disabled"])) { ?>
+<span id="el$rowindex$_permit_start_date" class="form-group permit_start_date">
+<input type="<?= $Grid->start_date->getInputTextType() ?>" data-table="permit" data-field="x_start_date" data-format="5" name="x<?= $Grid->RowIndex ?>_start_date" id="x<?= $Grid->RowIndex ?>_start_date" placeholder="<?= HtmlEncode($Grid->start_date->getPlaceHolder()) ?>" value="<?= $Grid->start_date->EditValue ?>"<?= $Grid->start_date->editAttributes() ?>>
+<div class="invalid-feedback"><?= $Grid->start_date->getErrorMessage() ?></div>
+<?php if (!$Grid->start_date->ReadOnly && !$Grid->start_date->Disabled && !isset($Grid->start_date->EditAttrs["readonly"]) && !isset($Grid->start_date->EditAttrs["disabled"])) { ?>
 <script>
 loadjs.ready(["fpermitgrid", "datetimepicker"], function() {
-    ew.createDateTimePicker("fpermitgrid", "x<?= $Grid->RowIndex ?>_permit_date", {"ignoreReadonly":true,"useCurrent":false,"format":5});
+    ew.createDateTimePicker("fpermitgrid", "x<?= $Grid->RowIndex ?>_start_date", {"ignoreReadonly":true,"useCurrent":false,"format":5});
 });
 </script>
 <?php } ?>
 </span>
 <?php } else { ?>
-<span id="el$rowindex$_permit_permit_date" class="form-group permit_permit_date">
-<span<?= $Grid->permit_date->viewAttributes() ?>>
-<input type="text" readonly class="form-control-plaintext" value="<?= HtmlEncode(RemoveHtml($Grid->permit_date->getDisplayValue($Grid->permit_date->ViewValue))) ?>"></span>
+<span id="el$rowindex$_permit_start_date" class="form-group permit_start_date">
+<span<?= $Grid->start_date->viewAttributes() ?>>
+<input type="text" readonly class="form-control-plaintext" value="<?= HtmlEncode(RemoveHtml($Grid->start_date->getDisplayValue($Grid->start_date->ViewValue))) ?>"></span>
 </span>
-<input type="hidden" data-table="permit" data-field="x_permit_date" data-hidden="1" name="x<?= $Grid->RowIndex ?>_permit_date" id="x<?= $Grid->RowIndex ?>_permit_date" value="<?= HtmlEncode($Grid->permit_date->FormValue) ?>">
+<input type="hidden" data-table="permit" data-field="x_start_date" data-hidden="1" name="x<?= $Grid->RowIndex ?>_start_date" id="x<?= $Grid->RowIndex ?>_start_date" value="<?= HtmlEncode($Grid->start_date->FormValue) ?>">
 <?php } ?>
-<input type="hidden" data-table="permit" data-field="x_permit_date" data-hidden="1" name="o<?= $Grid->RowIndex ?>_permit_date" id="o<?= $Grid->RowIndex ?>_permit_date" value="<?= HtmlEncode($Grid->permit_date->OldValue) ?>">
+<input type="hidden" data-table="permit" data-field="x_start_date" data-hidden="1" name="o<?= $Grid->RowIndex ?>_start_date" id="o<?= $Grid->RowIndex ?>_start_date" value="<?= HtmlEncode($Grid->start_date->OldValue) ?>">
+</td>
+    <?php } ?>
+    <?php if ($Grid->end_date->Visible) { // end_date ?>
+        <td data-name="end_date">
+<?php if (!$Grid->isConfirm()) { ?>
+<span id="el$rowindex$_permit_end_date" class="form-group permit_end_date">
+<input type="<?= $Grid->end_date->getInputTextType() ?>" data-table="permit" data-field="x_end_date" data-format="5" name="x<?= $Grid->RowIndex ?>_end_date" id="x<?= $Grid->RowIndex ?>_end_date" placeholder="<?= HtmlEncode($Grid->end_date->getPlaceHolder()) ?>" value="<?= $Grid->end_date->EditValue ?>"<?= $Grid->end_date->editAttributes() ?>>
+<div class="invalid-feedback"><?= $Grid->end_date->getErrorMessage() ?></div>
+<?php if (!$Grid->end_date->ReadOnly && !$Grid->end_date->Disabled && !isset($Grid->end_date->EditAttrs["readonly"]) && !isset($Grid->end_date->EditAttrs["disabled"])) { ?>
+<script>
+loadjs.ready(["fpermitgrid", "datetimepicker"], function() {
+    ew.createDateTimePicker("fpermitgrid", "x<?= $Grid->RowIndex ?>_end_date", {"ignoreReadonly":true,"useCurrent":false,"format":5});
+});
+</script>
+<?php } ?>
+</span>
+<?php } else { ?>
+<span id="el$rowindex$_permit_end_date" class="form-group permit_end_date">
+<span<?= $Grid->end_date->viewAttributes() ?>>
+<input type="text" readonly class="form-control-plaintext" value="<?= HtmlEncode(RemoveHtml($Grid->end_date->getDisplayValue($Grid->end_date->ViewValue))) ?>"></span>
+</span>
+<input type="hidden" data-table="permit" data-field="x_end_date" data-hidden="1" name="x<?= $Grid->RowIndex ?>_end_date" id="x<?= $Grid->RowIndex ?>_end_date" value="<?= HtmlEncode($Grid->end_date->FormValue) ?>">
+<?php } ?>
+<input type="hidden" data-table="permit" data-field="x_end_date" data-hidden="1" name="o<?= $Grid->RowIndex ?>_end_date" id="o<?= $Grid->RowIndex ?>_end_date" value="<?= HtmlEncode($Grid->end_date->OldValue) ?>">
 </td>
     <?php } ?>
     <?php if ($Grid->permit_type->Visible) { // permit_type ?>

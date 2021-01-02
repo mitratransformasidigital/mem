@@ -243,16 +243,6 @@ loadjs.ready("head", function() {
 <div class="ew-nav-tabs" id="Page_details"><!-- tabs -->
     <ul class="<?= $Page->DetailPages->navStyle() ?>"><!-- .nav -->
 <?php
-    if (in_array("employee", explode(",", $Page->getCurrentDetailTable())) && $employee->DetailEdit) {
-        if ($firstActiveDetailTable == "" || $firstActiveDetailTable == "employee") {
-            $firstActiveDetailTable = "employee";
-        }
-?>
-        <li class="nav-item"><a class="nav-link <?= $Page->DetailPages->pageStyle("employee") ?>" href="#tab_employee" data-toggle="tab"><?= $Language->tablePhrase("employee", "TblCaption") ?></a></li>
-<?php
-    }
-?>
-<?php
     if (in_array("myprofile", explode(",", $Page->getCurrentDetailTable())) && $myprofile->DetailEdit) {
         if ($firstActiveDetailTable == "" || $firstActiveDetailTable == "myprofile") {
             $firstActiveDetailTable = "myprofile";
@@ -262,18 +252,18 @@ loadjs.ready("head", function() {
 <?php
     }
 ?>
-    </ul><!-- /.nav -->
-    <div class="tab-content"><!-- .tab-content -->
 <?php
     if (in_array("employee", explode(",", $Page->getCurrentDetailTable())) && $employee->DetailEdit) {
         if ($firstActiveDetailTable == "" || $firstActiveDetailTable == "employee") {
             $firstActiveDetailTable = "employee";
         }
 ?>
-        <div class="tab-pane <?= $Page->DetailPages->pageStyle("employee") ?>" id="tab_employee"><!-- page* -->
-<?php include_once "EmployeeGrid.php" ?>
-        </div><!-- /page* -->
-<?php } ?>
+        <li class="nav-item"><a class="nav-link <?= $Page->DetailPages->pageStyle("employee") ?>" href="#tab_employee" data-toggle="tab"><?= $Language->tablePhrase("employee", "TblCaption") ?></a></li>
+<?php
+    }
+?>
+    </ul><!-- /.nav -->
+    <div class="tab-content"><!-- .tab-content -->
 <?php
     if (in_array("myprofile", explode(",", $Page->getCurrentDetailTable())) && $myprofile->DetailEdit) {
         if ($firstActiveDetailTable == "" || $firstActiveDetailTable == "myprofile") {
@@ -282,6 +272,16 @@ loadjs.ready("head", function() {
 ?>
         <div class="tab-pane <?= $Page->DetailPages->pageStyle("myprofile") ?>" id="tab_myprofile"><!-- page* -->
 <?php include_once "MyprofileGrid.php" ?>
+        </div><!-- /page* -->
+<?php } ?>
+<?php
+    if (in_array("employee", explode(",", $Page->getCurrentDetailTable())) && $employee->DetailEdit) {
+        if ($firstActiveDetailTable == "" || $firstActiveDetailTable == "employee") {
+            $firstActiveDetailTable = "employee";
+        }
+?>
+        <div class="tab-pane <?= $Page->DetailPages->pageStyle("employee") ?>" id="tab_employee"><!-- page* -->
+<?php include_once "EmployeeGrid.php" ?>
         </div><!-- /page* -->
 <?php } ?>
     </div><!-- /.tab-content -->

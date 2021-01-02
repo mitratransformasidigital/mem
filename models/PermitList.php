@@ -589,7 +589,8 @@ class PermitList extends Permit
         $this->setupImportOptions();
         $this->permit_id->Visible = false;
         $this->employee_username->setVisibility();
-        $this->permit_date->setVisibility();
+        $this->start_date->setVisibility();
+        $this->end_date->setVisibility();
         $this->permit_type->setVisibility();
         $this->document->setVisibility();
         $this->note->setVisibility();
@@ -953,7 +954,8 @@ class PermitList extends Permit
         $filterList = "";
         $savedFilterList = "";
         $filterList = Concat($filterList, $this->employee_username->AdvancedSearch->toJson(), ","); // Field employee_username
-        $filterList = Concat($filterList, $this->permit_date->AdvancedSearch->toJson(), ","); // Field permit_date
+        $filterList = Concat($filterList, $this->start_date->AdvancedSearch->toJson(), ","); // Field start_date
+        $filterList = Concat($filterList, $this->end_date->AdvancedSearch->toJson(), ","); // Field end_date
         $filterList = Concat($filterList, $this->permit_type->AdvancedSearch->toJson(), ","); // Field permit_type
         $filterList = Concat($filterList, $this->note->AdvancedSearch->toJson(), ","); // Field note
         if ($this->BasicSearch->Keyword != "") {
@@ -1004,13 +1006,21 @@ class PermitList extends Permit
         $this->employee_username->AdvancedSearch->SearchOperator2 = @$filter["w_employee_username"];
         $this->employee_username->AdvancedSearch->save();
 
-        // Field permit_date
-        $this->permit_date->AdvancedSearch->SearchValue = @$filter["x_permit_date"];
-        $this->permit_date->AdvancedSearch->SearchOperator = @$filter["z_permit_date"];
-        $this->permit_date->AdvancedSearch->SearchCondition = @$filter["v_permit_date"];
-        $this->permit_date->AdvancedSearch->SearchValue2 = @$filter["y_permit_date"];
-        $this->permit_date->AdvancedSearch->SearchOperator2 = @$filter["w_permit_date"];
-        $this->permit_date->AdvancedSearch->save();
+        // Field start_date
+        $this->start_date->AdvancedSearch->SearchValue = @$filter["x_start_date"];
+        $this->start_date->AdvancedSearch->SearchOperator = @$filter["z_start_date"];
+        $this->start_date->AdvancedSearch->SearchCondition = @$filter["v_start_date"];
+        $this->start_date->AdvancedSearch->SearchValue2 = @$filter["y_start_date"];
+        $this->start_date->AdvancedSearch->SearchOperator2 = @$filter["w_start_date"];
+        $this->start_date->AdvancedSearch->save();
+
+        // Field end_date
+        $this->end_date->AdvancedSearch->SearchValue = @$filter["x_end_date"];
+        $this->end_date->AdvancedSearch->SearchOperator = @$filter["z_end_date"];
+        $this->end_date->AdvancedSearch->SearchCondition = @$filter["v_end_date"];
+        $this->end_date->AdvancedSearch->SearchValue2 = @$filter["y_end_date"];
+        $this->end_date->AdvancedSearch->SearchOperator2 = @$filter["w_end_date"];
+        $this->end_date->AdvancedSearch->save();
 
         // Field permit_type
         $this->permit_type->AdvancedSearch->SearchValue = @$filter["x_permit_type"];
@@ -1040,7 +1050,8 @@ class PermitList extends Permit
             return "";
         }
         $this->buildSearchSql($where, $this->employee_username, $default, false); // employee_username
-        $this->buildSearchSql($where, $this->permit_date, $default, false); // permit_date
+        $this->buildSearchSql($where, $this->start_date, $default, false); // start_date
+        $this->buildSearchSql($where, $this->end_date, $default, false); // end_date
         $this->buildSearchSql($where, $this->permit_type, $default, false); // permit_type
         $this->buildSearchSql($where, $this->note, $default, false); // note
 
@@ -1050,7 +1061,8 @@ class PermitList extends Permit
         }
         if (!$default && $this->Command == "search") {
             $this->employee_username->AdvancedSearch->save(); // employee_username
-            $this->permit_date->AdvancedSearch->save(); // permit_date
+            $this->start_date->AdvancedSearch->save(); // start_date
+            $this->end_date->AdvancedSearch->save(); // end_date
             $this->permit_type->AdvancedSearch->save(); // permit_type
             $this->note->AdvancedSearch->save(); // note
         }
@@ -1249,7 +1261,10 @@ class PermitList extends Permit
         if ($this->employee_username->AdvancedSearch->issetSession()) {
             return true;
         }
-        if ($this->permit_date->AdvancedSearch->issetSession()) {
+        if ($this->start_date->AdvancedSearch->issetSession()) {
+            return true;
+        }
+        if ($this->end_date->AdvancedSearch->issetSession()) {
             return true;
         }
         if ($this->permit_type->AdvancedSearch->issetSession()) {
@@ -1291,7 +1306,8 @@ class PermitList extends Permit
     protected function resetAdvancedSearchParms()
     {
                 $this->employee_username->AdvancedSearch->unsetSession();
-                $this->permit_date->AdvancedSearch->unsetSession();
+                $this->start_date->AdvancedSearch->unsetSession();
+                $this->end_date->AdvancedSearch->unsetSession();
                 $this->permit_type->AdvancedSearch->unsetSession();
                 $this->note->AdvancedSearch->unsetSession();
     }
@@ -1306,7 +1322,8 @@ class PermitList extends Permit
 
         // Restore advanced search values
                 $this->employee_username->AdvancedSearch->load();
-                $this->permit_date->AdvancedSearch->load();
+                $this->start_date->AdvancedSearch->load();
+                $this->end_date->AdvancedSearch->load();
                 $this->permit_type->AdvancedSearch->load();
                 $this->note->AdvancedSearch->load();
     }
@@ -1319,7 +1336,8 @@ class PermitList extends Permit
             $this->CurrentOrder = Get("order");
             $this->CurrentOrderType = Get("ordertype", "");
             $this->updateSort($this->employee_username); // employee_username
-            $this->updateSort($this->permit_date); // permit_date
+            $this->updateSort($this->start_date); // start_date
+            $this->updateSort($this->end_date); // end_date
             $this->updateSort($this->permit_type); // permit_type
             $this->updateSort($this->document); // document
             $this->updateSort($this->note); // note
@@ -1372,7 +1390,8 @@ class PermitList extends Permit
                 $this->setSessionOrderBy($orderBy);
                 $this->permit_id->setSort("");
                 $this->employee_username->setSort("");
-                $this->permit_date->setSort("");
+                $this->start_date->setSort("");
+                $this->end_date->setSort("");
                 $this->permit_type->setSort("");
                 $this->document->setSort("");
                 $this->note->setSort("");
@@ -1705,11 +1724,14 @@ class PermitList extends Permit
     // Set up list options (extended codes)
     protected function setupListOptionsExt()
     {
+        // Hide detail items for dropdown if necessary
+        $this->ListOptions->hideDetailItemsForDropDown();
     }
 
     // Render list options (extended codes)
     protected function renderListOptionsExt()
     {
+        global $Security, $Language;
     }
 
     // Load basic search values
@@ -1736,10 +1758,18 @@ class PermitList extends Permit
             }
         }
 
-        // permit_date
-        if (!$this->isAddOrEdit() && $this->permit_date->AdvancedSearch->get()) {
+        // start_date
+        if (!$this->isAddOrEdit() && $this->start_date->AdvancedSearch->get()) {
             $hasValue = true;
-            if (($this->permit_date->AdvancedSearch->SearchValue != "" || $this->permit_date->AdvancedSearch->SearchValue2 != "") && $this->Command == "") {
+            if (($this->start_date->AdvancedSearch->SearchValue != "" || $this->start_date->AdvancedSearch->SearchValue2 != "") && $this->Command == "") {
+                $this->Command = "search";
+            }
+        }
+
+        // end_date
+        if (!$this->isAddOrEdit() && $this->end_date->AdvancedSearch->get()) {
+            $hasValue = true;
+            if (($this->end_date->AdvancedSearch->SearchValue != "" || $this->end_date->AdvancedSearch->SearchValue2 != "") && $this->Command == "") {
                 $this->Command = "search";
             }
         }
@@ -1832,7 +1862,8 @@ class PermitList extends Permit
         }
         $this->permit_id->setDbValue($row['permit_id']);
         $this->employee_username->setDbValue($row['employee_username']);
-        $this->permit_date->setDbValue($row['permit_date']);
+        $this->start_date->setDbValue($row['start_date']);
+        $this->end_date->setDbValue($row['end_date']);
         $this->permit_type->setDbValue($row['permit_type']);
         $this->document->Upload->DbValue = $row['document'];
         $this->document->setDbValue($this->document->Upload->DbValue);
@@ -1845,7 +1876,8 @@ class PermitList extends Permit
         $row = [];
         $row['permit_id'] = null;
         $row['employee_username'] = null;
-        $row['permit_date'] = null;
+        $row['start_date'] = null;
+        $row['end_date'] = null;
         $row['permit_type'] = null;
         $row['document'] = null;
         $row['note'] = null;
@@ -1890,7 +1922,9 @@ class PermitList extends Permit
 
         // employee_username
 
-        // permit_date
+        // start_date
+
+        // end_date
 
         // permit_type
 
@@ -1919,10 +1953,15 @@ class PermitList extends Permit
             }
             $this->employee_username->ViewCustomAttributes = "";
 
-            // permit_date
-            $this->permit_date->ViewValue = $this->permit_date->CurrentValue;
-            $this->permit_date->ViewValue = FormatDateTime($this->permit_date->ViewValue, 5);
-            $this->permit_date->ViewCustomAttributes = "";
+            // start_date
+            $this->start_date->ViewValue = $this->start_date->CurrentValue;
+            $this->start_date->ViewValue = FormatDateTime($this->start_date->ViewValue, 5);
+            $this->start_date->ViewCustomAttributes = "";
+
+            // end_date
+            $this->end_date->ViewValue = $this->end_date->CurrentValue;
+            $this->end_date->ViewValue = FormatDateTime($this->end_date->ViewValue, 5);
+            $this->end_date->ViewCustomAttributes = "";
 
             // permit_type
             if (strval($this->permit_type->CurrentValue) != "") {
@@ -1949,10 +1988,15 @@ class PermitList extends Permit
             $this->employee_username->HrefValue = "";
             $this->employee_username->TooltipValue = "";
 
-            // permit_date
-            $this->permit_date->LinkCustomAttributes = "";
-            $this->permit_date->HrefValue = "";
-            $this->permit_date->TooltipValue = "";
+            // start_date
+            $this->start_date->LinkCustomAttributes = "";
+            $this->start_date->HrefValue = "";
+            $this->start_date->TooltipValue = "";
+
+            // end_date
+            $this->end_date->LinkCustomAttributes = "";
+            $this->end_date->HrefValue = "";
+            $this->end_date->TooltipValue = "";
 
             // permit_type
             $this->permit_type->LinkCustomAttributes = "";
@@ -2327,7 +2371,8 @@ class PermitList extends Permit
     public function loadAdvancedSearch()
     {
         $this->employee_username->AdvancedSearch->load();
-        $this->permit_date->AdvancedSearch->load();
+        $this->start_date->AdvancedSearch->load();
+        $this->end_date->AdvancedSearch->load();
         $this->permit_type->AdvancedSearch->load();
         $this->note->AdvancedSearch->load();
     }
@@ -2766,7 +2811,7 @@ class PermitList extends Permit
     protected function setupBreadcrumb()
     {
         global $Breadcrumb, $Language;
-        $Breadcrumb = new Breadcrumb("top10days");
+        $Breadcrumb = new Breadcrumb("welcome");
         $url = CurrentUrl();
         $url = preg_replace('/\?cmd=reset(all){0,1}$/i', '', $url); // Remove cmd=reset / cmd=resetall
         $Breadcrumb->add("list", $this->TableVar, $url, "", $this->TableVar, true);

@@ -122,27 +122,11 @@ $Page->showMessage();
 <input type="hidden" name="action" id="action" value="update">
 <input type="hidden" name="modal" value="<?= (int)$Page->IsModal ?>">
 <input type="hidden" name="<?= $Page->OldKeyName ?>" value="<?= $Page->OldKey ?>">
-<?php if ($Page->getCurrentMasterTable() == "employee") { ?>
-<input type="hidden" name="<?= Config("TABLE_SHOW_MASTER") ?>" value="employee">
-<input type="hidden" name="fk_employee_username" value="<?= HtmlEncode($Page->employee_username->getSessionValue()) ?>">
-<?php } ?>
 <?php if ($Page->getCurrentMasterTable() == "myprofile") { ?>
 <input type="hidden" name="<?= Config("TABLE_SHOW_MASTER") ?>" value="myprofile">
 <input type="hidden" name="fk_employee_username" value="<?= HtmlEncode($Page->employee_username->getSessionValue()) ?>">
 <?php } ?>
 <div class="ew-edit-div"><!-- page* -->
-<?php if ($Page->contract_id->Visible) { // contract_id ?>
-    <div id="r_contract_id" class="form-group row">
-        <label id="elh_mycontract_contract_id" class="<?= $Page->LeftColumnClass ?>"><?= $Page->contract_id->caption() ?><?= $Page->contract_id->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
-        <div class="<?= $Page->RightColumnClass ?>"><div <?= $Page->contract_id->cellAttributes() ?>>
-<span id="el_mycontract_contract_id">
-<span<?= $Page->contract_id->viewAttributes() ?>>
-<input type="text" readonly class="form-control-plaintext" value="<?= HtmlEncode(RemoveHtml($Page->contract_id->getDisplayValue($Page->contract_id->EditValue))) ?>"></span>
-</span>
-<input type="hidden" data-table="mycontract" data-field="x_contract_id" data-hidden="1" name="x_contract_id" id="x_contract_id" value="<?= HtmlEncode($Page->contract_id->CurrentValue) ?>">
-</div></div>
-    </div>
-<?php } ?>
 <?php if ($Page->salary->Visible) { // salary ?>
     <div id="r_salary" class="form-group row">
         <label id="elh_mycontract_salary" for="x_salary" class="<?= $Page->LeftColumnClass ?>"><?= $Page->salary->caption() ?><?= $Page->salary->Required ? $Language->phrase("FieldRequiredIndicator") : "" ?></label>
@@ -173,8 +157,8 @@ $Page->showMessage();
         <div class="<?= $Page->RightColumnClass ?>"><div <?= $Page->thr->cellAttributes() ?>>
 <span id="el_mycontract_thr">
 <div class="custom-control custom-checkbox d-inline-block">
-    <input type="checkbox" class="custom-control-input<?= $Page->thr->isInvalidClass() ?>" data-table="mycontract" data-field="x_thr" name="x_thr[]" id="x_thr_454331" value="1"<?= ConvertToBool($Page->thr->CurrentValue) ? " checked" : "" ?><?= $Page->thr->editAttributes() ?> aria-describedby="x_thr_help">
-    <label class="custom-control-label" for="x_thr_454331"></label>
+    <input type="checkbox" class="custom-control-input<?= $Page->thr->isInvalidClass() ?>" data-table="mycontract" data-field="x_thr" name="x_thr[]" id="x_thr_201572" value="1"<?= ConvertToBool($Page->thr->CurrentValue) ? " checked" : "" ?><?= $Page->thr->editAttributes() ?> aria-describedby="x_thr_help">
+    <label class="custom-control-label" for="x_thr_201572"></label>
 </div>
 <?= $Page->thr->getCustomMessage() ?>
 <div class="invalid-feedback"><?= $Page->thr->getErrorMessage() ?></div>
@@ -296,6 +280,9 @@ loadjs.ready("head", function() {
     </div>
 <?php } ?>
 </div><!-- /page* -->
+<span id="el_mycontract_contract_id">
+<input type="hidden" data-table="mycontract" data-field="x_contract_id" data-hidden="1" name="x_contract_id" id="x_contract_id" value="<?= HtmlEncode($Page->contract_id->CurrentValue) ?>">
+</span>
 <?php if ($Page->employee_username->getSessionValue() != "") { ?>
 <input type="hidden" id="x_employee_username" name="x_employee_username" value="<?= HtmlEncode($Page->employee_username->CurrentValue) ?>" data-hidden="1">
 <?php } else { ?>

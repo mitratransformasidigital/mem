@@ -214,16 +214,16 @@ loadjs.ready("head", function() {
 </span>
             <span id="el_employee_contract_thr" class="ew-search-field">
 <div class="custom-control custom-checkbox d-inline-block">
-    <input type="checkbox" class="custom-control-input<?= $Page->thr->isInvalidClass() ?>" data-table="employee_contract" data-field="x_thr" name="x_thr[]" id="x_thr_210927" value="1"<?= ConvertToBool($Page->thr->AdvancedSearch->SearchValue) ? " checked" : "" ?><?= $Page->thr->editAttributes() ?>>
-    <label class="custom-control-label" for="x_thr_210927"></label>
+    <input type="checkbox" class="custom-control-input<?= $Page->thr->isInvalidClass() ?>" data-table="employee_contract" data-field="x_thr" name="x_thr[]" id="x_thr_486206" value="1"<?= ConvertToBool($Page->thr->AdvancedSearch->SearchValue) ? " checked" : "" ?><?= $Page->thr->editAttributes() ?>>
+    <label class="custom-control-label" for="x_thr_486206"></label>
 </div>
 <div class="invalid-feedback"><?= $Page->thr->getErrorMessage(false) ?></div>
 </span>
             <span class="ew-search-and d-none"><label><?= $Language->phrase("AND") ?></label></span>
             <span id="el2_employee_contract_thr" class="ew-search-field2 d-none">
 <div class="custom-control custom-checkbox d-inline-block">
-    <input type="checkbox" class="custom-control-input<?= $Page->thr->isInvalidClass() ?>" data-table="employee_contract" data-field="x_thr" name="y_thr[]" id="y_thr_333608" value="1"<?= ConvertToBool($Page->thr->AdvancedSearch->SearchValue2) ? " checked" : "" ?><?= $Page->thr->editAttributes() ?>>
-    <label class="custom-control-label" for="y_thr_333608"></label>
+    <input type="checkbox" class="custom-control-input<?= $Page->thr->isInvalidClass() ?>" data-table="employee_contract" data-field="x_thr" name="y_thr[]" id="y_thr_193907" value="1"<?= ConvertToBool($Page->thr->AdvancedSearch->SearchValue2) ? " checked" : "" ?><?= $Page->thr->editAttributes() ?>>
+    <label class="custom-control-label" for="y_thr_193907"></label>
 </div>
 <div class="invalid-feedback"><?= $Page->thr->getErrorMessage(false) ?></div>
 </span>

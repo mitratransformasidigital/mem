@@ -100,6 +100,9 @@ class PersonalData
         global $Language, $DashboardReport, $DebugTimer;
         global $UserTable;
 
+        // Custom template
+        $this->UseCustomTemplate = true;
+
         // Initialize
         $GLOBALS["Page"] = &$this;
         $this->TokenTimeout = SessionTimeoutTime();
@@ -148,9 +151,10 @@ class PersonalData
 
         // Page is terminated
         $this->terminated = true;
-
-        // Global Page Unloaded event (in userfn*.php)
-        Page_Unloaded();
+        if (Post("customexport") === null) {
+            // Global Page Unloaded event (in userfn*.php)
+            Page_Unloaded();
+        }
 
         // Export
 
@@ -196,7 +200,7 @@ class PersonalData
 
         // Global Page Loading event (in userfn*.php)
         Page_Loading();
-        $Breadcrumb = new Breadcrumb("top10days");
+        $Breadcrumb = new Breadcrumb("welcome");
         $Breadcrumb->add("personal_data", "PersonalDataTitle", CurrentUrl(), "ew-personal-data", "", true);
         $this->Heading = $Language->phrase("PersonalDataTitle");
         $cmd = Get("cmd", "");

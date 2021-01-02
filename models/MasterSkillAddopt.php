@@ -672,7 +672,7 @@ class MasterSkillAddopt extends MasterSkill
     protected function setupBreadcrumb()
     {
         global $Breadcrumb, $Language;
-        $Breadcrumb = new Breadcrumb("top10days");
+        $Breadcrumb = new Breadcrumb("welcome");
         $url = CurrentUrl();
         $Breadcrumb->add("list", $this->TableVar, $this->addMasterUrl("masterskilllist"), "", $this->TableVar, true);
         $pageId = "addopt";

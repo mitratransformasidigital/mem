@@ -44,8 +44,11 @@ $Page->showMessage();
 <?php if ($Page->employee_username->Visible) { // employee_username ?>
         <th class="<?= $Page->employee_username->headerCellClass() ?>"><span id="elh_permit_employee_username" class="permit_employee_username"><?= $Page->employee_username->caption() ?></span></th>
 <?php } ?>
-<?php if ($Page->permit_date->Visible) { // permit_date ?>
-        <th class="<?= $Page->permit_date->headerCellClass() ?>"><span id="elh_permit_permit_date" class="permit_permit_date"><?= $Page->permit_date->caption() ?></span></th>
+<?php if ($Page->start_date->Visible) { // start_date ?>
+        <th class="<?= $Page->start_date->headerCellClass() ?>"><span id="elh_permit_start_date" class="permit_start_date"><?= $Page->start_date->caption() ?></span></th>
+<?php } ?>
+<?php if ($Page->end_date->Visible) { // end_date ?>
+        <th class="<?= $Page->end_date->headerCellClass() ?>"><span id="elh_permit_end_date" class="permit_end_date"><?= $Page->end_date->caption() ?></span></th>
 <?php } ?>
 <?php if ($Page->permit_type->Visible) { // permit_type ?>
         <th class="<?= $Page->permit_type->headerCellClass() ?>"><span id="elh_permit_permit_type" class="permit_permit_type"><?= $Page->permit_type->caption() ?></span></th>
@@ -85,11 +88,19 @@ while (!$Page->Recordset->EOF) {
 </span>
 </td>
 <?php } ?>
-<?php if ($Page->permit_date->Visible) { // permit_date ?>
-        <td <?= $Page->permit_date->cellAttributes() ?>>
-<span id="el<?= $Page->RowCount ?>_permit_permit_date" class="permit_permit_date">
-<span<?= $Page->permit_date->viewAttributes() ?>>
-<?= $Page->permit_date->getViewValue() ?></span>
+<?php if ($Page->start_date->Visible) { // start_date ?>
+        <td <?= $Page->start_date->cellAttributes() ?>>
+<span id="el<?= $Page->RowCount ?>_permit_start_date" class="permit_start_date">
+<span<?= $Page->start_date->viewAttributes() ?>>
+<?= $Page->start_date->getViewValue() ?></span>
+</span>
+</td>
+<?php } ?>
+<?php if ($Page->end_date->Visible) { // end_date ?>
+        <td <?= $Page->end_date->cellAttributes() ?>>
+<span id="el<?= $Page->RowCount ?>_permit_end_date" class="permit_end_date">
+<span<?= $Page->end_date->viewAttributes() ?>>
+<?= $Page->end_date->getViewValue() ?></span>
 </span>
 </td>
 <?php } ?>

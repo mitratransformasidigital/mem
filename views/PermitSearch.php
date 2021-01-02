@@ -23,8 +23,10 @@ loadjs.ready("head", function () {
     var fields = ew.vars.tables.permit.fields;
     fpermitsearch.addFields([
         ["employee_username", [], fields.employee_username.isInvalid],
-        ["permit_date", [ew.Validators.datetime(5)], fields.permit_date.isInvalid],
-        ["y_permit_date", [ew.Validators.between], false],
+        ["start_date", [ew.Validators.datetime(5)], fields.start_date.isInvalid],
+        ["y_start_date", [ew.Validators.between], false],
+        ["end_date", [ew.Validators.datetime(5)], fields.end_date.isInvalid],
+        ["y_end_date", [ew.Validators.between], false],
         ["permit_type", [], fields.permit_type.isInvalid],
         ["note", [], fields.note.isInvalid],
         ["y_note", [ew.Validators.between], false]
@@ -126,41 +128,83 @@ loadjs.ready("head", function() {
         </div></div>
     </div>
 <?php } ?>
-<?php if ($Page->permit_date->Visible) { // permit_date ?>
-    <div id="r_permit_date" class="form-group row">
-        <label for="x_permit_date" class="<?= $Page->LeftColumnClass ?>"><span id="elh_permit_permit_date"><?= $Page->permit_date->caption() ?></span>
+<?php if ($Page->start_date->Visible) { // start_date ?>
+    <div id="r_start_date" class="form-group row">
+        <label for="x_start_date" class="<?= $Page->LeftColumnClass ?>"><span id="elh_permit_start_date"><?= $Page->start_date->caption() ?></span>
         </label>
-        <div class="<?= $Page->RightColumnClass ?>"><div <?= $Page->permit_date->cellAttributes() ?>>
+        <div class="<?= $Page->RightColumnClass ?>"><div <?= $Page->start_date->cellAttributes() ?>>
         <span class="ew-search-operator">
-<select name="z_permit_date" id="z_permit_date" class="custom-select" onchange="ew.searchOperatorChanged(this);">
-<option value="="<?= $Page->permit_date->AdvancedSearch->SearchOperator == "=" ? " selected" : "" ?>><?= $Language->phrase("EQUAL") ?></option>
-<option value="<>"<?= $Page->permit_date->AdvancedSearch->SearchOperator == "<>" ? " selected" : "" ?>><?= $Language->phrase("<>") ?></option>
-<option value="<"<?= $Page->permit_date->AdvancedSearch->SearchOperator == "<" ? " selected" : "" ?>><?= $Language->phrase("<") ?></option>
-<option value="<="<?= $Page->permit_date->AdvancedSearch->SearchOperator == "<=" ? " selected" : "" ?>><?= $Language->phrase("<=") ?></option>
-<option value=">"<?= $Page->permit_date->AdvancedSearch->SearchOperator == ">" ? " selected" : "" ?>><?= $Language->phrase(">") ?></option>
-<option value=">="<?= $Page->permit_date->AdvancedSearch->SearchOperator == ">=" ? " selected" : "" ?>><?= $Language->phrase(">=") ?></option>
-<option value="BETWEEN"<?= $Page->permit_date->AdvancedSearch->SearchOperator == "BETWEEN" ? " selected" : "" ?>><?= $Language->phrase("BETWEEN") ?></option>
+<select name="z_start_date" id="z_start_date" class="custom-select" onchange="ew.searchOperatorChanged(this);">
+<option value="="<?= $Page->start_date->AdvancedSearch->SearchOperator == "=" ? " selected" : "" ?>><?= $Language->phrase("EQUAL") ?></option>
+<option value="<>"<?= $Page->start_date->AdvancedSearch->SearchOperator == "<>" ? " selected" : "" ?>><?= $Language->phrase("<>") ?></option>
+<option value="<"<?= $Page->start_date->AdvancedSearch->SearchOperator == "<" ? " selected" : "" ?>><?= $Language->phrase("<") ?></option>
+<option value="<="<?= $Page->start_date->AdvancedSearch->SearchOperator == "<=" ? " selected" : "" ?>><?= $Language->phrase("<=") ?></option>
+<option value=">"<?= $Page->start_date->AdvancedSearch->SearchOperator == ">" ? " selected" : "" ?>><?= $Language->phrase(">") ?></option>
+<option value=">="<?= $Page->start_date->AdvancedSearch->SearchOperator == ">=" ? " selected" : "" ?>><?= $Language->phrase(">=") ?></option>
+<option value="BETWEEN"<?= $Page->start_date->AdvancedSearch->SearchOperator == "BETWEEN" ? " selected" : "" ?>><?= $Language->phrase("BETWEEN") ?></option>
 </select>
 </span>
-            <span id="el_permit_permit_date" class="ew-search-field">
-<input type="<?= $Page->permit_date->getInputTextType() ?>" data-table="permit" data-field="x_permit_date" data-format="5" name="x_permit_date" id="x_permit_date" placeholder="<?= HtmlEncode($Page->permit_date->getPlaceHolder()) ?>" value="<?= $Page->permit_date->EditValue ?>"<?= $Page->permit_date->editAttributes() ?>>
-<div class="invalid-feedback"><?= $Page->permit_date->getErrorMessage(false) ?></div>
-<?php if (!$Page->permit_date->ReadOnly && !$Page->permit_date->Disabled && !isset($Page->permit_date->EditAttrs["readonly"]) && !isset($Page->permit_date->EditAttrs["disabled"])) { ?>
+            <span id="el_permit_start_date" class="ew-search-field">
+<input type="<?= $Page->start_date->getInputTextType() ?>" data-table="permit" data-field="x_start_date" data-format="5" name="x_start_date" id="x_start_date" placeholder="<?= HtmlEncode($Page->start_date->getPlaceHolder()) ?>" value="<?= $Page->start_date->EditValue ?>"<?= $Page->start_date->editAttributes() ?>>
+<div class="invalid-feedback"><?= $Page->start_date->getErrorMessage(false) ?></div>
+<?php if (!$Page->start_date->ReadOnly && !$Page->start_date->Disabled && !isset($Page->start_date->EditAttrs["readonly"]) && !isset($Page->start_date->EditAttrs["disabled"])) { ?>
 <script>
 loadjs.ready(["fpermitsearch", "datetimepicker"], function() {
-    ew.createDateTimePicker("fpermitsearch", "x_permit_date", {"ignoreReadonly":true,"useCurrent":false,"format":5});
+    ew.createDateTimePicker("fpermitsearch", "x_start_date", {"ignoreReadonly":true,"useCurrent":false,"format":5});
 });
 </script>
 <?php } ?>
 </span>
             <span class="ew-search-and d-none"><label><?= $Language->phrase("AND") ?></label></span>
-            <span id="el2_permit_permit_date" class="ew-search-field2 d-none">
-<input type="<?= $Page->permit_date->getInputTextType() ?>" data-table="permit" data-field="x_permit_date" data-format="5" name="y_permit_date" id="y_permit_date" placeholder="<?= HtmlEncode($Page->permit_date->getPlaceHolder()) ?>" value="<?= $Page->permit_date->EditValue2 ?>"<?= $Page->permit_date->editAttributes() ?>>
-<div class="invalid-feedback"><?= $Page->permit_date->getErrorMessage(false) ?></div>
-<?php if (!$Page->permit_date->ReadOnly && !$Page->permit_date->Disabled && !isset($Page->permit_date->EditAttrs["readonly"]) && !isset($Page->permit_date->EditAttrs["disabled"])) { ?>
+            <span id="el2_permit_start_date" class="ew-search-field2 d-none">
+<input type="<?= $Page->start_date->getInputTextType() ?>" data-table="permit" data-field="x_start_date" data-format="5" name="y_start_date" id="y_start_date" placeholder="<?= HtmlEncode($Page->start_date->getPlaceHolder()) ?>" value="<?= $Page->start_date->EditValue2 ?>"<?= $Page->start_date->editAttributes() ?>>
+<div class="invalid-feedback"><?= $Page->start_date->getErrorMessage(false) ?></div>
+<?php if (!$Page->start_date->ReadOnly && !$Page->start_date->Disabled && !isset($Page->start_date->EditAttrs["readonly"]) && !isset($Page->start_date->EditAttrs["disabled"])) { ?>
 <script>
 loadjs.ready(["fpermitsearch", "datetimepicker"], function() {
-    ew.createDateTimePicker("fpermitsearch", "y_permit_date", {"ignoreReadonly":true,"useCurrent":false,"format":5});
+    ew.createDateTimePicker("fpermitsearch", "y_start_date", {"ignoreReadonly":true,"useCurrent":false,"format":5});
+});
+</script>
+<?php } ?>
+</span>
+        </div></div>
+    </div>
+<?php } ?>
+<?php if ($Page->end_date->Visible) { // end_date ?>
+    <div id="r_end_date" class="form-group row">
+        <label for="x_end_date" class="<?= $Page->LeftColumnClass ?>"><span id="elh_permit_end_date"><?= $Page->end_date->caption() ?></span>
+        </label>
+        <div class="<?= $Page->RightColumnClass ?>"><div <?= $Page->end_date->cellAttributes() ?>>
+        <span class="ew-search-operator">
+<select name="z_end_date" id="z_end_date" class="custom-select" onchange="ew.searchOperatorChanged(this);">
+<option value="="<?= $Page->end_date->AdvancedSearch->SearchOperator == "=" ? " selected" : "" ?>><?= $Language->phrase("EQUAL") ?></option>
+<option value="<>"<?= $Page->end_date->AdvancedSearch->SearchOperator == "<>" ? " selected" : "" ?>><?= $Language->phrase("<>") ?></option>
+<option value="<"<?= $Page->end_date->AdvancedSearch->SearchOperator == "<" ? " selected" : "" ?>><?= $Language->phrase("<") ?></option>
+<option value="<="<?= $Page->end_date->AdvancedSearch->SearchOperator == "<=" ? " selected" : "" ?>><?= $Language->phrase("<=") ?></option>
+<option value=">"<?= $Page->end_date->AdvancedSearch->SearchOperator == ">" ? " selected" : "" ?>><?= $Language->phrase(">") ?></option>
+<option value=">="<?= $Page->end_date->AdvancedSearch->SearchOperator == ">=" ? " selected" : "" ?>><?= $Language->phrase(">=") ?></option>
+<option value="BETWEEN"<?= $Page->end_date->AdvancedSearch->SearchOperator == "BETWEEN" ? " selected" : "" ?>><?= $Language->phrase("BETWEEN") ?></option>
+</select>
+</span>
+            <span id="el_permit_end_date" class="ew-search-field">
+<input type="<?= $Page->end_date->getInputTextType() ?>" data-table="permit" data-field="x_end_date" data-format="5" name="x_end_date" id="x_end_date" placeholder="<?= HtmlEncode($Page->end_date->getPlaceHolder()) ?>" value="<?= $Page->end_date->EditValue ?>"<?= $Page->end_date->editAttributes() ?>>
+<div class="invalid-feedback"><?= $Page->end_date->getErrorMessage(false) ?></div>
+<?php if (!$Page->end_date->ReadOnly && !$Page->end_date->Disabled && !isset($Page->end_date->EditAttrs["readonly"]) && !isset($Page->end_date->EditAttrs["disabled"])) { ?>
+<script>
+loadjs.ready(["fpermitsearch", "datetimepicker"], function() {
+    ew.createDateTimePicker("fpermitsearch", "x_end_date", {"ignoreReadonly":true,"useCurrent":false,"format":5});
+});
+</script>
+<?php } ?>
+</span>
+            <span class="ew-search-and d-none"><label><?= $Language->phrase("AND") ?></label></span>
+            <span id="el2_permit_end_date" class="ew-search-field2 d-none">
+<input type="<?= $Page->end_date->getInputTextType() ?>" data-table="permit" data-field="x_end_date" data-format="5" name="y_end_date" id="y_end_date" placeholder="<?= HtmlEncode($Page->end_date->getPlaceHolder()) ?>" value="<?= $Page->end_date->EditValue2 ?>"<?= $Page->end_date->editAttributes() ?>>
+<div class="invalid-feedback"><?= $Page->end_date->getErrorMessage(false) ?></div>
+<?php if (!$Page->end_date->ReadOnly && !$Page->end_date->Disabled && !isset($Page->end_date->EditAttrs["readonly"]) && !isset($Page->end_date->EditAttrs["disabled"])) { ?>
+<script>
+loadjs.ready(["fpermitsearch", "datetimepicker"], function() {
+    ew.createDateTimePicker("fpermitsearch", "y_end_date", {"ignoreReadonly":true,"useCurrent":false,"format":5});
 });
 </script>
 <?php } ?>

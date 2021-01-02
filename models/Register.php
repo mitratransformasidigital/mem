@@ -390,7 +390,7 @@ class Register extends Employee
         $this->FormClassName = "ew-form ew-register-form ew-horizontal";
 
         // Set up Breadcrumb
-        $Breadcrumb = new Breadcrumb("top10days");
+        $Breadcrumb = new Breadcrumb("welcome");
         $Breadcrumb->add("register", "RegisterPage", CurrentUrl(), "", "", true);
         $this->Heading = $Language->phrase("RegisterPage");
         $userExists = false;
@@ -1349,7 +1349,7 @@ class Register extends Employee
     protected function setupBreadcrumb()
     {
         global $Breadcrumb, $Language;
-        $Breadcrumb = new Breadcrumb("top10days");
+        $Breadcrumb = new Breadcrumb("welcome");
     }
 
     // Setup lookup options

@@ -80,6 +80,51 @@ class ExportReportEmail
             $attachmentContent = "";
         } else {
             $emailMessage .= $attachmentContent;
+
+            // Replace images in custom template
+            if (preg_match_all('/<img([^>]*)>/i', $emailMessage, $matches, PREG_SET_ORDER)) {
+                foreach ($matches as $match) {
+                    if (preg_match('/\s+src\s*=\s*[\'"]([\s\S]*?)[\'"]/i', $match[1], $submatches)) { // Match src='src'
+                        $src = $submatches[1];
+                        // Add embedded temp image if not in grTmpImages
+                        if (StartsString("cid:", $src)) {
+                            $tmpimage = substr($src, 4);
+                            if (StartsString("tmp", $tmpimage)) {
+                                // Add file extension
+                                $addimage = false;
+                                $folder = (Config("UPLOAD_TEMP_PATH")) ? IncludeTrailingDelimiter(Config("UPLOAD_TEMP_PATH"), true) : UploadPath(true);
+                                if (file_exists($folder . $tmpimage . ".gif")) {
+                                    $tmpimage .= ".gif";
+                                    $addimage = true;
+                                } elseif (file_exists($folder . $tmpimage . ".jpg")) {
+                                    $tmpimage .= ".jpg";
+                                    $addimage = true;
+                                } elseif (file_exists($folder . $tmpimage . ".png")) {
+                                    $tmpimage .= ".png";
+                                    $addimage = true;
+                                }
+                                // Add to TempImages
+                                if ($addimage) {
+                                    foreach ($TempImages as $tmpimage2) {
+                                        if ($tmpimage == $tmpimage2) {
+                                            $addimage = false;
+                                        }
+                                    }
+                                    if ($addimage) {
+                                        $TempImages[] = $tmpimage;
+                                    }
+                                }
+                            }
+                            // Not embedded image, create temp image
+                        } else {
+                            $data = @file_get_contents($src);
+                            if ($data != "") {
+                                $emailMessage = str_replace($match[0], "<img src=\"" . TempImage($data) . "\">", $emailMessage);
+                            }
+                        }
+                    }
+                }
+            }
             $attachmentFile = "";
             $attachmentContent = "";
         }

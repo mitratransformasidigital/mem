@@ -432,7 +432,8 @@ class PermitSearch extends Permit
         $this->CurrentAction = Param("action"); // Set up current action
         $this->permit_id->Visible = false;
         $this->employee_username->setVisibility();
-        $this->permit_date->setVisibility();
+        $this->start_date->setVisibility();
+        $this->end_date->setVisibility();
         $this->permit_type->setVisibility();
         $this->document->Visible = false;
         $this->note->setVisibility();
@@ -516,7 +517,8 @@ class PermitSearch extends Permit
     {
         $srchUrl = "";
         $this->buildSearchUrl($srchUrl, $this->employee_username); // employee_username
-        $this->buildSearchUrl($srchUrl, $this->permit_date); // permit_date
+        $this->buildSearchUrl($srchUrl, $this->start_date); // start_date
+        $this->buildSearchUrl($srchUrl, $this->end_date); // end_date
         $this->buildSearchUrl($srchUrl, $this->permit_type); // permit_type
         $this->buildSearchUrl($srchUrl, $this->note); // note
         if ($srchUrl != "") {
@@ -602,7 +604,10 @@ class PermitSearch extends Permit
         if ($this->employee_username->AdvancedSearch->post()) {
             $hasValue = true;
         }
-        if ($this->permit_date->AdvancedSearch->post()) {
+        if ($this->start_date->AdvancedSearch->post()) {
+            $hasValue = true;
+        }
+        if ($this->end_date->AdvancedSearch->post()) {
             $hasValue = true;
         }
         if ($this->permit_type->AdvancedSearch->post()) {
@@ -630,7 +635,9 @@ class PermitSearch extends Permit
 
         // employee_username
 
-        // permit_date
+        // start_date
+
+        // end_date
 
         // permit_type
 
@@ -659,10 +666,15 @@ class PermitSearch extends Permit
             }
             $this->employee_username->ViewCustomAttributes = "";
 
-            // permit_date
-            $this->permit_date->ViewValue = $this->permit_date->CurrentValue;
-            $this->permit_date->ViewValue = FormatDateTime($this->permit_date->ViewValue, 5);
-            $this->permit_date->ViewCustomAttributes = "";
+            // start_date
+            $this->start_date->ViewValue = $this->start_date->CurrentValue;
+            $this->start_date->ViewValue = FormatDateTime($this->start_date->ViewValue, 5);
+            $this->start_date->ViewCustomAttributes = "";
+
+            // end_date
+            $this->end_date->ViewValue = $this->end_date->CurrentValue;
+            $this->end_date->ViewValue = FormatDateTime($this->end_date->ViewValue, 5);
+            $this->end_date->ViewCustomAttributes = "";
 
             // permit_type
             if (strval($this->permit_type->CurrentValue) != "") {
@@ -689,10 +701,15 @@ class PermitSearch extends Permit
             $this->employee_username->HrefValue = "";
             $this->employee_username->TooltipValue = "";
 
-            // permit_date
-            $this->permit_date->LinkCustomAttributes = "";
-            $this->permit_date->HrefValue = "";
-            $this->permit_date->TooltipValue = "";
+            // start_date
+            $this->start_date->LinkCustomAttributes = "";
+            $this->start_date->HrefValue = "";
+            $this->start_date->TooltipValue = "";
+
+            // end_date
+            $this->end_date->LinkCustomAttributes = "";
+            $this->end_date->HrefValue = "";
+            $this->end_date->TooltipValue = "";
 
             // permit_type
             $this->permit_type->LinkCustomAttributes = "";
@@ -737,15 +754,25 @@ class PermitSearch extends Permit
             }
             $this->employee_username->PlaceHolder = RemoveHtml($this->employee_username->caption());
 
-            // permit_date
-            $this->permit_date->EditAttrs["class"] = "form-control";
-            $this->permit_date->EditCustomAttributes = "";
-            $this->permit_date->EditValue = HtmlEncode(FormatDateTime(UnFormatDateTime($this->permit_date->AdvancedSearch->SearchValue, 5), 5));
-            $this->permit_date->PlaceHolder = RemoveHtml($this->permit_date->caption());
-            $this->permit_date->EditAttrs["class"] = "form-control";
-            $this->permit_date->EditCustomAttributes = "";
-            $this->permit_date->EditValue2 = HtmlEncode(FormatDateTime(UnFormatDateTime($this->permit_date->AdvancedSearch->SearchValue2, 5), 5));
-            $this->permit_date->PlaceHolder = RemoveHtml($this->permit_date->caption());
+            // start_date
+            $this->start_date->EditAttrs["class"] = "form-control";
+            $this->start_date->EditCustomAttributes = "";
+            $this->start_date->EditValue = HtmlEncode(FormatDateTime(UnFormatDateTime($this->start_date->AdvancedSearch->SearchValue, 5), 5));
+            $this->start_date->PlaceHolder = RemoveHtml($this->start_date->caption());
+            $this->start_date->EditAttrs["class"] = "form-control";
+            $this->start_date->EditCustomAttributes = "";
+            $this->start_date->EditValue2 = HtmlEncode(FormatDateTime(UnFormatDateTime($this->start_date->AdvancedSearch->SearchValue2, 5), 5));
+            $this->start_date->PlaceHolder = RemoveHtml($this->start_date->caption());
+
+            // end_date
+            $this->end_date->EditAttrs["class"] = "form-control";
+            $this->end_date->EditCustomAttributes = "";
+            $this->end_date->EditValue = HtmlEncode(FormatDateTime(UnFormatDateTime($this->end_date->AdvancedSearch->SearchValue, 5), 5));
+            $this->end_date->PlaceHolder = RemoveHtml($this->end_date->caption());
+            $this->end_date->EditAttrs["class"] = "form-control";
+            $this->end_date->EditCustomAttributes = "";
+            $this->end_date->EditValue2 = HtmlEncode(FormatDateTime(UnFormatDateTime($this->end_date->AdvancedSearch->SearchValue2, 5), 5));
+            $this->end_date->PlaceHolder = RemoveHtml($this->end_date->caption());
 
             // permit_type
             $this->permit_type->EditAttrs["class"] = "form-control";
@@ -780,11 +807,17 @@ class PermitSearch extends Permit
         if (!Config("SERVER_VALIDATE")) {
             return true;
         }
-        if (!CheckStdDate($this->permit_date->AdvancedSearch->SearchValue)) {
-            $this->permit_date->addErrorMessage($this->permit_date->getErrorMessage(false));
+        if (!CheckStdDate($this->start_date->AdvancedSearch->SearchValue)) {
+            $this->start_date->addErrorMessage($this->start_date->getErrorMessage(false));
         }
-        if (!CheckStdDate($this->permit_date->AdvancedSearch->SearchValue2)) {
-            $this->permit_date->addErrorMessage($this->permit_date->getErrorMessage(false));
+        if (!CheckStdDate($this->start_date->AdvancedSearch->SearchValue2)) {
+            $this->start_date->addErrorMessage($this->start_date->getErrorMessage(false));
+        }
+        if (!CheckStdDate($this->end_date->AdvancedSearch->SearchValue)) {
+            $this->end_date->addErrorMessage($this->end_date->getErrorMessage(false));
+        }
+        if (!CheckStdDate($this->end_date->AdvancedSearch->SearchValue2)) {
+            $this->end_date->addErrorMessage($this->end_date->getErrorMessage(false));
         }
 
         // Return validate result
@@ -803,7 +836,8 @@ class PermitSearch extends Permit
     public function loadAdvancedSearch()
     {
         $this->employee_username->AdvancedSearch->load();
-        $this->permit_date->AdvancedSearch->load();
+        $this->start_date->AdvancedSearch->load();
+        $this->end_date->AdvancedSearch->load();
         $this->permit_type->AdvancedSearch->load();
         $this->note->AdvancedSearch->load();
     }
@@ -812,7 +846,7 @@ class PermitSearch extends Permit
     protected function setupBreadcrumb()
     {
         global $Breadcrumb, $Language;
-        $Breadcrumb = new Breadcrumb("top10days");
+        $Breadcrumb = new Breadcrumb("welcome");
         $url = CurrentUrl();
         $Breadcrumb->add("list", $this->TableVar, $this->addMasterUrl("permitlist"), "", $this->TableVar, true);
         $pageId = "search";

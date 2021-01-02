@@ -476,8 +476,8 @@ class MasterStatusView extends MasterStatus
     public $RecordRange = 10;
     public $RecKey = [];
     public $IsModal = false;
-    public $employee_Count;
     public $myprofile_Count;
+    public $employee_Count;
     public $DetailPages; // Detail pages object
 
     /**
@@ -743,51 +743,6 @@ class MasterStatusView extends MasterStatus
         $detailCopyTblVar = "";
         $detailEditTblVar = "";
 
-        // "detail_employee"
-        $item = &$option->add("detail_employee");
-        $body = $Language->phrase("ViewPageDetailLink") . $Language->TablePhrase("employee", "TblCaption");
-        $body .= "&nbsp;" . str_replace("%c", $this->employee_Count, $Language->phrase("DetailCount"));
-        $body = "<a class=\"btn btn-default ew-row-link ew-detail\" data-action=\"list\" href=\"" . HtmlEncode(GetUrl("employeelist?" . Config("TABLE_SHOW_MASTER") . "=master_status&" . GetForeignKeyUrl("fk_status_id", $this->status_id->CurrentValue) . "")) . "\">" . $body . "</a>";
-        $links = "";
-        $detailPageObj = Container("EmployeeGrid");
-        if ($detailPageObj->DetailView && $Security->canView() && $Security->allowView(CurrentProjectID() . 'master_status')) {
-            $links .= "<li><a class=\"dropdown-item ew-row-link ew-detail-view\" data-action=\"view\" data-caption=\"" . HtmlTitle($Language->phrase("MasterDetailViewLink")) . "\" href=\"" . HtmlEncode(GetUrl($this->getViewUrl(Config("TABLE_SHOW_DETAIL") . "=employee"))) . "\">" . HtmlImageAndText($Language->phrase("MasterDetailViewLink")) . "</a></li>";
-            if ($detailViewTblVar != "") {
-                $detailViewTblVar .= ",";
-            }
-            $detailViewTblVar .= "employee";
-        }
-        if ($detailPageObj->DetailEdit && $Security->canEdit() && $Security->allowEdit(CurrentProjectID() . 'master_status')) {
-            $links .= "<li><a class=\"dropdown-item ew-row-link ew-detail-edit\" data-action=\"edit\" data-caption=\"" . HtmlTitle($Language->phrase("MasterDetailEditLink")) . "\" href=\"" . HtmlEncode(GetUrl($this->getEditUrl(Config("TABLE_SHOW_DETAIL") . "=employee"))) . "\">" . HtmlImageAndText($Language->phrase("MasterDetailEditLink")) . "</a></li>";
-            if ($detailEditTblVar != "") {
-                $detailEditTblVar .= ",";
-            }
-            $detailEditTblVar .= "employee";
-        }
-        if ($detailPageObj->DetailAdd && $Security->canAdd() && $Security->allowAdd(CurrentProjectID() . 'master_status')) {
-            $links .= "<li><a class=\"dropdown-item ew-row-link ew-detail-copy\" data-action=\"add\" data-caption=\"" . HtmlTitle($Language->phrase("MasterDetailCopyLink")) . "\" href=\"" . HtmlEncode(GetUrl($this->getCopyUrl(Config("TABLE_SHOW_DETAIL") . "=employee"))) . "\">" . HtmlImageAndText($Language->phrase("MasterDetailCopyLink")) . "</a></li>";
-            if ($detailCopyTblVar != "") {
-                $detailCopyTblVar .= ",";
-            }
-            $detailCopyTblVar .= "employee";
-        }
-        if ($links != "") {
-            $body .= "<button class=\"dropdown-toggle btn btn-default ew-detail\" data-toggle=\"dropdown\"></button>";
-            $body .= "<ul class=\"dropdown-menu\">" . $links . "</ul>";
-        }
-        $body = "<div class=\"btn-group btn-group-sm ew-btn-group\">" . $body . "</div>";
-        $item->Body = $body;
-        $item->Visible = $Security->allowList(CurrentProjectID() . 'employee');
-        if ($item->Visible) {
-            if ($detailTableLink != "") {
-                $detailTableLink .= ",";
-            }
-            $detailTableLink .= "employee";
-        }
-        if ($this->ShowMultipleDetails) {
-            $item->Visible = false;
-        }
-
         // "detail_myprofile"
         $item = &$option->add("detail_myprofile");
         $body = $Language->phrase("ViewPageDetailLink") . $Language->TablePhrase("myprofile", "TblCaption");
@@ -828,6 +783,51 @@ class MasterStatusView extends MasterStatus
                 $detailTableLink .= ",";
             }
             $detailTableLink .= "myprofile";
+        }
+        if ($this->ShowMultipleDetails) {
+            $item->Visible = false;
+        }
+
+        // "detail_employee"
+        $item = &$option->add("detail_employee");
+        $body = $Language->phrase("ViewPageDetailLink") . $Language->TablePhrase("employee", "TblCaption");
+        $body .= "&nbsp;" . str_replace("%c", $this->employee_Count, $Language->phrase("DetailCount"));
+        $body = "<a class=\"btn btn-default ew-row-link ew-detail\" data-action=\"list\" href=\"" . HtmlEncode(GetUrl("employeelist?" . Config("TABLE_SHOW_MASTER") . "=master_status&" . GetForeignKeyUrl("fk_status_id", $this->status_id->CurrentValue) . "")) . "\">" . $body . "</a>";
+        $links = "";
+        $detailPageObj = Container("EmployeeGrid");
+        if ($detailPageObj->DetailView && $Security->canView() && $Security->allowView(CurrentProjectID() . 'master_status')) {
+            $links .= "<li><a class=\"dropdown-item ew-row-link ew-detail-view\" data-action=\"view\" data-caption=\"" . HtmlTitle($Language->phrase("MasterDetailViewLink")) . "\" href=\"" . HtmlEncode(GetUrl($this->getViewUrl(Config("TABLE_SHOW_DETAIL") . "=employee"))) . "\">" . HtmlImageAndText($Language->phrase("MasterDetailViewLink")) . "</a></li>";
+            if ($detailViewTblVar != "") {
+                $detailViewTblVar .= ",";
+            }
+            $detailViewTblVar .= "employee";
+        }
+        if ($detailPageObj->DetailEdit && $Security->canEdit() && $Security->allowEdit(CurrentProjectID() . 'master_status')) {
+            $links .= "<li><a class=\"dropdown-item ew-row-link ew-detail-edit\" data-action=\"edit\" data-caption=\"" . HtmlTitle($Language->phrase("MasterDetailEditLink")) . "\" href=\"" . HtmlEncode(GetUrl($this->getEditUrl(Config("TABLE_SHOW_DETAIL") . "=employee"))) . "\">" . HtmlImageAndText($Language->phrase("MasterDetailEditLink")) . "</a></li>";
+            if ($detailEditTblVar != "") {
+                $detailEditTblVar .= ",";
+            }
+            $detailEditTblVar .= "employee";
+        }
+        if ($detailPageObj->DetailAdd && $Security->canAdd() && $Security->allowAdd(CurrentProjectID() . 'master_status')) {
+            $links .= "<li><a class=\"dropdown-item ew-row-link ew-detail-copy\" data-action=\"add\" data-caption=\"" . HtmlTitle($Language->phrase("MasterDetailCopyLink")) . "\" href=\"" . HtmlEncode(GetUrl($this->getCopyUrl(Config("TABLE_SHOW_DETAIL") . "=employee"))) . "\">" . HtmlImageAndText($Language->phrase("MasterDetailCopyLink")) . "</a></li>";
+            if ($detailCopyTblVar != "") {
+                $detailCopyTblVar .= ",";
+            }
+            $detailCopyTblVar .= "employee";
+        }
+        if ($links != "") {
+            $body .= "<button class=\"dropdown-toggle btn btn-default ew-detail\" data-toggle=\"dropdown\"></button>";
+            $body .= "<ul class=\"dropdown-menu\">" . $links . "</ul>";
+        }
+        $body = "<div class=\"btn-group btn-group-sm ew-btn-group\">" . $body . "</div>";
+        $item->Body = $body;
+        $item->Visible = $Security->allowList(CurrentProjectID() . 'employee');
+        if ($item->Visible) {
+            if ($detailTableLink != "") {
+                $detailTableLink .= ",";
+            }
+            $detailTableLink .= "employee";
         }
         if ($this->ShowMultipleDetails) {
             $item->Visible = false;
@@ -948,18 +948,18 @@ class MasterStatusView extends MasterStatus
         $this->status_id->setDbValue($row['status_id']);
         $this->status->setDbValue($row['status']);
         $this->description->setDbValue($row['description']);
-        $detailTbl = Container("employee");
-        $detailFilter = $detailTbl->sqlDetailFilter_master_status();
-        $detailFilter = str_replace("@status_id@", AdjustSql($this->status_id->DbValue, "DB"), $detailFilter);
-        $detailTbl->setCurrentMasterTable("master_status");
-        $detailFilter = $detailTbl->applyUserIDFilters($detailFilter);
-        $this->employee_Count = $detailTbl->loadRecordCount($detailFilter);
         $detailTbl = Container("myprofile");
         $detailFilter = $detailTbl->sqlDetailFilter_master_status();
         $detailFilter = str_replace("@status_id@", AdjustSql($this->status_id->DbValue, "DB"), $detailFilter);
         $detailTbl->setCurrentMasterTable("master_status");
         $detailFilter = $detailTbl->applyUserIDFilters($detailFilter);
         $this->myprofile_Count = $detailTbl->loadRecordCount($detailFilter);
+        $detailTbl = Container("employee");
+        $detailFilter = $detailTbl->sqlDetailFilter_master_status();
+        $detailFilter = str_replace("@status_id@", AdjustSql($this->status_id->DbValue, "DB"), $detailFilter);
+        $detailTbl->setCurrentMasterTable("master_status");
+        $detailFilter = $detailTbl->applyUserIDFilters($detailFilter);
+        $this->employee_Count = $detailTbl->loadRecordCount($detailFilter);
     }
 
     // Return a row with default values
@@ -1171,26 +1171,6 @@ class MasterStatusView extends MasterStatus
         $doc->Text .= $header;
         $this->exportDocument($doc, $rs, $this->StartRecord, $this->StopRecord, "view");
 
-        // Export detail records (employee)
-        if (Config("EXPORT_DETAIL_RECORDS") && in_array("employee", explode(",", $this->getCurrentDetailTable()))) {
-            $employee = Container("employee");
-            $rsdetail = $employee->loadRs($employee->getDetailFilter()); // Load detail records
-            if ($rsdetail) {
-                $exportStyle = $doc->Style;
-                $doc->setStyle("h"); // Change to horizontal
-                if (!$this->isExport("csv") || Config("EXPORT_DETAIL_RECORDS_FOR_CSV")) {
-                    $doc->exportEmptyRow();
-                    $detailcnt = $rsdetail->rowCount();
-                    $oldtbl = $doc->Table;
-                    $doc->Table = $employee;
-                    $employee->exportDocument($doc, new Recordset($rsdetail), 1, $detailcnt);
-                    $doc->Table = $oldtbl;
-                }
-                $doc->setStyle($exportStyle); // Restore
-                $rsdetail->closeCursor();
-            }
-        }
-
         // Export detail records (myprofile)
         if (Config("EXPORT_DETAIL_RECORDS") && in_array("myprofile", explode(",", $this->getCurrentDetailTable()))) {
             $myprofile = Container("myprofile");
@@ -1204,6 +1184,26 @@ class MasterStatusView extends MasterStatus
                     $oldtbl = $doc->Table;
                     $doc->Table = $myprofile;
                     $myprofile->exportDocument($doc, new Recordset($rsdetail), 1, $detailcnt);
+                    $doc->Table = $oldtbl;
+                }
+                $doc->setStyle($exportStyle); // Restore
+                $rsdetail->closeCursor();
+            }
+        }
+
+        // Export detail records (employee)
+        if (Config("EXPORT_DETAIL_RECORDS") && in_array("employee", explode(",", $this->getCurrentDetailTable()))) {
+            $employee = Container("employee");
+            $rsdetail = $employee->loadRs($employee->getDetailFilter()); // Load detail records
+            if ($rsdetail) {
+                $exportStyle = $doc->Style;
+                $doc->setStyle("h"); // Change to horizontal
+                if (!$this->isExport("csv") || Config("EXPORT_DETAIL_RECORDS_FOR_CSV")) {
+                    $doc->exportEmptyRow();
+                    $detailcnt = $rsdetail->rowCount();
+                    $oldtbl = $doc->Table;
+                    $doc->Table = $employee;
+                    $employee->exportDocument($doc, new Recordset($rsdetail), 1, $detailcnt);
                     $doc->Table = $oldtbl;
                 }
                 $doc->setStyle($exportStyle); // Restore
@@ -1356,8 +1356,8 @@ class MasterStatusView extends MasterStatus
         }
         if ($detailTblVar != "") {
             $detailTblVar = explode(",", $detailTblVar);
-            if (in_array("employee", $detailTblVar)) {
-                $detailPageObj = Container("EmployeeGrid");
+            if (in_array("myprofile", $detailTblVar)) {
+                $detailPageObj = Container("MyprofileGrid");
                 if ($detailPageObj->DetailView) {
                     $detailPageObj->CurrentMode = "view";
 
@@ -1373,8 +1373,8 @@ class MasterStatusView extends MasterStatus
                     $detailPageObj->city_id->setSessionValue(""); // Clear session key
                 }
             }
-            if (in_array("myprofile", $detailTblVar)) {
-                $detailPageObj = Container("MyprofileGrid");
+            if (in_array("employee", $detailTblVar)) {
+                $detailPageObj = Container("EmployeeGrid");
                 if ($detailPageObj->DetailView) {
                     $detailPageObj->CurrentMode = "view";
 
@@ -1397,7 +1397,7 @@ class MasterStatusView extends MasterStatus
     protected function setupBreadcrumb()
     {
         global $Breadcrumb, $Language;
-        $Breadcrumb = new Breadcrumb("top10days");
+        $Breadcrumb = new Breadcrumb("welcome");
         $url = CurrentUrl();
         $Breadcrumb->add("list", $this->TableVar, $this->addMasterUrl("masterstatuslist"), "", $this->TableVar, true);
         $pageId = "view";
@@ -1409,8 +1409,8 @@ class MasterStatusView extends MasterStatus
     {
         $pages = new SubPages();
         $pages->Style = "tabs";
-        $pages->add('employee');
         $pages->add('myprofile');
+        $pages->add('employee');
         $this->DetailPages = $pages;
     }
 

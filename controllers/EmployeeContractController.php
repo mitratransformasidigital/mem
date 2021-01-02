@@ -49,4 +49,10 @@ class EmployeeContractController extends ControllerBase
     {
         return $this->runPage($request, $response, $args, "EmployeeContractSearch");
     }
+
+    // preview
+    public function preview(Request $request, Response $response, array $args): Response
+    {
+        return $this->runPage($request, $response, $args, "EmployeeContractPreview", false);
+    }
 }

@@ -331,8 +331,8 @@ $Grid->ListOptions->render("body", "left", $Grid->RowCount);
 <?php if ($Grid->RowType == ROWTYPE_ADD) { // Add record ?>
 <span id="el<?= $Grid->RowCount ?>_mycontract_thr" class="form-group">
 <div class="custom-control custom-checkbox d-inline-block">
-    <input type="checkbox" class="custom-control-input<?= $Grid->thr->isInvalidClass() ?>" data-table="mycontract" data-field="x_thr" name="x<?= $Grid->RowIndex ?>_thr[]" id="x<?= $Grid->RowIndex ?>_thr_930804" value="1"<?= ConvertToBool($Grid->thr->CurrentValue) ? " checked" : "" ?><?= $Grid->thr->editAttributes() ?>>
-    <label class="custom-control-label" for="x<?= $Grid->RowIndex ?>_thr_930804"></label>
+    <input type="checkbox" class="custom-control-input<?= $Grid->thr->isInvalidClass() ?>" data-table="mycontract" data-field="x_thr" name="x<?= $Grid->RowIndex ?>_thr[]" id="x<?= $Grid->RowIndex ?>_thr_528874" value="1"<?= ConvertToBool($Grid->thr->CurrentValue) ? " checked" : "" ?><?= $Grid->thr->editAttributes() ?>>
+    <label class="custom-control-label" for="x<?= $Grid->RowIndex ?>_thr_528874"></label>
 </div>
 <div class="invalid-feedback"><?= $Grid->thr->getErrorMessage() ?></div>
 </span>
@@ -341,8 +341,8 @@ $Grid->ListOptions->render("body", "left", $Grid->RowCount);
 <?php if ($Grid->RowType == ROWTYPE_EDIT) { // Edit record ?>
 <span id="el<?= $Grid->RowCount ?>_mycontract_thr" class="form-group">
 <div class="custom-control custom-checkbox d-inline-block">
-    <input type="checkbox" class="custom-control-input<?= $Grid->thr->isInvalidClass() ?>" data-table="mycontract" data-field="x_thr" name="x<?= $Grid->RowIndex ?>_thr[]" id="x<?= $Grid->RowIndex ?>_thr_125195" value="1"<?= ConvertToBool($Grid->thr->CurrentValue) ? " checked" : "" ?><?= $Grid->thr->editAttributes() ?>>
-    <label class="custom-control-label" for="x<?= $Grid->RowIndex ?>_thr_125195"></label>
+    <input type="checkbox" class="custom-control-input<?= $Grid->thr->isInvalidClass() ?>" data-table="mycontract" data-field="x_thr" name="x<?= $Grid->RowIndex ?>_thr[]" id="x<?= $Grid->RowIndex ?>_thr_111848" value="1"<?= ConvertToBool($Grid->thr->CurrentValue) ? " checked" : "" ?><?= $Grid->thr->editAttributes() ?>>
+    <label class="custom-control-label" for="x<?= $Grid->RowIndex ?>_thr_111848"></label>
 </div>
 <div class="invalid-feedback"><?= $Grid->thr->getErrorMessage() ?></div>
 </span>
@@ -654,8 +654,8 @@ $Grid->ListOptions->render("body", "left", $Grid->RowIndex);
 <?php if (!$Grid->isConfirm()) { ?>
 <span id="el$rowindex$_mycontract_thr" class="form-group mycontract_thr">
 <div class="custom-control custom-checkbox d-inline-block">
-    <input type="checkbox" class="custom-control-input<?= $Grid->thr->isInvalidClass() ?>" data-table="mycontract" data-field="x_thr" name="x<?= $Grid->RowIndex ?>_thr[]" id="x<?= $Grid->RowIndex ?>_thr_243929" value="1"<?= ConvertToBool($Grid->thr->CurrentValue) ? " checked" : "" ?><?= $Grid->thr->editAttributes() ?>>
-    <label class="custom-control-label" for="x<?= $Grid->RowIndex ?>_thr_243929"></label>
+    <input type="checkbox" class="custom-control-input<?= $Grid->thr->isInvalidClass() ?>" data-table="mycontract" data-field="x_thr" name="x<?= $Grid->RowIndex ?>_thr[]" id="x<?= $Grid->RowIndex ?>_thr_943777" value="1"<?= ConvertToBool($Grid->thr->CurrentValue) ? " checked" : "" ?><?= $Grid->thr->editAttributes() ?>>
+    <label class="custom-control-label" for="x<?= $Grid->RowIndex ?>_thr_943777"></label>
 </div>
 <div class="invalid-feedback"><?= $Grid->thr->getErrorMessage() ?></div>
 </span>
@@ -840,4 +840,16 @@ loadjs.ready("load", function () {
     // Write your table-specific startup script here, no need to add script tags.
 });
 </script>
+<?php if (!$Grid->isExport()) { ?>
+<script>
+loadjs.ready("fixedheadertable", function () {
+    ew.fixedHeaderTable({
+        delay: 0,
+        container: "gmp_mycontract",
+        width: "",
+        height: "500px"
+    });
+});
+</script>
+<?php } ?>
 <?php } ?>

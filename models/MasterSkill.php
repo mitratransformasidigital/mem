@@ -142,12 +142,12 @@ class MasterSkill extends DbTable
     {
         // Detail url
         $detailUrl = "";
-        if ($this->getCurrentDetailTable() == "employee") {
-            $detailUrl = Container("employee")->getListUrl() . "?" . Config("TABLE_SHOW_MASTER") . "=" . $this->TableVar;
-            $detailUrl .= "&" . GetForeignKeyUrl("fk_skill_id", $this->skill_id->CurrentValue);
-        }
         if ($this->getCurrentDetailTable() == "myprofile") {
             $detailUrl = Container("myprofile")->getListUrl() . "?" . Config("TABLE_SHOW_MASTER") . "=" . $this->TableVar;
+            $detailUrl .= "&" . GetForeignKeyUrl("fk_skill_id", $this->skill_id->CurrentValue);
+        }
+        if ($this->getCurrentDetailTable() == "employee") {
+            $detailUrl = Container("employee")->getListUrl() . "?" . Config("TABLE_SHOW_MASTER") . "=" . $this->TableVar;
             $detailUrl .= "&" . GetForeignKeyUrl("fk_skill_id", $this->skill_id->CurrentValue);
         }
         if ($detailUrl == "") {
@@ -480,7 +480,7 @@ class MasterSkill extends DbTable
     // Update
     public function update(&$rs, $where = "", $rsold = null, $curfilter = true)
     {
-        // Cascade Update detail table 'employee'
+        // Cascade Update detail table 'myprofile'
         $cascadeUpdate = false;
         $rscascade = [];
         if ($rsold && (isset($rs['skill_id']) && $rsold['skill_id'] != $rs['skill_id'])) { // Update detail field 'skill_id'
@@ -488,22 +488,22 @@ class MasterSkill extends DbTable
             $rscascade['skill_id'] = $rs['skill_id'];
         }
         if ($cascadeUpdate) {
-            $rswrk = Container("employee")->loadRs("`skill_id` = " . QuotedValue($rsold['skill_id'], DATATYPE_NUMBER, 'DB'))->fetchAll(\PDO::FETCH_ASSOC);
+            $rswrk = Container("myprofile")->loadRs("`skill_id` = " . QuotedValue($rsold['skill_id'], DATATYPE_NUMBER, 'DB'))->fetchAll(\PDO::FETCH_ASSOC);
             foreach ($rswrk as $rsdtlold) {
                 $rskey = [];
                 $fldname = 'employee_username';
                 $rskey[$fldname] = $rsdtlold[$fldname];
                 $rsdtlnew = array_merge($rsdtlold, $rscascade);
                 // Call Row_Updating event
-                $success = Container("employee")->rowUpdating($rsdtlold, $rsdtlnew);
+                $success = Container("myprofile")->rowUpdating($rsdtlold, $rsdtlnew);
                 if ($success) {
-                    $success = Container("employee")->update($rscascade, $rskey, $rsdtlold);
+                    $success = Container("myprofile")->update($rscascade, $rskey, $rsdtlold);
                 }
                 if (!$success) {
                     return false;
                 }
                 // Call Row_Updated event
-                Container("employee")->rowUpdated($rsdtlold, $rsdtlnew);
+                Container("myprofile")->rowUpdated($rsdtlold, $rsdtlnew);
             }
         }
 
@@ -543,18 +543,18 @@ class MasterSkill extends DbTable
     {
         $success = true;
 
-        // Cascade delete detail table 'employee'
-        $dtlrows = Container("employee")->loadRs("`skill_id` = " . QuotedValue($rs['skill_id'], DATATYPE_NUMBER, "DB"))->fetchAll(\PDO::FETCH_ASSOC);
+        // Cascade delete detail table 'myprofile'
+        $dtlrows = Container("myprofile")->loadRs("`skill_id` = " . QuotedValue($rs['skill_id'], DATATYPE_NUMBER, "DB"))->fetchAll(\PDO::FETCH_ASSOC);
         // Call Row Deleting event
         foreach ($dtlrows as $dtlrow) {
-            $success = Container("employee")->rowDeleting($dtlrow);
+            $success = Container("myprofile")->rowDeleting($dtlrow);
             if (!$success) {
                 break;
             }
         }
         if ($success) {
             foreach ($dtlrows as $dtlrow) {
-                $success = Container("employee")->delete($dtlrow); // Delete
+                $success = Container("myprofile")->delete($dtlrow); // Delete
                 if (!$success) {
                     break;
                 }
@@ -563,7 +563,7 @@ class MasterSkill extends DbTable
         // Call Row Deleted event
         if ($success) {
             foreach ($dtlrows as $dtlrow) {
-                Container("employee")->rowDeleted($dtlrow);
+                Container("myprofile")->rowDeleted($dtlrow);
             }
         }
         if ($success) {

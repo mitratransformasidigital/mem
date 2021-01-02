@@ -49,4 +49,10 @@ class EmployeeTimesheetController extends ControllerBase
     {
         return $this->runPage($request, $response, $args, "EmployeeTimesheetSearch");
     }
+
+    // preview
+    public function preview(Request $request, Response $response, array $args): Response
+    {
+        return $this->runPage($request, $response, $args, "EmployeeTimesheetPreview", false);
+    }
 }
